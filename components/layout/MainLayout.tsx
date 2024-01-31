@@ -10,7 +10,7 @@ async function fetchDesign () {
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`)
   return res.json()
 }
 
