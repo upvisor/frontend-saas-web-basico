@@ -107,7 +107,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
           setCart(JSON.parse(localStorage.getItem('cart')!))
         }
       } else {
-        const cartFinal = cart.concat(tempCartProduct)
+        const cartFinal = cart.concat({ ...tempCartProduct, variation: variation, image: variation.image?.url! })
         localStorage.setItem('cart', JSON.stringify(cartFinal))
         setCart(JSON.parse(localStorage.getItem('cart')!))
       }

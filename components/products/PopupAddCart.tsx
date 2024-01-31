@@ -29,7 +29,7 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
         }, 200)
       }
     }} className={`fixed ${popup.view} ${popup.opacity} transition-opacity duration-200 top-0 p-4 z-50 bg-black/30 flex w-full h-full`}>
-        <div onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className="p-6 w-full overflow-y-auto max-h-full max-w-[700px] shadow-md bg-white flex flex-col gap-4 rounded-xl m-auto md:p-8">
+        <div onMouseMove={() => setPopup({ ...popup, mouse: true })} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className="p-6 w-full overflow-y-auto max-h-full max-w-[700px] shadow-md bg-white flex flex-col gap-4 rounded-xl m-auto md:p-8">
           <H3>PRODUCTO AÑADIDO AL CARRITO</H3>
           <div className="flex gap-4 flex-col sm:flex-row">
             <div className="w-full flex gap-2 sm:w-1/2">
@@ -63,48 +63,48 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
                 <div className="flex flex-col gap-4">
                   <div>
                     <div className='flex w-full'>
-                            <div className='m-auto w-full relative items-center'>
-                              <H3>{ 'TAMBIEN PODRIAN INTERESARTE' }</H3>
-                              <div className='hidden sm:block'>
-                                <Swiper
-                                  className={styles.mySwiper}
-                                  slidesPerView={3}
-                                  pagination={{
-                                    clickable: true,
-                                  }}
-                                  modules={[Pagination]}
-                                >
-                                  {
-                                    productsFiltered.map(product => (
-                                      <SwiperSlide className='m-auto flex' key={product._id}>
-                                        <ProductCard2Mini product={ product } />
-                                        <div className='h-8' />
-                                      </SwiperSlide>
-                                    ))
-                                  }
-                                </Swiper>
-                              </div>
-                              <div className='block sm:hidden'>
-                                <Swiper
-                                  className={styles.mySwiper}
-                                  slidesPerView={2}
-                                  pagination={{
-                                    clickable: true,
-                                  }}
-                                  modules={[Pagination]}
-                                >
-                                  {
-                                    productsFiltered.map(product => (
-                                      <SwiperSlide className='m-auto flex' key={product._id}>
-                                        <ProductCard2Mini product={ product } />
-                                        <div className='h-8' />
-                                      </SwiperSlide>
-                                    ))
-                                  }
-                                </Swiper>
-                              </div>
-                            </div>
-                          </div>
+                      <div className='m-auto w-full relative flex flex-col gap-4'>
+                        <H3>{ 'TAMBIEN PODRIAN INTERESARTE' }</H3>
+                        <div className='hidden sm:block'>
+                          <Swiper
+                            className={styles.mySwiper}
+                            slidesPerView={3}
+                            pagination={{
+                              clickable: true,
+                            }}
+                            modules={[Pagination]}
+                          >
+                            {
+                              productsFiltered.map(product => (
+                                <SwiperSlide className='mx-auto flex' key={product._id}>
+                                  <ProductCard2Mini product={ product } />
+                                  <div className='h-8' />
+                                </SwiperSlide>
+                              ))
+                            }
+                          </Swiper>
+                        </div>
+                        <div className='block sm:hidden'>
+                          <Swiper
+                            className={styles.mySwiper}
+                            slidesPerView={2}
+                            pagination={{
+                              clickable: true,
+                            }}
+                            modules={[Pagination]}
+                          >
+                            {
+                              productsFiltered.map(product => (
+                                <SwiperSlide className='m-auto flex' key={product._id}>
+                                  <ProductCard2Mini product={ product } />
+                                  <div className='h-8' />
+                                </SwiperSlide>
+                              ))
+                            }
+                          </Swiper>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )

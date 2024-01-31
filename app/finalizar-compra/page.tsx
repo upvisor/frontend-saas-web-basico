@@ -114,11 +114,11 @@ const CheckOut = () => {
           }
         })
         setShipping(request.data.data.courierServiceOptions)
-        if (typeof window !== 'undefined') {
-          const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/information`, { cart: cart, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc') })
-          fbq('track', 'AddPaymentInfo', {contents: cart?.map(product => ({ id: product._id, quantity: product.quantity, category: product.category.category, item_price: product.price, title: product.name })), currency: "clp", value: cart!.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping), content_ids: cart?.map(product => product._id), event_id: res.data._id})
-        }
       }
+    }
+    if (typeof window !== 'undefined') {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/information`, { cart: cart, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc') })
+      fbq('track', 'AddPaymentInfo', {contents: cart?.map(product => ({ id: product._id, quantity: product.quantity, category: product.category.category, item_price: product.price, title: product.name })), currency: "clp", value: cart!.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping), content_ids: cart?.map(product => product._id), event_id: res.data._id})
     }
   }
 
