@@ -146,7 +146,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
               <div className="flex gap-2">
                 {
                   product.variations?.variations.map(variation => (
-                    <button onClick={() => addToCartVariation(variation)}>
+                    <button key={variation.variation} onClick={() => addToCartVariation(variation)}>
                       <Image className="w-10 rounded" src={variation.image?.url!} alt={`Imagen variación ${variation.variation}`} width={500} height={500} />
                     </button>
                   ))
