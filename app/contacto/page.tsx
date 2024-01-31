@@ -1,7 +1,7 @@
 import React from 'react'
 import { ContactPage } from '@/components/contact'
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 async function fetchDesign () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)

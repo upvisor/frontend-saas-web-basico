@@ -3,6 +3,8 @@ import Products from "@/components/home/Products"
 import Slider from "@/components/home/Slider"
 import { IDesign, IProduct } from "@/interfaces"
 
+export const revalidate = 60
+
 async function fetchDesign () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
   return res.json()

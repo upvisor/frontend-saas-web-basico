@@ -5,6 +5,8 @@ import { H1 } from "@/components/ui"
 import { ICategory, IProduct } from "@/interfaces"
 import Image from 'next/image'
 
+export const revalidate = 60
+
 async function fetchCategory (category: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${category}`)
   return res.json()

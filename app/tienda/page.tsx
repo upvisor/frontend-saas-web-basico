@@ -4,6 +4,8 @@ import Filters from "@/components/categories/Filters"
 import Products from "@/components/categories/Products"
 import { ICategory, IProduct } from "@/interfaces"
 
+export const revalidate = 60
+
 async function fetchCategories () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
   return res.json()
