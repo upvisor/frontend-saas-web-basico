@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { City, Region, IShipping } from '../../interfaces'
 import { FreeShipping, NumberFormat } from '../../utils'
+import { H2 } from '../ui'
 
 interface Props {
   setShippingCost: any
@@ -72,7 +73,7 @@ export const ShippingCart: React.FC<Props> = ({ setShippingCost }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h2 className='text-[15px] tracking-widest font-semibold md:text-[18px] dark:text-white'>CALCULA LOS COSTOS DE ENVÍO</h2>
+      <H2>CALCULA LOS COSTOS DE ENVÍO</H2>
       <div className='flex flex-col gap-2'>
         <select className='text-sm border p-1 rounded focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-500 dark:text-white' onChange={regionChange}>
           <option>Seleccionar Región</option>

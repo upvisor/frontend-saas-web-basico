@@ -1,5 +1,5 @@
 "use client"
-import { ICartProduct, IProduct } from "@/interfaces"
+import { ICartProduct, IProduct, IVariation } from "@/interfaces"
 import { NumberFormat } from "@/utils"
 import Link from "next/link"
 import Image from 'next/image'
@@ -90,7 +90,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
     }, 3000)
   }
 
-  const addToCartVariation = async (variation: any) => {
+  const addToCartVariation = async (variation: IVariation) => {
     setText('Producto añadido')
     if (JSON.parse(localStorage.getItem('cart')!).length) {
       const cart: ICartProduct[] = JSON.parse(localStorage.getItem('cart')!)
@@ -102,7 +102,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
           localStorage.setItem('cart', JSON.stringify(cart))
           setCart(JSON.parse(localStorage.getItem('cart')!))
         } else {
-          const cartFinal = cart.concat({ ...tempCartProduct, variation: variation })
+          const cartFinal = cart.concat({ ...tempCartProduct, variation: variation, image: variation.image?.url! })
           localStorage.setItem('cart', JSON.stringify(cartFinal))
           setCart(JSON.parse(localStorage.getItem('cart')!))
         }
@@ -112,7 +112,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
         setCart(JSON.parse(localStorage.getItem('cart')!))
       }
     } else {
-      localStorage.setItem('cart', `[${JSON.stringify({ ...tempCartProduct, variation: variation })}]`)
+      localStorage.setItem('cart', `[${JSON.stringify({ ...tempCartProduct, variation: variation, image: variation.image?.url })}]`)
       setCart(JSON.parse(localStorage.getItem('cart')!))
     }
     let offerPrice
