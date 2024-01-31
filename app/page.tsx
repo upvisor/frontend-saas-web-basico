@@ -21,9 +21,9 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-6">
-      <Slider design={design} />
+      <Slider design={ design } />
       <Categories />
-      <Products products={products} />
+      <Products products={ products } />
     </div>
   )
 }
