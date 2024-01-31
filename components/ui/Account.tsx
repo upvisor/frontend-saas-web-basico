@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import React, { ChangeEvent, useState } from 'react'
 import { Spinner2 } from './Spinner2'
 import Link from 'next/link'
+import { H3 } from '.'
 
 interface Props {
     account: any
@@ -102,7 +103,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
           )
           : ''
       }
-      <h4 className='text-center tracking-widest text-[#1c1b1b] font-semibold pb-2 border-b w-full dark:border-neutral-800 text-[16px] dark:text-white'>CUENTA</h4>
+      <H3 config='text-center border-b pb-2'>CUENTA</H3>
       {
         status === 'authenticated'
           ? (

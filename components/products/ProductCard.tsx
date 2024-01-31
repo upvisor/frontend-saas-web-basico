@@ -22,9 +22,9 @@ export default function ProductCard({ product }: { product: IProduct }) {
   }, [hover])
   
   return (
-    <div className="flex flex-col gap-2 m-auto">
+    <div className="flex flex-col gap-1 m-auto">
       <Link href={`/tienda/${product.category.slug}/${product.slug}`}><Image onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="w-60 rounded-lg" src={image} alt={`Imagen producto ${product.name}`} width={500} height={500} /></Link>
-      <Link href={`/tienda/${product.category.slug}/${product.slug}`}><p>{product.name}</p></Link>
+      <Link href={`/tienda/${product.category.slug}/${product.slug}`}><p className="font-medium text-lg">{product.name}</p></Link>
       <div className="flex gap-2">
         <p>${NumberFormat(product.price)}</p>
         {

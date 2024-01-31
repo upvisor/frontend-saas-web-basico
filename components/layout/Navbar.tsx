@@ -1,5 +1,4 @@
 "use client"
-import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import React, { PropsWithChildren, useEffect, useState, useContext, useRef } from 'react'
 import { NavbarCart } from '../cart'
@@ -16,8 +15,6 @@ interface Props {
 }
 
 export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, storeData, categories }) => {
-
-  const { systemTheme, theme, setTheme } = useTheme()
 
   const [cartView, setCartView] = useState('hidden')
   const [cartOpacity, setCartOpacity] = useState('opacity-0')
@@ -43,19 +40,6 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
 
   const categoriesPhoneRef = useRef<HTMLDivElement>(null)
 
-  const renderThemeChanger = () => {
-    const currentTheme = theme === 'system' ? systemTheme : theme
-    if ( currentTheme === 'dark' ) {
-      return (
-        <button className='w-6 flex' onClick={() => setTheme('light')}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="text-slate-600 m-auto" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></button>
-      )
-    } else {
-      return (
-        <button className='w-6 flex' onClick={() => setTheme('dark')}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="text-slate-500 m-auto" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></button>
-      )
-    }
-  }
-
   useEffect(() => {
     if (index === 'flex') {
       setMenu('w-5/6 p-6')
@@ -76,7 +60,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
           ? design.header?.topStrip && design.header?.topStrip !== ''
             ? (
               <div className='bg-[#22262c] text-white flex pl-2 pr-2 pt-1.5 pb-1.5 text-center'>
-                <p className='m-auto tracking-widest font-medium text-[11px]'>{design.header?.topStrip}</p>
+                <p className='m-auto tracking-wide font-medium text-[11px]'>{design.header?.topStrip}</p>
               </div>
             )
             : ''
@@ -88,14 +72,8 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
           <div className='hidden gap-2 sm:flex'>
             {
               storeData?.logo && storeData?.logo.url !== ''
-                  ? theme === 'system'
-                    ? systemTheme === 'dark'
-                      ? <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logoWhite.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                      : <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                    : theme === 'dark'
-                      ? <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logoWhite.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                      : <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                  : <Link href='/'><div className='h-[52px] w-1 flex'><p className='m-auto text-2xl font-semibold'>TIENDA</p></div></Link>
+                ? <Link href='/'><Image className='w-auto h-[52px] py-1' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
+                : <Link href='/'><div className='h-[52px] w-1 flex'><p className='m-auto text-2xl font-medium'>TIENDA</p></div></Link>
             }
           </div>
           {
@@ -106,8 +84,8 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                     setTimeout(() => {
                       setNavCategories('hidden')
                     }, 200)
-                  }} className='mt-auto flex text-[15px] h-full font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white' href='/'>
-                    <div className={`mt-auto ${pathname === '/' ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white`}>INICIO</div>
+                  }} className='mt-auto flex text-[15px] h-full font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white' href='/'>
+                    <div className={`mt-auto ${pathname === '/' ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>INICIO</div>
                   </Link>
                   <Link className='flex h-full' href='/tienda' onMouseEnter={() => {
                     setNavCategories('flex')
@@ -127,17 +105,17 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       setNavCategories('hidden')
                     }, 200)
                   }}>
-                    <div className={`mt-auto ${pathname.includes('/tienda') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white`}>TIENDA</div>
+                    <div className={`mt-auto ${pathname.includes('/tienda') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>TIENDA</div>
                   </Link>
                   <Link onMouseEnter={() => {
                     setTimeout(() => {
                       setNavCategories('hidden')
                     }, 200)
-                  }} className='mt-auto text-[15px] font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white' href='/blog'>
-                    <div className={`mt-auto ${pathname.includes('/blog') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white`}>BLOG</div>
+                  }} className='mt-auto text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white' href='/blog'>
+                    <div className={`mt-auto ${pathname.includes('/blog') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>BLOG</div>
                   </Link>
-                  <Link className='mt-auto text-[15px] font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white' href='/contacto'>
-                    <div className={`mt-auto ${pathname.includes('/contacto') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-widest mb-auto dark:text-white`}>CONTACTO</div>
+                  <Link className='mt-auto text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white' href='/contacto'>
+                    <div className={`mt-auto ${pathname.includes('/contacto') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>CONTACTO</div>
                   </Link>
                   {
                     accountOpacity === 'opacity-0'
@@ -211,7 +189,6 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         </button>
                       )
                   }
-                  {renderThemeChanger()}
                 </div>
                 <div className='flex px-2 w-full justify-between gap-4 sm:hidden'>
                   <div className='flex w-full gap-4'>
@@ -275,18 +252,11 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                   <div className='flex gap-2 sm:hidden'>
                     {
                       storeData?.logo && storeData?.logo.url !== ''
-                          ? theme === 'system'
-                            ? systemTheme === 'dark'
-                              ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] h-[42px] py-0.5' src={`${storeData.logoWhite.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                              : <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                            : theme === 'dark'
-                              ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logoWhite.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                              : <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                          : <Link href='/'><div className='h-[42px] flex'><p className='m-auto text-xl font-semibold'>TIENDA</p></div></Link>
+                        ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
+                        : <Link href='/'><div className='h-[42px] flex'><p className='m-auto text-xl font-semibold'>TIENDA</p></div></Link>
                     }
                   </div>
                   <div className='flex w-full justify-end gap-4'>
-                    {renderThemeChanger()}
                     {
                       cartOpacity === 'opacity-0'
                         ? (
@@ -333,18 +303,11 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
               : <div className='flex gap-4 justify-between'>
                 <div className='gap-2 flex sm:hidden'>
                 {
-                      storeData?.logo && storeData?.logo.url !== ''
-                          ? theme === 'system'
-                            ? systemTheme === 'dark'
-                              ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] h-[42px] py-0.5' src={`${storeData.logoWhite.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                              : <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                            : theme === 'dark'
-                              ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logoWhite.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                              : <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                          : <Link href='/'><div className='h-[42px] flex'><p className='m-auto text-xl font-semibold'>TIENDA</p></div></Link>
-                    }
+                  storeData?.logo && storeData?.logo.url !== ''
+                    ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
+                    : <Link href='/'><div className='h-[42px] flex'><p className='m-auto text-xl font-semibold'>TIENDA</p></div></Link>
+                }
                 </div>
-                {renderThemeChanger()}
                 <Link href='/tienda' className='mt-auto mb-auto text-sm text-neutral-500'>Continuar comprando</Link>
               </div>
           }

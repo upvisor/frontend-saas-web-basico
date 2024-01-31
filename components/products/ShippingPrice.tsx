@@ -74,19 +74,19 @@ export const ShippingPrice = () => {
 
   return (
     <div className='border-b pb-4 mt-4 dark:border-neutral-800'>
-              <button onClick={(e: any) => {
-                e.preventDefault()
-                if (shippingRotate === '-rotate-90') {
-                  setShippingRotate('rotate-90')
-                } else {
-                  setShippingRotate('-rotate-90')
-                }
-              }} className='flex gap-2 justify-between w-full'>
-                <h5 className='text-[14px] tracking-widest font-semibold md:text-[16px] dark:text-white'>CALCULA LOS COSTOS DE ENVIO</h5>
-                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" className={`${shippingRotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>
-              </button>
-              <div ref={shippingRef} style={{ maxHeight: `${shippingView}px`, overflow: 'hidden', transition: 'max-height 0.2s' }} className='mt-2'>
-              <div>
+      <button onClick={(e: any) => {
+        e.preventDefault()
+        if (shippingRotate === '-rotate-90') {
+          setShippingRotate('rotate-90')
+        } else {
+          setShippingRotate('-rotate-90')
+        }
+      }} className='flex gap-2 justify-between w-full'>
+        <h5 className='text-[14px] tracking-wide font-medium md:text-[16px] dark:text-white'>CALCULA LOS COSTOS DE ENVIO</h5>
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" className={`${shippingRotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>
+      </button>
+      <div ref={shippingRef} style={{ maxHeight: `${shippingView}px`, overflow: 'hidden', transition: 'max-height 0.2s' }} className='mt-2'>
+      <div>
       <select className='text-sm border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600 dark:text-white' onChange={regionChange}>
         <option>Seleccionar Región</option>
         {

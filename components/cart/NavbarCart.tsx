@@ -6,6 +6,7 @@ import CartContext from '../../context/cart/CartContext'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
+import { H3 } from '../ui'
 
 interface Props {
   setCartView: any
@@ -24,8 +25,8 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
   const user = session?.user as { firstName: string, lastName: string, email: string, _id: string, cart: ICartProduct[] }
 
   return (
-    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto ${cartOpacity} transition-opacity duration-200 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
-      <h4 className='text-center tracking-widest text-[#1c1b1b] mb-3 font-semibold pb-2 border-b w-full dark:border-neutral-800 text-[16px] dark:text-white'>CARRITO</h4>
+    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto ${cartOpacity} transition-opacity duration-200 flex flex-col gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
+      <H3 config='border-b text-center pb-2'>CARRITO</H3>
       {
         cart?.length
           ? <>
@@ -143,7 +144,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
             </div>
           </>
           : <>
-            <p className='mb-4 text-[#444444] dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
+            <p className='dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
             <Link className='py-1.5 border border-main rounded transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
               setCartOpacity('opacity-0')
               setCartPosition('-mt-[30px]')

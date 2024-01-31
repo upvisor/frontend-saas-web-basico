@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { IPost } from '@/interfaces'
 import Link from 'next/link'
+import { H1 } from '../ui'
 
 const PagePost = ({ post, posts }: { post: IPost, posts: IPost[] }) => {
 
@@ -26,8 +27,8 @@ const PagePost = ({ post, posts }: { post: IPost, posts: IPost[] }) => {
               ? <Image src={post.image.url} alt={`Imagen principal post ${post.title}`} className="m-auto" width={500} height={500} />
               : ''
           }
-          <h1 className="text-4xl font-medium">{post.title}</h1>
-          <div className='flex flex-col gap-4' dangerouslySetInnerHTML={{ __html: post.content.replace('<h1>', '<h1 class="text-2xl">').replace('<h2>', '<h2 class="text-xl">').replace('<h3>', '<h3 class="text-lg">') }} />
+          <H1>{post.title}</H1>
+          <div className='flex flex-col gap-4' dangerouslySetInnerHTML={{ __html: post.content.replace('<h1>', '<h1 class="text-[25px] font-medium tracking-wide lg:text-[32px]">').replace('<h2>', '<h2 class="text-[20px] font-medium tracking-wide lg:text-[24px]">').replace('<h3>', '<h3 class="font-medium tracking-wide text-[16px] lg:text-[20px]">') }} />
           <div className='flex flex-col gap-2 mt-2'>
             <p className='font-medium'>Compartir</p>
             <div className='flex gap-2'>
@@ -40,7 +41,7 @@ const PagePost = ({ post, posts }: { post: IPost, posts: IPost[] }) => {
           postsFiltered.length
             ? (
               <div className="w-full flex flex-col gap-4 1280:w-1/3">
-                <h5 className="text-lg font-semibold tracking-widest">POST RECOMENDADOS</h5>
+                <h5 className="text-lg font-medium tracking-wide">POST RECOMENDADOS</h5>
                 <div className='flex flex-row gap-2 1280:flex-col'>
                   {
                     postsFiltered.map(post => (
