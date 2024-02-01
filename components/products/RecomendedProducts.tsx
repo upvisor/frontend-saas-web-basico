@@ -12,25 +12,21 @@ interface Props {
 }
 
 export const RecomendedProducts: React.FC<Props> = ({ products, title, productSelect }) => {
-
+  
   const [browserName, setBrowserName] = useState('')
-  const [filterProducts, setFilterProducts] = useState<IProduct[]>(products)
 
   const router = useRouter()
 
   useEffect(() => {
     setBrowserName(browser().name!)
-    const filter = products.filter(product => product.state === true)
-    const filter2 = filter.filter(product => product.name !== productSelect?.name)
-    setFilterProducts(filter2)
   }, [router])
 
   return (
     <div>
       {
         browserName === 'safari'
-          ? <SafariRecomendedProducts products={filterProducts} title={title} />
-          : <OtherRecomendedProducts products={filterProducts} title={title} />
+          ? <SafariRecomendedProducts products={products} title={title} />
+          : <OtherRecomendedProducts products={products} title={title} />
       }
     </div>
   )

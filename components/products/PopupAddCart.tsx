@@ -2,7 +2,6 @@
 import React from 'react'
 import Image from 'next/image'
 import { NumberFormat } from '@/utils'
-import Link from 'next/link'
 import { IProduct } from '@/interfaces'
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
@@ -58,7 +57,7 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
             </div>
           </div>
           {
-            productsFiltered.length > 1
+            productsFiltered.length >= 1
               ? (
                 <div className="flex flex-col gap-4">
                   <div>

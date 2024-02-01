@@ -49,14 +49,18 @@ export default function PageProduct ({ product, design, products }: { product: I
   }, [])
     
   const filterProducts = () => {
-    if (products.length) {
-      if (design.product?.sectionProducts === 'Productos en oferta') {
-        const filterProducts = products.filter(product => product.beforePrice)
-        setProductsFiltered(filterProducts)
-      } else {
-        setProductsFiltered(products)
-      }
-    }
+    let pruebaSet: Set<IProduct> = new Set();
+    
+    product.tags.forEach(tag => {
+      const filteredProducts = products.filter(prod => prod.tags.includes(tag))
+      filteredProducts.forEach(prod => pruebaSet.add(prod))
+    });
+  
+    const uniqueProducts = Array.from(pruebaSet)
+    console.log(uniqueProducts)
+    console.log(product)
+    const prueba = uniqueProducts.filter(prod => prod._id !== product._id)
+    setProductsFiltered(prueba)
   }
     
   useEffect(() => {
@@ -356,7 +360,7 @@ export default function PageProduct ({ product, design, products }: { product: I
         </div>
       </div>
       {
-        productsFiltered.length > 1
+        productsFiltered.length >= 1
             ? <RecomendedProducts products={ productsFiltered } title={design.product.title !== '' ? design.product.title : 'PRODUCTOS RECOMENDADOS'} productSelect={product} />
             : ''
       }

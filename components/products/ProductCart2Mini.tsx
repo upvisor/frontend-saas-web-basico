@@ -159,7 +159,7 @@ export const ProductCard2Mini = ({ product }: { product: IProduct }) => {
       {
         product.variations?.variations[0].variation !== ''
           ? (
-            <div onMouseEnter={ () => setIsHovered(true) } onMouseLeave={ () => setIsHovered(false) } className={`${isHovered ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 p-2 flex flex-col gap-2 absolute rounded w-36 bg-black/70 ml-2 -mt-[92px]`}>
+            <div onMouseEnter={ () => setIsHovered(true) } onMouseLeave={ () => setIsHovered(false) } className={`${isHovered ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 p-2 hidden flex-col gap-2 absolute rounded w-36 bg-black/70 ml-2 -mt-[92px] lg:flex`}>
               <p className='text-center text-sm text-white'>{text}</p>
               <div className='flex gap-2'>
                 {
@@ -170,7 +170,7 @@ export const ProductCard2Mini = ({ product }: { product: IProduct }) => {
               </div>
             </div>
           )
-          : <button onClick={addToCart} onMouseEnter={ () => setIsHovered(true) } onMouseLeave={ () => setIsHovered(false) } className={`${isHovered ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 p-2 absolute rounded w-36 text-sm bg-black/70 ml-2 -mt-11 text-white`}>{text}</button>
+          : <button onClick={addToCart} onMouseEnter={ () => setIsHovered(true) } onMouseLeave={ () => setIsHovered(false) } className={`${isHovered ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 p-2 absolute rounded w-36 text-sm bg-black/70 ml-2 -mt-11 text-white hidden lg:block`}>{text}</button>
       }
       <div>
         {
