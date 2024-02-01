@@ -52,7 +52,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
 
   useEffect(() => {
     if (categoriesPhoneRef.current) {
-      setCategoriesPhone(rotate === '-rotate-90' ? categoriesPhoneRef.current.scrollHeight : 0)
+      setCategoriesPhone(rotate === '-rotate-90' ? 120 * categories.length : 0)
     }
   }, [rotate])
 
@@ -220,6 +220,15 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                           </svg>
                         </button>
                     }
+                  </div>
+                  <div className='flex gap-2 sm:hidden'>
+                    {
+                      storeData?.logo && storeData?.logo.url !== ''
+                        ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
+                        : <Link href='/'><div className='h-[42px] flex'><p className='m-auto text-xl font-semibold'>TIENDA</p></div></Link>
+                    }
+                  </div>
+                  <div className='flex w-full justify-end gap-4'>
                     {
                       accountOpacity === 'opacity-0'
                         ? (
@@ -252,15 +261,6 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                           </button>
                         )
                     }
-                  </div>
-                  <div className='flex gap-2 sm:hidden'>
-                    {
-                      storeData?.logo && storeData?.logo.url !== ''
-                        ? <Link href='/'><Image className='max-w-[110px] min-w-[110px] py-0.5' src={`${storeData.logo.url}`} alt='Logo' width={155} height={53.72} /></Link>
-                        : <Link href='/'><div className='h-[42px] flex'><p className='m-auto text-xl font-semibold'>TIENDA</p></div></Link>
-                    }
-                  </div>
-                  <div className='flex w-full justify-end gap-4'>
                     {
                       cartOpacity === 'opacity-0'
                         ? (

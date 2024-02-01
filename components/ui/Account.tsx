@@ -115,7 +115,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                   setAccountView('hidden')
                 }, 200)
               }} className='p-1.5 hover:bg-neutral-100 rounded-md transition-colors duration-100 dark:hover:bg-neutral-800'>Ver mi cuenta</Link>
-              <button onClick={handleLogout} className='bg-main font-medium border border-main tracking-widest transition-all duration-200 text-sm text-white h-10 dark:bg-neutral-800 hover:bg-white hover:text-main'>{closeLoading ? <Spinner2/> : 'CERRAR SESIÓN'}</button>
+              <button onClick={handleLogout} className='bg-main font-medium border border-main tracking-wide transition-all duration-200 text-sm text-white h-10 dark:bg-neutral-800 hover:bg-white hover:text-main'>{closeLoading ? <Spinner2/> : 'CERRAR SESIÓN'}</button>
             </>
           )
           : (
@@ -142,7 +142,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                         <p className='text-sm'>Contraseña</p>
                         <input type='password' placeholder='*******' onChange={(e: ChangeEvent<HTMLInputElement>) => setLogin({...login, password: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
                       </div>
-                      <button type='submit' className='bg-main font-medium tracking-widest border rounded border-main transition-all duration-200 text-white h-10 text-sm hover:bg-white hover:text-main dark:bg-neutral-700 dark:border-neutral-700 hover:dark:bg-transparent hover:dark:text-neutral-500'>{loginLoading ? <Spinner2 /> : 'INGRESAR'}</button>
+                      <button type='submit' className='bg-main font-medium tracking-wide border rounded border-main transition-all duration-200 text-white h-10 text-sm hover:bg-white hover:text-main dark:bg-neutral-700 dark:border-neutral-700 hover:dark:bg-transparent hover:dark:text-neutral-500'>{loginLoading ? <Spinner2 /> : 'INGRESAR'}</button>
                       <Link href='/' className='text-sm'>Olvide mi contraseña</Link>
                     </form>
                   )
@@ -172,7 +172,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                         <input type='checkbox' checked={register.marketing} onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({ ...register, marketing: e.target.checked ? true : false })} />
                         <p className='text-sm'>Suscribirse a nuestra lista</p>
                       </div>
-                      <button type='submit' className='bg-main font-medium rounded tracking-widest transition-all duration-200 border border-main text-white h-10 text-sm dark:bg-neutral-700 hover:bg-white hover:text-main dark:hover:bg-transparent dark:hover:border-neutral-700 dark:hover:text-neutral-500'>{registerLoading ? <Spinner2 /> : 'REGISTRARSE'}</button>
+                      <button type='submit' className='bg-main font-medium rounded tracking-wide transition-all duration-200 border border-main text-white h-10 text-sm dark:bg-neutral-700 hover:bg-white hover:text-main dark:hover:bg-transparent dark:hover:border-neutral-700 dark:hover:text-neutral-500'>{registerLoading ? <Spinner2 /> : 'REGISTRARSE'}</button>
                     </form>
                   )
               }

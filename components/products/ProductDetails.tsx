@@ -8,9 +8,11 @@ interface Props {
   product: IProduct,
   tempCartProduct: ICartProduct,
   setTempCartProduct: any
+  popup: any
+  setPopup: any
 }
 
-export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setTempCartProduct }) => {
+export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setTempCartProduct, popup, setPopup }) => {
 
   const onUpdateQuantity = ( quantity: number ) => {
     setTempCartProduct( (currentProduct: any) => ({
@@ -92,10 +94,37 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                     product.variations?.variations.length
                       ? product.variations.variations[0].variation !== ''
                         ? tempCartProduct.variation
-                          ? <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                          ? (
+                            <div className="w-fit h-fit" onClick={() => {
+                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                              setTimeout(() => {
+                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                              }, 10)
+                            }}>
+                              <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                            </div>
+                          )
                           : <ButtonNone>AÑADIR AL CARRITO</ButtonNone>
-                        : <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                      : <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                        : (
+                          <div className="w-fit h-fit" onClick={() => {
+                            setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                            setTimeout(() => {
+                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                            }, 10)
+                          }}>
+                            <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                          </div>
+                        )
+                      : (
+                        <div className="w-fit h-fit" onClick={() => {
+                          setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                          setTimeout(() => {
+                            setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                          }, 10)
+                        }}>
+                          <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                        </div>
+                      )
                   }
                 </div>
               </div>

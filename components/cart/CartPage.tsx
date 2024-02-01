@@ -9,7 +9,7 @@ import { NumberFormat, offer } from '../../utils'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
-import { H1 } from '../ui'
+import { H1, LinkButton } from '../ui'
 
 const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] }) => {
 
@@ -142,7 +142,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                   : (
                     <div>
                       <p className='mb-4'>No tienes productos agregados al carrito</p>
-                      <Link href='/tienda' className='py-2 px-6 border font-medium tracking-widest border-main transition-colors duration-200 rounded bg-main text-white text-sm hover:bg-transparent hover:text-main'>IR A LA TIENDA</Link>
+                      <Link href='/tienda' className='py-2 px-6 border font-medium tracking-wide border-main transition-colors duration-200 rounded bg-main text-white text-sm hover:bg-transparent hover:text-main'>IR A LA TIENDA</Link>
                     </div>
                   )
               }
@@ -178,7 +178,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                         }
                       </div>
                       <div className='mt-3 ml-auto w-full flex'>
-                        <Link className='py-2 text-sm rounded w-full font-medium border border-button transition-colors duration-200 bg-button text-white hover:bg-transparent hover:text-button' href='/finalizar-compra'><button className='w-full tracking-widest'>FINALIZAR COMPRA</button></Link>
+                        <LinkButton config='w-full text-[16px]' url={'/finalizar-compra'}>FINALIZAR COMPRA</LinkButton>
                       </div>
                     </div>
                   </div>

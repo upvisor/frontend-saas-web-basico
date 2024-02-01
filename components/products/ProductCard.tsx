@@ -136,26 +136,28 @@ export default function ProductCard({ product }: { product: IProduct }) {
   }
   
   return (
-    <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="flex flex-col w-fit gap-1 m-auto">
-      <Link className="w-fit" href={`/tienda/${product.category.slug}/${product.slug}`}><Image onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="w-60 rounded-lg" src={image} alt={`Imagen producto ${product.name}`} width={500} height={500} /></Link>
-      {
-        product.variations?.variations[0].variation !== ''
-          ? (
-            <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={`${hover ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 absolute w-56 flex flex-col gap-2 text-white bg-black/70 p-2 rounded ml-2 mt-36`}>
-              <p className="text-center">{text}</p>
-              <div className="flex gap-2">
-                {
-                  product.variations?.variations.map(variation => (
-                    <button key={variation.variation} onClick={() => addToCartVariation(variation)}>
-                      <Image className="w-10 rounded" src={variation.image?.url!} alt={`Imagen variación ${variation.variation}`} width={500} height={500} />
-                    </button>
-                  ))
-                }
+    <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="flex flex-col gap-1 m-auto w-40 lg:w-60">
+      <Link className="w-fit" href={`/tienda/${product.category.slug}/${product.slug}`}><Image onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="w-40 lg:w-60 rounded-lg" src={image} alt={`Imagen producto ${product.name}`} width={500} height={500} /></Link>
+      <div className="hidden lg:flex">
+        {
+          product.variations?.variations[0].variation !== ''
+            ? (
+              <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={`${hover ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 absolute w-56 flex flex-col gap-2 text-white bg-black/70 p-2 rounded ml-2 mt-36`}>
+                <p className="text-center">{text}</p>
+                <div className="flex gap-2">
+                  {
+                    product.variations?.variations.map(variation => (
+                      <button key={variation.variation} onClick={() => addToCartVariation(variation)}>
+                        <Image className="w-10 rounded" src={variation.image?.url!} alt={`Imagen variación ${variation.variation}`} width={500} height={500} />
+                      </button>
+                    ))
+                  }
+                </div>
               </div>
-            </div>
-          )
-          : <button onClick={addToCart} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={`${hover ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 absolute w-56 text-white bg-black/70 p-2 rounded ml-2 mt-48`}>{text}</button>
-      }
+            )
+            : <button onClick={addToCart} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={`${hover ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 absolute w-56 text-white bg-black/70 p-2 rounded ml-2 mt-48`}>{text}</button>
+        }
+      </div>
       <Link href={`/tienda/${product.category.slug}/${product.slug}`}><p className="font-medium text-lg">{product.name}</p></Link>
       <div className="flex gap-2">
         <p>${NumberFormat(product.price)}</p>

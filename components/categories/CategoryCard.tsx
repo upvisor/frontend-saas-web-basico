@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from 'next/image'
 import { ICategory } from "@/interfaces"
 import { useState } from "react"
-import { H2, H3 } from "../ui"
+import { H2, H3, P } from "../ui"
 
 export default function CategoryCard({ category, title }: { category: ICategory, title: string }) {
   
@@ -22,7 +22,7 @@ export default function CategoryCard({ category, title }: { category: ICategory,
               ? <H3>{category.category.toUpperCase()}</H3>
               : ''
         }
-        <p>{category.description}</p>
+        <P>{category.description}</P>
       </div>
     </Link>
   )

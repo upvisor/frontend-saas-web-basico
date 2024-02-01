@@ -10,7 +10,7 @@ import "swiper/css/pagination"
 import styles from  "./css/OtherProductList.module.css"
 import { Pagination } from "swiper/modules"
 import { ProductCard2Mini } from './'
-import { H3 } from '../ui'
+import { H3, LinkButton } from '../ui'
 
 interface Props {
     popup: { view: string, opacity: string, mouse: boolean }
@@ -47,7 +47,7 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
               </div>
             </div>
             <div className="w-full flex flex-col gap-3 my-auto sm:w-1/2">
-              <Link className="bg-button text-center rounded py-1.5 text-white border border-button transition-colors duration-200 hover:bg-transparent hover:text-button" href={"/finalizar-compra"}>Ir a pagar</Link>
+              <LinkButton url={"/finalizar-compra"} config={'text-sm'}>IR A PAGAR</LinkButton>
               <button onClick={(e: any) => {
                 e.preventDefault()
                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })

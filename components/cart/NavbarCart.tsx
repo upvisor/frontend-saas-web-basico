@@ -133,7 +133,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
                 setTimeout(() => {
                   setCartView('hidden')
                 }, 200)
-              }} href='/finalizar-compra'><button className='w-full tracking-widest'>FINALIZAR COMPRA</button></Link>
+              }} href='/finalizar-compra'><button className='w-full tracking-wide'>FINALIZAR COMPRA</button></Link>
               <Link href='/carrito' onClick={() => {
                 setCartOpacity('opacity-0')
                 setCartPosition('-mt-[30px]')
@@ -151,7 +151,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
               setTimeout(() => {
                 setCartView('hidden')
               }, 200)
-            }}><button className='w-full tracking-widest font-medium text-sm'>IR A LA TIENDA</button></Link>
+            }}><button className='w-full tracking-wide font-medium text-sm'>IR A LA TIENDA</button></Link>
           </>
       }
     </div>
