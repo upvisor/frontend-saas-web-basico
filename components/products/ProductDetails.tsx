@@ -104,7 +104,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                               <ButtonAddToCart tempCartProduct={tempCartProduct} />
                             </div>
                           )
-                          : <ButtonNone>AÑADIR AL CARRITO</ButtonNone>
+                          : <ButtonNone>Añadir al carrito</ButtonNone>
                         : (
                           <div className="w-fit h-fit" onClick={() => {
                             setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
