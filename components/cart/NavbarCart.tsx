@@ -145,7 +145,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
             <p className='dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
             {
               categories.map(category => (
-                <Link className='border p-1 text-center transition-colors duration-200 hover:border-black' href={`/tienda/${category.slug}`}>{category.category}</Link>
+                <Link key={category._id} className='border p-1 text-center transition-colors duration-200 hover:border-black' href={`/tienda/${category.slug}`}>{category.category}</Link>
               ))
             }
             <Link className='py-1.5 border border-main rounded-md transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
