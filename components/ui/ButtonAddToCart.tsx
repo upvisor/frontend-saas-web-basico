@@ -66,7 +66,7 @@ export const ButtonAddToCart: React.FC<Props> = ({ tempCartProduct }) => {
   }
 
   return (
-    <button onClick={addToCart} className='py-2 h-fit w-56 rounded-md transition-all duration-200 border border-button bg-button text-white hover:bg-transparent hover:text-button 450:w-56'>
+    <button onClick={addToCart} className='py-2 h-fit w-56 rounded-md transition-all duration-200 border border-button bg-button text-white hover:bg-transparent hover:text-button'>
       {text}
     </button>
   )

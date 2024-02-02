@@ -50,7 +50,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
     if (res?.error) return setError(res.error)
     if (res?.ok) {
       setLogin({ email: '', password: '' })
-      setAccountPosition('-mt-[360px]')
+      setAccountPosition('-mt-[600px]')
       setTimeout(() => {
         setAccountView('hidden')
       }, 500)
@@ -74,7 +74,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
     if (res?.error) return setError(res.error)
     if (res?.ok) {
       setRegister({ firstName: '', lastName: '', email: '', password: '', confirmPassrword: '', marketing: false })
-      setAccountPosition('-mt-[360px]')
+      setAccountPosition('-mt-[600px]')
       setTimeout(() => {
         setAccountView('hidden')
       }, 500)
@@ -105,7 +105,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
           ? (
             <>
               <Link href='/cuenta' onClick={(e: any) => {
-                setAccountPosition('-mt-[360px]')
+                setAccountPosition('-mt-[600px]')
                 setTimeout(() => {
                   setAccountView('hidden')
                 }, 500)

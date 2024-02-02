@@ -258,7 +258,7 @@ export default function PageProduct ({ product, design, products }: { product: I
                                 <ButtonAddToCart tempCartProduct={tempCartProduct} />
                               </div>
                             )
-                            : <ButtonNone>AÑADIR AL CARRITO</ButtonNone>
+                            : <ButtonNone>Añadir al carrito</ButtonNone>
                           : (
                             <div className="w-fit h-fit" onClick={() => {
                               setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })

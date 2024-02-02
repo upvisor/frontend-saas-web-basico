@@ -23,29 +23,30 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
   const user = session?.user as { firstName: string, lastName: string, email: string, _id: string, cart: ICartProduct[] }
 
   return (
-    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto flex flex-col gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
+    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto flex flex-col max-h-[380px] gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
       <H3 config='border-b text-center pb-2'>Carrito</H3>
       {
         cart?.length
           ? <>
+            <div className='overflow-y-auto'>
             {
               cart.map((product: ICartProduct) => (
                 <div key={product.slug} className='flex gap-1 justify-between mb-2'>
                   <div className='flex gap-2'>
                     <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
-                      setCartPosition('-mt-[180px]')
+                      setCartPosition('-mt-[390px]')
                       setTimeout(() => {
                         setCartView('hidden')
-                      }, 300)
+                      }, 500)
                     }}>
                       <Image src={product.image} alt={product.name} width={96} height={96} className='w-24 h-24 mt-auto mb-auto' />
                     </Link>
                     <div className='mt-auto mb-auto'>
                       <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
-                        setCartPosition('-mt-[180px]')
+                        setCartPosition('-mt-[390px]')
                         setTimeout(() => {
                           setCartView('hidden')
-                        }, 300)
+                        }, 500)
                       }}><p className='text-[16px] text-[#1B1B1B] dark:text-neutral-100'>{product.name}</p></Link>
                       <div className='flex gap-1 mb-1'>
                         {
@@ -122,28 +123,29 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                 </div>
               ))
             }
+            </div>
             <div className='mt-4'>
               <Link className='py-2 rounded-md border border-button transition-colors duration-200 bg-button text-white hover:bg-white hover:text-button hover:dark:bg-transparent' onClick={() => {
-                setCartPosition('-mt-[180px]')
+                setCartPosition('-mt-[380px]')
                 setTimeout(() => {
                   setCartView('hidden')
-                }, 300)
+                }, 500)
               }} href='/finalizar-compra'><button className='w-full'>Finalizar compra</button></Link>
               <Link href='/carrito' onClick={() => {
-                setCartPosition('-mt-[180px]')
+                setCartPosition('-mt-[390px]')
                 setTimeout(() => {
                   setCartView('hidden')
-                }, 300)
+                }, 500)
               }}><button className='w-full mt-4 underline text-[#444444] dark:text-neutral-400'>Ir al carrito</button></Link>
             </div>
           </>
           : <>
             <p className='dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
             <Link className='py-1.5 border border-main rounded-md transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
-              setCartPosition('-mt-[180px]')
+              setCartPosition('-mt-[390px]')
               setTimeout(() => {
                 setCartView('hidden')
-              }, 300)
+              }, 500)
             }}><button className='w-full'>Ir a la tienda</button></Link>
           </>
       }

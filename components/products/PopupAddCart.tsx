@@ -63,7 +63,7 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
                   <div>
                     <div className='flex w-full'>
                       <div className='m-auto w-full relative flex flex-col gap-4'>
-                        <H3>{ 'TAMBIEN PODRIAN INTERESARTE' }</H3>
+                        <H3>{ 'Tambien podrian interesarte' }</H3>
                         <div className='hidden sm:block'>
                           <Swiper
                             className={styles.mySwiper}
