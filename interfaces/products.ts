@@ -22,8 +22,8 @@ export interface IProduct {
   informations?: IInformation[]
   sku?: string
 
-  createdAt: string
-  updatedAt: string
+  createdAt: any
+  updatedAt: any
 }
 
 export interface IReview {

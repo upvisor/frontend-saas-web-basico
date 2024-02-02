@@ -1,6 +1,5 @@
 import Banner from "@/components/categories/Banner"
 import Categories from "@/components/categories/Categories"
-import Filters from "@/components/categories/Filters"
 import Products from "@/components/categories/Products"
 import { ICategory, IProduct } from "@/interfaces"
 
@@ -26,7 +25,6 @@ export default async function ShopPage() {
     <div className="flex flex-col gap-6">
       <Banner />
       <Categories categories={categories} />
-      <Filters />
       <Products products={products} />
     </div>
   )

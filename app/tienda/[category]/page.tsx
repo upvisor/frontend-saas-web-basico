@@ -1,5 +1,4 @@
 import Categories from "@/components/categories/Categories"
-import Filters from "@/components/categories/Filters"
 import Products from "@/components/categories/Products"
 import { H1 } from "@/components/ui"
 import { ICategory, IProduct } from "@/interfaces"
@@ -46,7 +45,6 @@ export default async function CategoryPage({ params }: { params: { category: str
         }
       </div>
       <Categories categories={categories} />
-      <Filters />
       <Products products={productsCategory} />
     </div>
   )
