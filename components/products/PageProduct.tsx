@@ -113,7 +113,7 @@ export default function PageProduct ({ product, design, products }: { product: I
       {
         product?.stock > 0
           ? (
-            <div className={`${detailsPosition} flex transition-all duration-300 decoration-slate-200 fixed w-full z-30`}>
+            <div className={`${detailsPosition} flex transition-all duration-500 decoration-slate-200 fixed w-full z-30`}>
               <ProductDetails product={product} setTempCartProduct={setTempCartProduct} tempCartProduct={tempCartProduct} popup={popup} setPopup={setPopup} />
             </div>
           )
