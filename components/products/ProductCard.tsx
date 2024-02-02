@@ -156,12 +156,12 @@ export default function ProductCard({ product }: { product: IProduct }) {
             )
             : <button onClick={addToCart} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={`${hover ? 'opacity-1' : 'opacity-0'} transition-opacity duration-300 absolute w-56 text-white bg-black/70 p-2 rounded ml-2 mt-48 hidden lg:block`}>{text}</button>
         }
-      <Link href={`/tienda/${product.category.slug}/${product.slug}`}><p className="font-medium text-lg">{product.name}</p></Link>
+      <Link href={`/tienda/${product.category.slug}/${product.slug}`}><p className="font-medium text-sm lg:text-[16px]">{product.name}</p></Link>
       <div className="flex gap-2">
-        <p>${NumberFormat(product.price)}</p>
+        <p className="text-sm lg:text-[16px]">${NumberFormat(product.price)}</p>
         {
           product.beforePrice
-            ? <p className="text-sm line-through">${NumberFormat(product.beforePrice)}</p>
+            ? <p className="text-xs lg:text-sm line-through">${NumberFormat(product.beforePrice)}</p>
             : ''
         }
       </div>

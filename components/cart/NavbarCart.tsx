@@ -49,12 +49,12 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                         setTimeout(() => {
                           setCartView('hidden')
                         }, 500)
-                      }}><p className='text-[16px] text-[#1B1B1B] dark:text-neutral-100'>{product.name}</p></Link>
+                      }}><p className='text-sm lg:text-[16px] text-[#1B1B1B] font-medium dark:text-neutral-100'>{product.name}</p></Link>
                       <div className='flex gap-1 mb-1'>
                         {
                           product.quantityOffers && product.quantity > 1
-                            ? <span className='font-medium'>${NumberFormat(offer(product))}</span>
-                            : <span className='font-medium'>${NumberFormat(product.price * product.quantity)}</span>
+                            ? <span className='text-sm lg:text-[16px]'>${NumberFormat(offer(product))}</span>
+                            : <span className='text-sm lg:text-[16px]'>${NumberFormat(product.price * product.quantity)}</span>
                         }
                         {
                           product.beforePrice
