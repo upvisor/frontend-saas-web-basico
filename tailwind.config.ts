@@ -15,7 +15,7 @@ const config: Config = {
       },
       colors: {
         'main': '#f6531a',
-        'button': '#007DB5'
+        'button': '#0071e3'
       }
     },
   },

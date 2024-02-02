@@ -34,10 +34,10 @@ export const SubscribePage = ({ design }: { design: IDesign }) => {
   return (
     <div className='w-full bg-neutral-100 pl-4 pr-4 flex dark:bg-neutral-900/40'>
       <form className='m-auto w-[1600px] mt-16 mb-16 flex flex-col gap-4'>
-        <H2 config='text-center'>{design.subscription?.title && design.subscription?.title !== '' ? design.subscription?.title.toUpperCase() : 'SUSCRIBETE EN NUESTRA LISTA PARA RECIBIR OFERTAS EXCLUSIVAS'}</H2>
+        <H2 config='text-center'>{design.subscription?.title && design.subscription?.title !== '' ? design.subscription?.title.toUpperCase() : 'Suscribete en nuestra lista'}</H2>
         <div className='flex gap-2'>
           <input type='email' placeholder='Email' value={subscribeData.email} onChange={inputChange} className='p-2 w-full rounded border transition-colors duration-100 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:bg-neutral-800 dark:border-neutral-700' />
-          <ButtonFunction action={handleSubmit}>{loading ? <Spinner2 /> : 'ENVÍAR'}</ButtonFunction>
+          <ButtonFunction action={handleSubmit}>{loading ? <Spinner2 /> : 'Envíar'}</ButtonFunction>
         </div>
         <div className={successSubscribe}>
           <p className='text-green mt-2'>Suscripción realizada con exito</p>

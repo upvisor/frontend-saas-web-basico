@@ -16,7 +16,7 @@ export default async function Categories({ design }: { design: IDesign }) {
       <div className="w-full max-w-[1600px] m-auto flex flex-col gap-4">
         {
           design.home.category.titleCategory
-            ? <H2 config="text-center">{design.home.category.title && design.home.category.title !== '' ? design.home.category.title : 'CATEGORIAS'}</H2>
+            ? <H2 config="text-center">{design.home.category.title && design.home.category.title !== '' ? design.home.category.title : 'Categorias'}</H2>
             : ''
         }
         <div className="flex flex-col gap-4 justify-between lg:flex-row">

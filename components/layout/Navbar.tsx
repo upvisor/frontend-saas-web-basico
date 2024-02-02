@@ -17,12 +17,10 @@ interface Props {
 export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, storeData, categories }) => {
 
   const [cartView, setCartView] = useState('hidden')
-  const [cartOpacity, setCartOpacity] = useState('opacity-0')
-  const [cartPosition, setCartPosition] = useState('-mt-[30px]')
+  const [cartPosition, setCartPosition] = useState('-mt-[180px]')
   const [cartPc, setCartPc] = useState(true)
   const [accountView, setAccountView] = useState('hidden')
-  const [accountOpacity, setAccountOpacity] = useState('opacity-0')
-  const [accountPosition, setAccountPosition] = useState('-mt-[30px]')
+  const [accountPosition, setAccountPosition] = useState('-mt-[360px]')
   const [accountPc, setAccountPc] = useState(true)
   const [account, setAccount] = useState('Ingresar')
   const [navCategories, setNavCategories] = useState('hidden')
@@ -63,8 +61,8 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         pathname !== '/finalizar-compra'
           ? design.header?.topStrip && design.header?.topStrip !== ''
             ? (
-              <div className='bg-[#22262c] text-white flex pl-2 pr-2 pt-1.5 pb-1.5 text-center'>
-                <p className='m-auto tracking-wide font-medium text-[11px]'>{design.header?.topStrip}</p>
+              <div className='bg-[#22262c] text-white flex pl-2 pr-2 pt-1.5 pb-1.5 text-center sticky z-50'>
+                <p className='m-auto font-medium text-[13px]'>{design.header?.topStrip}</p>
               </div>
             )
             : ''
@@ -88,8 +86,8 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                     setTimeout(() => {
                       setNavCategories('hidden')
                     }, 200)
-                  }} className='mt-auto flex text-[15px] h-full font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white' href='/'>
-                    <div className={`mt-auto ${pathname === '/' ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>INICIO</div>
+                  }} className='mt-auto flex h-full font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/'>
+                    <div className={`mt-auto ${pathname === '/' ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Inicio</div>
                   </Link>
                   <Link className='flex h-full' href='/tienda' onMouseEnter={() => {
                     setNavCategories('flex')
@@ -109,28 +107,27 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       setNavCategories('hidden')
                     }, 200)
                   }}>
-                    <div className={`mt-auto ${pathname.includes('/tienda') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>TIENDA</div>
+                    <div className={`mt-auto ${pathname.includes('/tienda') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 font-medium text-[#1c1b1b] mb-auto dark:text-white`}>Tienda</div>
                   </Link>
                   <Link onMouseEnter={() => {
                     setTimeout(() => {
                       setNavCategories('hidden')
                     }, 200)
-                  }} className='mt-auto text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white' href='/blog'>
-                    <div className={`mt-auto ${pathname.includes('/blog') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>BLOG</div>
+                  }} className='mt-auto font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/blog'>
+                    <div className={`mt-auto ${pathname.includes('/blog') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Blog</div>
                   </Link>
-                  <Link className='mt-auto text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white' href='/contacto'>
-                    <div className={`mt-auto ${pathname.includes('/contacto') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[15px] font-medium text-[#1c1b1b] tracking-wide mb-auto dark:text-white`}>CONTACTO</div>
+                  <Link className='mt-auto font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/contacto'>
+                    <div className={`mt-auto ${pathname.includes('/contacto') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Contacto</div>
                   </Link>
                   {
-                    accountOpacity === 'opacity-0'
+                    accountView === 'hidden'
                       ? (
                         <button onClick={(e: any) => {
                           e.preventDefault()
                           setAccountView('flex')
                           setTimeout(() => {
                             setAccountPosition('')
-                            setAccountOpacity('opacity-1')
-                          }, 50)
+                          }, 10)
                         }}>
                           <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="10.9531" cy="6" r="5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></circle>
@@ -141,11 +138,10 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       : (
                         <button onClick={(e: any) => {
                           e.preventDefault()
-                          setAccountOpacity('opacity-0')
-                          setAccountPosition('-mt-[30px]')
+                          setAccountPosition('-mt-[360px]')
                           setTimeout(() => {
                             setAccountView('hidden')
-                          }, 200)
+                          }, 400)
                         }}>
                           <svg className="m-auto w-[21px] px-[2px]" role="presentation" viewBox="0 0 16 14">
                             <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
@@ -154,15 +150,14 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       )
                   }
                   {
-                    cartOpacity === 'opacity-0'
+                    cartView === 'hidden'
                       ? (
                         <div>
                           <button onClick={() => {
                             setCartView('flex')
                             setTimeout(() => {
                               setCartPosition('')
-                              setCartOpacity('opacity-1')
-                            }, 50)
+                            }, 10)
                           }} className='flex h-full mr-2'>
                             <svg className='m-auto cursor-pointer w-[17px]' role="presentation" viewBox="0 0 17 20">
                               <path d="M0 20V4.995l1 .006v.015l4-.002V4c0-2.484 1.274-4 3.5-4C10.518 0 12 1.48 12 4v1.012l5-.003v.985H1V19h15V6.005h1V20H0zM11 4.49C11 2.267 10.507 1 8.5 1 6.5 1 6 2.27 6 4.49V5l5-.002V4.49z" fill="currentColor"></path>
@@ -181,11 +176,10 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         )
                       : (
                         <button className='h-full flex mr-2' onClick={() => {
-                          setCartOpacity('opacity-0')
-                          setCartPosition('-mt-[30px]')
+                          setCartPosition('-mt-[180px]')
                           setTimeout(() => {
                             setCartView('hidden')
-                          }, 200)
+                          }, 400)
                         }}>
                           <svg className="m-auto w-[17px]" role="presentation" viewBox="0 0 16 14">
                             <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
@@ -230,15 +224,14 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                   </div>
                   <div className='flex w-full justify-end gap-4'>
                     {
-                      accountOpacity === 'opacity-0'
+                      accountView === 'hidden'
                         ? (
                           <button onClick={(e: any) => {
                             e.preventDefault()
                             setAccountView('flex')
                             setTimeout(() => {
                               setAccountPosition('')
-                              setAccountOpacity('opacity-1')
-                            }, 50)
+                            }, 10)
                           }}>
                             <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <circle cx="10.9531" cy="6" r="5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></circle>
@@ -249,11 +242,10 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         : (
                           <button onClick={(e: any) => {
                             e.preventDefault()
-                            setAccountOpacity('opacity-0')
-                            setAccountPosition('-mt-[30px]')
+                            setAccountPosition('-mt-[360px]')
                             setTimeout(() => {
                               setAccountView('hidden')
-                            }, 200)
+                            }, 500)
                           }}>
                             <svg className="m-auto w-[21px] px-[2px]" role="presentation" viewBox="0 0 16 14">
                               <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
@@ -262,15 +254,14 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         )
                     }
                     {
-                      cartOpacity === 'opacity-0'
+                      cartView === 'hidden'
                         ? (
                           <div>
                             <button onClick={() => {
                               setCartView('flex')
                               setTimeout(() => {
                                 setCartPosition('')
-                                setCartOpacity('opacity-1')
-                              }, 50)
+                              }, 10)
                             }} className='flex h-full'>
                               <svg className='m-auto cursor-pointer w-[17px]' role="presentation" viewBox="0 0 17 20">
                                 <path d="M0 20V4.995l1 .006v.015l4-.002V4c0-2.484 1.274-4 3.5-4C10.518 0 12 1.48 12 4v1.012l5-.003v.985H1V19h15V6.005h1V20H0zM11 4.49C11 2.267 10.507 1 8.5 1 6.5 1 6 2.27 6 4.49V5l5-.002V4.49z" fill="currentColor"></path>
@@ -289,11 +280,10 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                           )
                         : (
                           <button onClick={() => {
-                            setCartOpacity('opacity-0')
-                            setCartPosition('-mt-[30px]')
+                            setCartPosition('-mt-[180px]')
                             setTimeout(() => {
                               setCartView('hidden')
-                            }, 200)
+                            }, 300)
                           }} className='flex h-full'>
                             <svg className="m-auto w-[17px]" role="presentation" viewBox="0 0 16 14">
                               <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
@@ -317,73 +307,69 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
           }
           </div>
         </div>
-        <div className={`${accountView} ${accountPosition} transition-all duration-200 w-full -z-10 absolute top-[51px] sm:hidden`} style={{ height: 'calc(100vh - 91px)' }}>
+        <div className={`${accountView} ${accountPosition} transition-all duration-500 w-full -z-10 absolute top-[51px] sm:hidden`} style={{ height: 'calc(100vh - 91px)' }}>
           <div className='w-full px-4 ml-auto mr-auto'>
             <div className='ml-auto h-fit flex w-full 400:w-96'>
-              <AccountLogin account={account} accountOpacity={accountOpacity} setAccount={setAccount} setAccountPc={setAccountPc} setAccountOpacity={setAccountOpacity} setAccountView={setAccountView} setAccountPosition={setAccountPosition} />
+              <AccountLogin account={account} setAccount={setAccount} setAccountPc={setAccountPc} setAccountView={setAccountView} setAccountPosition={setAccountPosition} />
             </div>
             <div onClick={() => {
-              setAccountOpacity('opacity-0')
-              setAccountPosition('-mt-[30px]')
+              setAccountPosition('-mt-[360px]')
               setTimeout(() => {
                 setAccountView('hidden')
-              }, 200)
+              }, 500)
             }} className='h-full w-full' />
           </div>
         </div>
         <div onClick={() => {
           if (accountPc) {
-            setAccountOpacity('opacity-0')
-            setAccountPosition('-mt-[30px]')
+            setAccountPosition('-mt-[360px]')
             setTimeout(() => {
               setAccountView('hidden')
-            }, 200)
+            }, 500)
           }
-        }} className={`hidden ${accountPosition} w-full -z-10 transition-all duration-200 absolute top-[53px] sm:${accountView}`} style={{ height: 'calc(100vh - 91px)' }}>
+        }} className={`hidden ${accountPosition} w-full -z-10 transition-all duration-300 absolute top-[53px] sm:${accountView}`} style={{ height: 'calc(100vh - 91px)' }}>
           <div className='w-[1770px] ml-auto mr-auto'>
             <div className='ml-auto h-fit flex w-full 400:w-96'>
-              <AccountLogin account={account} accountOpacity={accountOpacity} setAccount={setAccount} setAccountPc={setAccountPc} setAccountOpacity={setAccountOpacity} setAccountView={setAccountView} setAccountPosition={setAccountPosition} />
+              <AccountLogin account={account} setAccount={setAccount} setAccountPc={setAccountPc} setAccountView={setAccountView} setAccountPosition={setAccountPosition} />
             </div>
           </div>
         </div>
-        <div className={`${cartView} ${cartPosition} transition-all duration-200 w-full -z-10 absolute top-[51px] sm:hidden`} style={{ height: 'calc(100vh - 91px)' }}>
+        <div className={`${cartView} ${cartPosition} transition-all duration-300 w-full -z-10 absolute top-[51px] sm:hidden`} style={{ height: 'calc(100vh - 91px)' }}>
           <div className='w-full px-4 ml-auto mr-auto'>
             <div className='ml-auto h-fit flex w-full sm:w-96'>
-              <NavbarCart setCartView={setCartView} cartOpacity={cartOpacity} setCartOpacity={setCartOpacity} setCartPosition={setCartPosition} />
+              <NavbarCart setCartView={setCartView} setCartPosition={setCartPosition} />
             </div>
             <div onClick={() => {
-              setCartOpacity('opacity-0')
-              setCartPosition('-mt-[30px]')
+              setCartPosition('-mt-[180px]')
               setTimeout(() => {
                 setCartView('hidden')
-              }, 200)
+              }, 300)
             }} className='h-full w-full' />
           </div>
         </div>
         <div onClick={() => {
           if (cartPc) {
-            setCartOpacity('opacity-0')
-            setCartPosition('-mt-[30px]')
+            setCartPosition('-mt-[180px]')
             setTimeout(() => {
               setCartView('hidden')
-            }, 200)
+            }, 300)
           }
-        }} className={`hidden ${cartPosition} -z-10 transition-all duration-200 absolute top-[53px] w-full sm:${cartView}`} style={{ height: 'calc(100vh - 91px)' }}>
+        }} className={`hidden ${cartPosition} -z-10 transition-all duration-300 absolute top-[53px] w-full sm:${cartView}`} style={{ height: 'calc(100vh - 91px)' }}>
           <div className='w-[1850px] ml-auto mr-auto'>
             <div className='ml-auto h-fit flex w-full sm:w-96'>
-              <NavbarCart setCartView={setCartView} setCartPc={setCartPc} cartOpacity={cartOpacity} setCartOpacity={setCartOpacity} setCartPosition={setCartPosition} />
+              <NavbarCart setCartView={setCartView} setCartPc={setCartPc} setCartPosition={setCartPosition} />
             </div>
           </div>
         </div>
         <div className={`${index} w-full absolute z-30 justify-between 530:hidden`} style={{ top: '51px', height: 'calc(100vh - 49px)' }}>
           <div className={`${menu} shadow-md transition-all duration-300 bg-white overflow-hidden dark:bg-neutral-900`}>
-            <Link className={`${menuButtons} transition-opacity duration-200 mb-4 font-montserrat tracking-widest font-medium text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
+            <Link className={`${menuButtons} transition-opacity duration-200 mb-4 font-medium text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
               setMenu('w-0 pl-0 pr-0 pt-6 pb-6')
               setMenuButtons('opacity-0')
               setTimeout(() => {
                 setIndex('hidden')
               }, 150)
-            }} href='/'>INICIO<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
+            }} href='/'>Inicio<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
             <div className={`${menuButtons} transition-opacity duration-200 border-b mb-4 min-w-[250px] dark:border-neutral-600`}>
               <div className={`flex justify-between pb-2`}>
                 <Link onClick={() => {
@@ -392,7 +378,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                   setTimeout(() => {
                     setIndex('hidden')
                   }, 150)
-                }} className='tracking-widest font-montserrat font-medium text-[#1c1b1b] w-full dark:text-white' href='/tienda'>TIENDA</Link>
+                }} className='font-medium text-[#1c1b1b] w-full dark:text-white' href='/tienda'>Tienda</Link>
                 {
                   categories.length
                     ? <button onClick={() => rotate === 'rotate-90' ? setRotate('-rotate-90') : setRotate('rotate-90')}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className={`${rotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></button>
@@ -417,27 +403,27 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         }, 150)
                       }} href={`/tienda/${category.slug}`} className='flex gap-2 mb-2' key={category._id}>
                         <Image className='w-28 rounded-md h-auto' src={category.image?.url!} width={112} height={112} alt={`Categoria ${category.category}`} />
-                        <p className='mt-auto tracking-widest text-[#1c1b1b] font-medium mb-auto dark:text-white'>{category.category.toUpperCase()}</p>
+                        <p className='mt-auto text-[#1c1b1b] font-medium mb-auto dark:text-white'>{category.category}</p>
                       </Link>
                     ))
                     : ''
                 }
               </div>
             </div>
-            <Link className={`${menuButtons} transition-opacity duration-200 mb-4 font-montserrat tracking-widest text-[#1c1b1b] font-medium flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
+            <Link className={`${menuButtons} transition-opacity duration-200 mb-4 text-[#1c1b1b] font-medium flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
               setMenu('w-0 pl-0 pr-0 pt-6 pb-6')
               setMenuButtons('opacity-0')
               setTimeout(() => {
                 setIndex('hidden')
               }, 140)
-            }} href='/blog'>BLOG<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
-            <Link className={`${menuButtons} transition-opacity duration-200 mb-4 font-montserrat tracking-widest text-[#1c1b1b] font-medium flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
+            }} href='/blog'>Blog<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
+            <Link className={`${menuButtons} transition-opacity duration-200 mb-4 text-[#1c1b1b] font-medium flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
               setMenu('w-0 pl-0 pr-0 pt-6 pb-6')
               setMenuButtons('opacity-0')
               setTimeout(() => {
                 setIndex('hidden')
               }, 140)
-            }} href='/contacto'>CONTACTO<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
+            }} href='/contacto'>Contacto<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
           </div>
           <div className='w-1/6' onClick={() => {
             setMenu('w-0 pl-0 pr-0 pt-6 pb-6')
@@ -475,7 +461,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         setTimeout(() => {
                           setNavCategories('hidden')
                         }, 200)
-                      }} className='m-auto tracking-widest font-medium text-[#1c1b1b] dark:text-white'>{category.category.toUpperCase()}</Link>
+                      }} className='m-auto font-medium text-[#1c1b1b] dark:text-white'>{category.category}</Link>
                     </div>
                   ))}
                 </div>

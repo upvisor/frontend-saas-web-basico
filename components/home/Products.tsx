@@ -6,7 +6,7 @@ export default function Products({ products, design }: { products: IProduct[], d
   return (
     <div className="w-full flex px-4 mb-8">
       <div className="w-full max-w-[1600px] m-auto flex flex-col gap-4">
-        <H2>{design.home.products.title && design.home.products.title !== '' ? design.home.products.title : 'PRODUCTOS RECOMENDADOS'}</H2>
+        <H2>{design.home.products.title && design.home.products.title !== '' ? design.home.products.title : 'Productos recomendados'}</H2>
         <div>
           <SliderProducts products={products} />
         </div>

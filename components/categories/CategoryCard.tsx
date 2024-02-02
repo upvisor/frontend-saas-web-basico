@@ -17,9 +17,9 @@ export default function CategoryCard({ category, title }: { category: ICategory,
       <div className="flex flex-col gap-2 m-auto lg:m-0 w-1/2 lg:w-full">
         {
           title === 'H2'
-            ? <H2>{category.category.toUpperCase()}</H2>
+            ? <H2>{category.category}</H2>
             : title === 'H3'
-              ? <H3>{category.category.toUpperCase()}</H3>
+              ? <H3>{category.category}</H3>
               : ''
         }
         <P>{category.description}</P>

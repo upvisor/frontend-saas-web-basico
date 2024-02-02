@@ -11,12 +11,10 @@ import { H3 } from '../ui'
 interface Props {
   setCartView: any
   setCartPc?: any
-  cartOpacity: any
-  setCartOpacity: any
   setCartPosition: any
 }
 
-export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacity, setCartOpacity, setCartPosition }) => {
+export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPosition }) => {
 
   const {cart, setCart} = useContext(CartContext)
 
@@ -25,8 +23,8 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
   const user = session?.user as { firstName: string, lastName: string, email: string, _id: string, cart: ICartProduct[] }
 
   return (
-    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto ${cartOpacity} transition-opacity duration-200 flex flex-col gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
-      <H3 config='border-b text-center pb-2'>CARRITO</H3>
+    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto flex flex-col gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
+      <H3 config='border-b text-center pb-2'>Carrito</H3>
       {
         cart?.length
           ? <>
@@ -35,21 +33,19 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
                 <div key={product.slug} className='flex gap-1 justify-between mb-2'>
                   <div className='flex gap-2'>
                     <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
-                      setCartOpacity('opacity-0')
-                      setCartPosition('-mt-[30px]')
+                      setCartPosition('-mt-[180px]')
                       setTimeout(() => {
                         setCartView('hidden')
-                      }, 200)
+                      }, 300)
                     }}>
                       <Image src={product.image} alt={product.name} width={96} height={96} className='w-24 h-24 mt-auto mb-auto' />
                     </Link>
                     <div className='mt-auto mb-auto'>
                       <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
-                        setCartOpacity('opacity-0')
-                        setCartPosition('-mt-[30px]')
+                        setCartPosition('-mt-[180px]')
                         setTimeout(() => {
                           setCartView('hidden')
-                        }, 200)
+                        }, 300)
                       }}><p className='text-[16px] text-[#1B1B1B] dark:text-neutral-100'>{product.name}</p></Link>
                       <div className='flex gap-1 mb-1'>
                         {
@@ -63,7 +59,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
                             : ''
                         }
                       </div>
-                      <div className='flex border rounded border-button w-fit'>
+                      <div className='flex border rounded-md border-button w-fit'>
                         {
                           product.quantity > 1
                             ? <button className='pt-1 pb-1 pl-3 pr-2 text-button text-sm' onClick={async () => {
@@ -127,31 +123,28 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, cartOpacit
               ))
             }
             <div className='mt-4'>
-              <Link className='py-2 rounded border border-button font-medium text-sm transition-colors duration-200 bg-button text-white hover:bg-white hover:text-button hover:dark:bg-transparent' onClick={() => {
-                setCartOpacity('opacity-0')
-                setCartPosition('-mt-[30px]')
+              <Link className='py-2 rounded-md border border-button transition-colors duration-200 bg-button text-white hover:bg-white hover:text-button hover:dark:bg-transparent' onClick={() => {
+                setCartPosition('-mt-[180px]')
                 setTimeout(() => {
                   setCartView('hidden')
-                }, 200)
-              }} href='/finalizar-compra'><button className='w-full tracking-wide'>FINALIZAR COMPRA</button></Link>
+                }, 300)
+              }} href='/finalizar-compra'><button className='w-full'>Finalizar compra</button></Link>
               <Link href='/carrito' onClick={() => {
-                setCartOpacity('opacity-0')
-                setCartPosition('-mt-[30px]')
+                setCartPosition('-mt-[180px]')
                 setTimeout(() => {
                   setCartView('hidden')
-                }, 200)
+                }, 300)
               }}><button className='w-full mt-4 underline text-[#444444] dark:text-neutral-400'>Ir al carrito</button></Link>
             </div>
           </>
           : <>
             <p className='dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
-            <Link className='py-1.5 border border-main rounded transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
-              setCartOpacity('opacity-0')
-              setCartPosition('-mt-[30px]')
+            <Link className='py-1.5 border border-main rounded-md transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
+              setCartPosition('-mt-[180px]')
               setTimeout(() => {
                 setCartView('hidden')
-              }, 200)
-            }}><button className='w-full tracking-wide font-medium text-sm'>IR A LA TIENDA</button></Link>
+              }, 300)
+            }}><button className='w-full'>Ir a la tienda</button></Link>
           </>
       }
     </div>

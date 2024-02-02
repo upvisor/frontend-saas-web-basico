@@ -11,13 +11,11 @@ interface Props {
     account: any
     setAccount: any
     setAccountPc: any
-    accountOpacity: string
-    setAccountOpacity: any
     setAccountView: any
     setAccountPosition: any
 }
 
-export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountPc, accountOpacity, setAccountOpacity, setAccountView, setAccountPosition }) => {
+export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountPc, setAccountView, setAccountPosition }) => {
 
   const [login, setLogin] = useState({
     email: '',
@@ -52,11 +50,10 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
     if (res?.error) return setError(res.error)
     if (res?.ok) {
       setLogin({ email: '', password: '' })
-      setAccountOpacity('opacity-0')
-      setAccountPosition('-mt-[30px]')
+      setAccountPosition('-mt-[360px]')
       setTimeout(() => {
         setAccountView('hidden')
-      }, 200)
+      }, 500)
       return router.push('/cuenta')
     }
   }
@@ -77,11 +74,10 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
     if (res?.error) return setError(res.error)
     if (res?.ok) {
       setRegister({ firstName: '', lastName: '', email: '', password: '', confirmPassrword: '', marketing: false })
-      setAccountOpacity('opacity-0')
-      setAccountPosition('-mt-[30px]')
+      setAccountPosition('-mt-[360px]')
       setTimeout(() => {
         setAccountView('hidden')
-      }, 200)
+      }, 500)
       return router.push('/cuenta')
     } 
   }
@@ -93,7 +89,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
   }
 
   return (
-    <div onMouseEnter={() => setAccountPc(false)} onMouseLeave={() => setAccountPc(true)} className={`ml-auto ${accountOpacity} transition-opacity duration-200 flex flex-col gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
+    <div onMouseEnter={() => setAccountPc(false)} onMouseLeave={() => setAccountPc(true)} className={`ml-auto flex flex-col gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
       {
         error !== ''
           ? (
@@ -103,17 +99,16 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
           )
           : ''
       }
-      <H3 config='text-center border-b pb-2'>CUENTA</H3>
+      <H3 config='text-center border-b pb-2'>Cuenta</H3>
       {
         status === 'authenticated'
           ? (
             <>
               <Link href='/cuenta' onClick={(e: any) => {
-                setAccountOpacity('opacity-0')
-                setAccountPosition('-mt-[30px]')
+                setAccountPosition('-mt-[360px]')
                 setTimeout(() => {
                   setAccountView('hidden')
-                }, 200)
+                }, 500)
               }} className='p-1.5 hover:bg-neutral-100 rounded-md transition-colors duration-100 dark:hover:bg-neutral-800'>Ver mi cuenta</Link>
               <button onClick={handleLogout} className='bg-main font-medium border border-main tracking-wide transition-all duration-200 text-sm text-white h-10 dark:bg-neutral-800 hover:bg-white hover:text-main'>{closeLoading ? <Spinner2/> : 'CERRAR SESIÓN'}</button>
             </>
@@ -142,7 +137,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                         <p className='text-sm'>Contraseña</p>
                         <input type='password' placeholder='*******' onChange={(e: ChangeEvent<HTMLInputElement>) => setLogin({...login, password: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
                       </div>
-                      <button type='submit' className='bg-main font-medium tracking-wide border rounded border-main transition-all duration-200 text-white h-10 text-sm hover:bg-white hover:text-main dark:bg-neutral-700 dark:border-neutral-700 hover:dark:bg-transparent hover:dark:text-neutral-500'>{loginLoading ? <Spinner2 /> : 'INGRESAR'}</button>
+                      <button type='submit' className='bg-main border rounded-md border-main transition-all duration-200 text-white h-10 hover:bg-white hover:text-main dark:bg-neutral-700 dark:border-neutral-700 hover:dark:bg-transparent hover:dark:text-neutral-500'>{loginLoading ? <Spinner2 /> : 'Ingresar'}</button>
                       <Link href='/' className='text-sm'>Olvide mi contraseña</Link>
                     </form>
                   )
@@ -172,7 +167,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                         <input type='checkbox' checked={register.marketing} onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({ ...register, marketing: e.target.checked ? true : false })} />
                         <p className='text-sm'>Suscribirse a nuestra lista</p>
                       </div>
-                      <button type='submit' className='bg-main font-medium rounded tracking-wide transition-all duration-200 border border-main text-white h-10 text-sm dark:bg-neutral-700 hover:bg-white hover:text-main dark:hover:bg-transparent dark:hover:border-neutral-700 dark:hover:text-neutral-500'>{registerLoading ? <Spinner2 /> : 'REGISTRARSE'}</button>
+                      <button type='submit' className='bg-main rounded-md transition-all duration-200 border border-main text-white h-10 dark:bg-neutral-700 hover:bg-white hover:text-main dark:hover:bg-transparent dark:hover:border-neutral-700 dark:hover:text-neutral-500'>{registerLoading ? <Spinner2 /> : 'Registrarse'}</button>
                     </form>
                   )
               }

@@ -34,7 +34,7 @@ export default async function CategoryPage({ params }: { params: { category: str
       <div className="w-full flex">
         <div className={`${category.banner?.url ? 'h-64 xl:h-80 2xl:h-96 text-white' : 'pt-10 pb-2'} w-full max-w-[1600px] m-auto flex flex-col gap-2`}>
           <div className="m-auto flex flex-col gap-2">
-            <H1 config="text-center">{category.category.toUpperCase()}</H1>
+            <H1 config="text-center">{category.category}</H1>
             <p className="text-center">{category.description}</p>
           </div>
         </div>

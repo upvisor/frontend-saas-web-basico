@@ -41,8 +41,8 @@ export default function Slider({ design }: { design: IDesign }) {
               <SwiperSlide>
                 <div className={`h-[450px] bg-gradient-to-r from-sky-500 to-indigo-500 pt-20 pb-20 flex md:h-[550px] 2xl:h-[700px]`}>
                   <div className='p-4 w-[1600px] m-auto'>
-                  <H1 config="text-white">ENCUENTRA NUESTROS ULTIMOS PRODUCTOS</H1>
-                    <Link href='/tienda'><Button>COMPRAR AHORA</Button></Link>
+                  <H1 config="text-white">Encuentra nuestros ultimos productos</H1>
+                  <Link href='/tienda'><Button>Comprar ahora</Button></Link>
                   </div>
                 </div>
               </SwiperSlide>

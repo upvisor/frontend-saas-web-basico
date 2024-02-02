@@ -43,7 +43,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
       </Head>
       <div className='p-4 flex'>
         <div className='m-auto w-[1600px] flex flex-col gap-4'>
-          <H1>CARRITO</H1>
+          <H1>Carrito</H1>
           <div className='block gap-8 xl:flex'>
             <div className='w-full xl:w-7/12'>
               {
@@ -78,7 +78,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                         </div>
                       </div>
                       <div className='flex gap-4'>
-                        <div className='flex border rounded border-button w-fit h-fit mt-auto mb-auto'>
+                        <div className='flex border rounded-md border-button w-fit h-fit mt-auto mb-auto'>
                           {
                             product.quantity > 1
                             ? <button className='pt-1 pb-1 pl-3 pr-2 text-button text-sm' onClick={async () => {
@@ -178,7 +178,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                         }
                       </div>
                       <div className='mt-3 ml-auto w-full flex'>
-                        <LinkButton config='w-full text-[16px]' url={'/finalizar-compra'}>FINALIZAR COMPRA</LinkButton>
+                        <LinkButton config='w-full text-[16px]' url={'/finalizar-compra'}>Finalizar compra</LinkButton>
                       </div>
                     </div>
                   </div>
@@ -190,7 +190,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
       </div>
       {
         productsFiltered.length
-            ? <ProductList products={ productsFiltered } title={design.cart?.title && design.cart?.title !== '' ? design.cart.title : 'PRODUCTOS RECOMENDADOS'} />
+            ? <ProductList products={ productsFiltered } title={design.cart?.title && design.cart?.title !== '' ? design.cart.title : 'Productos recomendados'} />
             : ''
       }
     </>

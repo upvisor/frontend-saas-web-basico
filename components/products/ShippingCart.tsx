@@ -73,7 +73,7 @@ export const ShippingCart: React.FC<Props> = ({ setShippingCost }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <H2>CALCULA LOS COSTOS DE ENVÍO</H2>
+      <H2>Calcula los costos de envío</H2>
       <div className='flex flex-col gap-2'>
         <select className='text-sm border p-1 rounded focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-500 dark:text-white' onChange={regionChange}>
           <option>Seleccionar Región</option>

@@ -21,7 +21,7 @@ export const ItemCounter: React.FC<Props> = ({ currentValue, updatedQuantity, ma
   }
   
   return (
-    <div className='border rounded border-button w-fit flex bg-white dark:bg-transparent'>
+    <div className='border rounded-md border-button w-fit flex bg-white dark:bg-transparent'>
       <button className='pl-3 pr-3 text-button text-sm' onClick={ () => addOrRemove(-1) }>-</button>
       <span className='mt-auto mb-auto text-button w-4 text-center text-sm'>{ currentValue }</span>
       <button className='pl-3 pr-3 text-button text-sm' onClick={ () => addOrRemove(+1) }>+</button>

@@ -18,7 +18,7 @@ export const OtherProductList: React.FC<Props> = ({ products, title }) => {
   return (
     <div className='flex w-full p-4'>
       <div className='m-auto w-full max-w-[1600px] relative items-center'>
-        <H2>{ title?.toUpperCase() }</H2>
+        <H2 config='mb-4'>{ title }</H2>
         <Swiper
           className={styles.mySwiper}
           slidesPerView={window.innerWidth > 1100 ? 4 : window.innerWidth > 850 ? 3 : 2}

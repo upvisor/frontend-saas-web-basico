@@ -297,7 +297,7 @@ const CheckOut = () => {
         }
       }} className={`${contactView} ${contactOpacity} transition-opacity duration-200 w-full h-full fixed z-50 bg-black/20`}>
         <div onMouseEnter={() => setContactMouse(true)} onMouseLeave={() => setContactMouse(false)} className={`m-auto p-6 bg-white flex flex-col gap-4 rounded-md shadow-md max-w-[500px] w-full`}>
-          <H2>EDITAR DATOS DE CONTACTO</H2>
+          <H2>Editar datos de contacto</H2>
           <div className='flex gap-2'>
             <div className='flex flex-col w-1/2 gap-2'>
               <p className='text-sm'>Nombre</p>
@@ -333,7 +333,7 @@ const CheckOut = () => {
         }
       }} className={`${shippingView} ${shippingOpacity} transition-opacity duration-200 w-full h-full fixed z-50 bg-black/20`}>
         <div onMouseEnter={() => setShippingMouse(true)} onMouseLeave={() => setShippingMouse(false)} className={`m-auto p-6 bg-white flex flex-col gap-4 rounded-md shadow-md max-w-[500px] w-full`}>
-          <H2>EDITAR DIRECCIÓN DE ENVÍO</H2>
+          <H2>Editar dirección de envío</H2>
           <div className='flex flex-col gap-2'>
             <p className='text-sm'>Dirección</p>
             <input type='text' placeholder='Dirección' name='address' onChange={inputChange} value={sell.address} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
@@ -362,7 +362,7 @@ const CheckOut = () => {
         }}>{<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className={`${rotate} transition-all duration-150 m-auto w-4 text-lg text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>} resumen del pedido</button>
         <div ref={detailsRef} className={`mb-2`} style={{ maxHeight: `${details}px`, overflow: 'hidden', transition: 'max-height 0.2s' }}>
           <div className='border-b mb-2 flex flex-col gap-2 pb-1 dark:border-neutral-700'>
-            <H2>CARRITO</H2>
+            <H2>Carrito</H2>
             {
               cart?.length !== 0
                 ? cart?.map(product => (
@@ -393,10 +393,10 @@ const CheckOut = () => {
             }
           </div>
           <div className='pb-3 border-b flex flex-col gap-2 dark:border-neutral-700'>
-            <H2>CUPON DE DESCUENTO</H2>
+            <H2>Cupon de descuento</H2>
             <div className='flex gap-2'>
               <input type='text' placeholder='Cupon' className='border text-[14px] p-1.5 rounded w-52 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-              <Button2>AGREGAR</Button2>
+              <Button2>Agregar</Button2>
             </div>
           </div>
           <div className='mt-2 mb-2 pb-2 border-b dark:border-neutral-700'>
@@ -418,13 +418,13 @@ const CheckOut = () => {
       <div className='mt-28 flex p-4 xl:mt-0'>
         <form className='w-[1600px] m-auto block xl:flex' id='formBuy'>
           <div className='w-full flex flex-col gap-6 pr-0 xl:w-7/12 xl:pr-8'>
-            <H1>FINALIZAR COMPRA</H1>
+            <H1>Finalizar compra</H1>
             {
               status === 'authenticated'
                 ? (
                   <>
                     <div className='flex flex-col gap-2'>
-                      <H2>INFORMACIÓN DE CONTACTO</H2>
+                      <H2>Información de contacto</H2>
                       <div className='bg-neutral-100 p-4 flex gap-2 justify-between dark:bg-neutral-800'>
                         <div className='flex flex-col gap-2'>
                           <p>Nombre: {sell?.firstName ? sell.firstName : 'Se necesita ingresar un nombre'}</p>
@@ -442,7 +442,7 @@ const CheckOut = () => {
                       </div>
                     </div>
                     <div className='flex flex-col gap-2'>
-                      <H2>DIRECCIÓN DE ENVÍO</H2>
+                      <H2>Dirección de envío</H2>
                       <div className='bg-neutral-100 p-4 flex gap-2 justify-between dark:bg-neutral-800'>
                         <div className='flex flex-col gap-2'>
                           <p>Dirección: {sell?.address ? sell.address : 'Se nececita una dirección'}</p>
@@ -464,7 +464,7 @@ const CheckOut = () => {
                 : (
                   <>
                     <div className='flex flex-col gap-4'>
-                      <H2>INFORMACIÓN DE CONTACTO</H2>
+                      <H2>Información de contacto</H2>
                       <div className='flex flex-col gap-2'>
                         <p className='text-sm'>Email</p>
                         <input type='email' placeholder='Email' name='email' onChange={inputChange} value={sell.email} className='border p-1.5 rounded w-full text-sm focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
@@ -475,7 +475,7 @@ const CheckOut = () => {
                       </div>
                     </div>
                     <div className='flex flex-col gap-4'>
-                      <H2>DIRECCIÓN DE ENVÍO</H2>
+                      <H2>Dirección de envío</H2>
                       <div className='flex gap-2'>
                         <div className='flex flex-col gap-2 w-1/2'>
                           <p className='text-sm'>Nombre</p>
@@ -510,7 +510,7 @@ const CheckOut = () => {
               shipping !== undefined
                 ? (
                   <div className='flex flex-col gap-4'>
-                    <H2>ENVÍO</H2>
+                    <H2>Envío</H2>
                     <div className='flex flex-col gap-2'>
                       {
                         shipping.map(item => (
@@ -532,7 +532,7 @@ const CheckOut = () => {
               sell.shippingMethod
                 ? (
                   <div className='flex flex-col gap-4'>
-                    <H2>PAGO</H2>
+                    <H2>Pago</H2>
                     <div className='flex flex-col gap-2'>
                       <div className='flex gap-2 p-2 border rounded-md dark:border-neutral-700'>
                         <input type='radio' name='pay' value='WebPay Plus' onChange={inputChange} />
@@ -561,27 +561,27 @@ const CheckOut = () => {
               <div className='mt-auto mb-auto'><Link href='/carrito'><span className='flex gap-2 text-sm'><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" className="mt-auto mb-auto" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"></path></svg>Regresar al carrito</span></Link></div>
               {
                 sell.pay === ''
-                  ? <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 tracking-widest font-medium text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                  ? <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
                   : sell.pay === 'WebPay Plus'
                     ? (
                       <form action={url} method="POST" id='formTransbank'>
                         <input type="hidden" name="token_ws" value={token} />
-                        <button onClick={transbankSubmit} className='w-28 h-10 bg-button transition-all duration-200 border rounded border-button hover:bg-transparent tracking-widest font-medium text-white cursor-pointer hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        <button onClick={transbankSubmit} className='w-28 h-10 bg-button transition-all duration-200 border rounded border-button hover:bg-transparent text-white cursor-pointer hover:text-button'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
                       </form>
                     )
                     : sell.pay === 'MercadoPago'
                       ? link !== ''
-                        ? <button onClick={mercadoSubmit} className='w-28 h-10 rounded bg-button tracking-widest font-medium transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
-                        : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 tracking-widest rounded font-medium bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        ? <button onClick={mercadoSubmit} className='w-28 h-10 rounded bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
                       : sell.pay === 'Pago en la entrega'
-                        ? <button onClick={handleSubmit} className='w-28 h-10 rounded bg-button tracking-widest font-medium transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
-                        : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 tracking-widest rounded font-medium bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        ? <button onClick={handleSubmit} className='w-28 h-10 rounded bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
               }
             </div>
           </div>
           <div className='w-5/12 h-fit border rounded-lg border-[#F5F5F5] p-6 hidden sticky top-28 bg-[#F5F5F5] dark:border-neutral-700 dark:bg-neutral-800 xl:block'>
             <div className='mb-2 flex flex-col gap-2 pb-2 border-b dark:border-neutral-700'>
-              <H2>CARRITO</H2>
+              <H2>Carrito</H2>
               {
                 cart?.length !== 0
                   ? cart?.map(product => (
@@ -612,10 +612,10 @@ const CheckOut = () => {
               }
             </div>
             <div className='mb-2 flex flex-col gap-2 pb-3 border-b dark:border-neutral-700'>
-              <H2>CUPON DE DESCUENTO</H2>
+              <H2>Cupon de descuento</H2>
               <div className='flex gap-2'>
                 <input type='text' placeholder='Cupon' className='border p-1 rounded text-[14px] w-72 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                <Button2>AGREGAR</Button2>
+                <Button2>Agregar</Button2>
               </div>
             </div>
             <div className='mb-2 pb-2 border-b dark:border-neutral-700'>

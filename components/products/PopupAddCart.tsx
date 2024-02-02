@@ -29,10 +29,10 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
       }
     }} className={`fixed ${popup.view} ${popup.opacity} transition-opacity duration-200 top-0 p-4 z-50 bg-black/30 flex w-full h-full`}>
         <div onMouseMove={() => setPopup({ ...popup, mouse: true })} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className="p-6 w-full overflow-y-auto max-h-full max-w-[700px] shadow-md bg-white flex flex-col gap-4 rounded-xl m-auto md:p-8">
-          <H3>PRODUCTO AÑADIDO AL CARRITO</H3>
+          <H3>Producto añadido al carrito</H3>
           <div className="flex gap-4 flex-col sm:flex-row">
             <div className="w-full flex gap-2 sm:w-1/2">
-              <Image className="w-32" src={product.images[0].url} alt={`Imagen product ${product.name}`} width={500} height={500} />
+              <Image className="w-32 rounded" src={product.images[0].url} alt={`Imagen product ${product.name}`} width={500} height={500} />
               <div className="flex flex-col gap-0 my-auto">
                 <p>{product.name}</p>
                 <div className="flex gap-2">
@@ -46,7 +46,7 @@ export const PopupAddCart: React.FC<Props> = ({ popup, setPopup, product, produc
               </div>
             </div>
             <div className="w-full flex flex-col gap-3 my-auto sm:w-1/2">
-              <LinkButton url={"/finalizar-compra"} config={'text-sm'}>IR A PAGAR</LinkButton>
+              <LinkButton url={"/finalizar-compra"}>Ir a pagar</LinkButton>
               <button onClick={(e: any) => {
                 e.preventDefault()
                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })

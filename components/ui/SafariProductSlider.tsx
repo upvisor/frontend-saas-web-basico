@@ -30,7 +30,7 @@ export const SafariProductSlider: React.FC<Props> = ({ images }) => {
           images.map(image => {
             return (
               <SwiperSlide key={ image.public_id }>
-                <Image src={image.url} alt='Imagen producto' width={650} height={650} className={`m-auto`} />
+                <Image src={image.url} alt='Imagen producto' width={650} height={650} className={`m-auto w-full h-auto max-w-2xl rounded-2xl`} />
               </SwiperSlide>
             )
           })
