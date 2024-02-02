@@ -27,7 +27,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
   }
 
   return (
-      <div className='m-auto p-4 block bg-white rounded-md gap-2 w-[1600px] justify-around dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:flex' style={{ boxShadow: '0 0px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' }}>
+      <div className='m-auto p-4 block bg-white gap-2 w-full border-t justify-around dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:flex'>
         <div className='flex mb-2 justify-around gap-2 sm:mb-0'>
           <Image className='w-20 h-20 mt-auto mb-auto' src={product.images[0].url} alt={product.name} width={80} height={80} />
           <div className='mt-auto mb-auto'>

@@ -29,7 +29,6 @@ export default function PageProduct ({ product, design, products }: { product: I
   const [descriptionRotate, setDescriptionRotate] = useState('-rotate-90')
   const [returnView, setReturnView] = useState(0)
   const [returnRotate, setReturnRotate] = useState('rotate-90')
-  const [detailsOpacity, setDetailsOpacity] = useState('opacity-0')
   const [detailsPosition, setDetailsPosition] = useState('-bottom-44')
   const [productsFiltered, setProductsFiltered] = useState<IProduct[]>([])
   const [popup, setPopup] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
@@ -49,16 +48,12 @@ export default function PageProduct ({ product, design, products }: { product: I
   }, [])
     
   const filterProducts = () => {
-    let pruebaSet: Set<IProduct> = new Set();
-    
+    let pruebaSet: Set<IProduct> = new Set()
     product.tags.forEach(tag => {
       const filteredProducts = products.filter(prod => prod.tags.includes(tag))
       filteredProducts.forEach(prod => pruebaSet.add(prod))
-    });
-  
+    })
     const uniqueProducts = Array.from(pruebaSet)
-    console.log(uniqueProducts)
-    console.log(product)
     const prueba = uniqueProducts.filter(prod => prod._id !== product._id)
     setProductsFiltered(prueba)
   }
@@ -75,10 +70,8 @@ export default function PageProduct ({ product, design, products }: { product: I
     if (addButtonRef.current) {
       const buttonRect = addButtonRef.current.getBoundingClientRect()
       if (buttonRect.top > 0 && buttonRect.bottom < window.innerHeight) {
-        setDetailsOpacity('opacity-0')
         setDetailsPosition('-bottom-44')
       } else {
-        setDetailsOpacity('opacity-1')
         setDetailsPosition('-bottom-1')
       }
     }
@@ -120,7 +113,7 @@ export default function PageProduct ({ product, design, products }: { product: I
       {
         product?.stock > 0
           ? (
-            <div className={`${detailsOpacity} ${detailsPosition} flex transition-all duration-200 decoration-slate-200 fixed w-full z-30 p-4`}>
+            <div className={`${detailsPosition} flex transition-all duration-300 decoration-slate-200 fixed w-full z-30`}>
               <ProductDetails product={product} setTempCartProduct={setTempCartProduct} tempCartProduct={tempCartProduct} popup={popup} setPopup={setPopup} />
             </div>
           )
@@ -346,57 +339,62 @@ export default function PageProduct ({ product, design, products }: { product: I
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-20 my-20 md:gap-28 md:my-28 lg:gap-36 lg:my-36 sm:p-4">
-        {
-          product.informations?.map((information, index) => {
-            if (information.align === 'Izquierda') {
-              return (
-                <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1600px] sm:flex-row">
-                  <div className="w-full flex sm:w-1/2 sm:hidden">
-                    <Image className="m-auto w-full sm:w-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
-                  </div>
-                  <div className="flex flex-col gap-2 w-full p-4 sm:p-0 m-auto sm:w-1/2">
-                    {
-                      information.title !== ''
-                        ? <H2>{information.title}</H2>
-                        : ''
-                    }
-                    {
-                      information.description !== ''
-                        ? <P>{information.description}</P>
-                        : ''
-                    }
-                  </div>
-                  <div className="w-full hidden sm:w-1/2 sm:flex">
-                    <Image className="m-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
-                  </div>
-                </div>
-              )
-            } else {
-              return (
-                <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1600px] sm:flex-row">
-                  <div className="w-full flex sm:w-1/2">
-                    <Image className="m-auto w-full sm:w-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
-                  </div>
-                  <div className="flex flex-col gap-2 w-full m-auto p-4 sm:p-0 sm:w-1/2">
-                    {
-                      information.title !== ''
-                        ? <H2>{information.title}</H2>
-                        : ''
-                    }
-                    {
-                      information.description !== ''
-                        ? <P>{information.description}</P>
-                        : ''
-                    }
-                  </div>
-                </div>
-              )
-            }
-          })
-        }
-        
-      </div>
+      {
+        (product.informations?.length && product.informations[0].title && product.informations[0].title !== '') !== '' || (product.informations?.length && product.informations[0].description && product.informations[0].description !== '')
+          ? (
+            <div className="flex flex-col gap-20 my-20 md:gap-28 md:my-28 lg:gap-36 lg:my-36 sm:p-4">
+              {
+                product.informations?.map((information, index) => {
+                  if (information.align === 'Izquierda') {
+                    return (
+                      <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1600px] sm:flex-row">
+                        <div className="w-full flex sm:w-1/2 sm:hidden">
+                          <Image className="m-auto w-full sm:w-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
+                        </div>
+                        <div className="flex flex-col gap-2 w-full p-4 sm:p-0 m-auto sm:w-1/2">
+                          {
+                            information.title !== ''
+                              ? <H2>{information.title}</H2>
+                              : ''
+                          }
+                          {
+                            information.description !== ''
+                              ? <P>{information.description}</P>
+                              : ''
+                          }
+                        </div>
+                        <div className="w-full hidden sm:w-1/2 sm:flex">
+                          <Image className="m-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
+                        </div>
+                      </div>
+                    )
+                  } else {
+                    return (
+                      <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1600px] sm:flex-row">
+                        <div className="w-full flex sm:w-1/2">
+                          <Image className="m-auto w-full sm:w-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
+                        </div>
+                        <div className="flex flex-col gap-2 w-full m-auto p-4 sm:p-0 sm:w-1/2">
+                          {
+                            information.title !== ''
+                              ? <H2>{information.title}</H2>
+                              : ''
+                          }
+                          {
+                            information.description !== ''
+                              ? <P>{information.description}</P>
+                              : ''
+                          }
+                        </div>
+                      </div>
+                    )
+                  }
+                })
+              }
+            </div>
+          )
+          : ''
+      }
       <div className='flex p-4'>
         <div className='w-[1600px] m-auto'>
           <H2>EVALUACIONES DE CLIENTES</H2>
