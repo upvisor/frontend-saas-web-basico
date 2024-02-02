@@ -119,11 +119,11 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                 <button onClick={(e: any) => {
                   e.preventDefault()
                   setAccount('Ingresar')
-                }} className={`${account === 'Ingresar' ? 'border-neutral-700' : 'border-white dark:border-neutral-900'} border-b-2 w-1/2 h-10`}>Ingresar</button>
+                }} className={`${account === 'Ingresar' ? 'border-neutral-700' : 'border-white dark:border-neutral-900'} border-b-2 w-1/2 h-10 text-sm lg:text-[16px]`}>Ingresar</button>
                 <button onClick={(e: any) => {
                   e.preventDefault()
                   setAccount('Registrarse')
-                }} className={`${account === 'Registrarse' ? 'border-neutral-700' : 'border-white dark:border-neutral-900'} border-b-2 w-1/2 h-10`}>Registrarse</button>
+                }} className={`${account === 'Registrarse' ? 'border-neutral-700' : 'border-white dark:border-neutral-900'} border-b-2 w-1/2 h-10 text-sm lg:text-[16px]`}>Registrarse</button>
               </div>
               {
                 account === 'Ingresar'

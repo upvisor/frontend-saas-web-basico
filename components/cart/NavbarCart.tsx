@@ -6,7 +6,7 @@ import CartContext from '../../context/cart/CartContext'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
-import { H3 } from '../ui'
+import { H3, P } from '../ui'
 
 interface Props {
   setCartView: any
@@ -142,7 +142,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
             </div>
           </>
           : <>
-            <p className='dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
+            <P>No tienes productos añadidos al carrito</P>
             {
               categories.map(category => (
                 <Link key={category._id} onClick={() => {
@@ -150,7 +150,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                   setTimeout(() => {
                     setCartView('hidden')
                   }, 500)
-                }} className='border p-1 text-center transition-colors duration-200 hover:border-black' href={`/tienda/${category.slug}`}>{category.category}</Link>
+                }} className='border p-1 text-center transition-colors duration-200 hover:border-black text-sm lg:text-[16px]' href={`/tienda/${category.slug}`}>{category.category}</Link>
               ))
             }
             <Link className='py-1.5 border border-main rounded-md transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
