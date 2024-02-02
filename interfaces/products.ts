@@ -19,6 +19,7 @@ export interface IProduct {
   titleSeo?: string
   descriptionSeo?: string
   quantityOffers?: IQuantityOffer[]
+  informations?: IInformation[]
   sku?: string
 
   createdAt: string
@@ -68,4 +69,11 @@ export interface IQuantityOffer {
   _id?: string
   quantity: number
   descount: number
+}
+
+export interface IInformation {
+  title?: string
+  description?: string
+  image: { public_id: string, url: string }
+  align: string
 }
