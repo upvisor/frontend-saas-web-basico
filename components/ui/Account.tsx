@@ -50,7 +50,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
     if (res?.error) return setError(res.error)
     if (res?.ok) {
       setLogin({ email: '', password: '' })
-      setAccountPosition('-mt-[600px]')
+      setAccountPosition('-mt-[400px]')
       setTimeout(() => {
         setAccountView('hidden')
       }, 500)
@@ -74,7 +74,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
     if (res?.error) return setError(res.error)
     if (res?.ok) {
       setRegister({ firstName: '', lastName: '', email: '', password: '', confirmPassrword: '', marketing: false })
-      setAccountPosition('-mt-[600px]')
+      setAccountPosition('-mt-[400px]')
       setTimeout(() => {
         setAccountView('hidden')
       }, 500)
@@ -105,7 +105,7 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
           ? (
             <>
               <Link href='/cuenta' onClick={(e: any) => {
-                setAccountPosition('-mt-[600px]')
+                setAccountPosition('-mt-[400px]')
                 setTimeout(() => {
                   setAccountView('hidden')
                 }, 500)
@@ -143,29 +143,31 @@ export const AccountLogin: React.FC<Props> = ({ account, setAccount, setAccountP
                   )
                   : (
                     <form onSubmit={registerHandleSubmit} className='flex flex-col gap-3'>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Nombre</p>
-                        <input type='text' placeholder='Nombre' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, firstName: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Apellido</p>
-                        <input type='text' placeholder='Apellido' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, lastName: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Email</p>
-                        <input type='text' placeholder='Email' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, email: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Contraseña</p>
-                        <input type='password' placeholder='*******' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, password: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Confirmar contraseña</p>
-                        <input type='password' placeholder='*******' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, confirmPassrword: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <div className='flex gap-2'>
-                        <input type='checkbox' checked={register.marketing} onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({ ...register, marketing: e.target.checked ? true : false })} />
-                        <p className='text-sm'>Suscribirse a nuestra lista</p>
+                      <div className='flex flex-col gap-3 overflow-y-auto max-h-52'>
+                        <div className='flex flex-col gap-2'>
+                          <p className='text-sm'>Nombre</p>
+                          <input type='text' placeholder='Nombre' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, firstName: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                          <p className='text-sm'>Apellido</p>
+                          <input type='text' placeholder='Apellido' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, lastName: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                          <p className='text-sm'>Email</p>
+                          <input type='text' placeholder='Email' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, email: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                          <p className='text-sm'>Contraseña</p>
+                          <input type='password' placeholder='*******' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, password: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                          <p className='text-sm'>Confirmar contraseña</p>
+                          <input type='password' placeholder='*******' onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({...register, confirmPassrword: e.target.value})} className='p-1.5 rounded border text-sm w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                        </div>
+                        <div className='flex gap-2'>
+                          <input type='checkbox' checked={register.marketing} onChange={(e: ChangeEvent<HTMLInputElement>) => setRegister({ ...register, marketing: e.target.checked ? true : false })} />
+                          <p className='text-sm'>Suscribirse a nuestra lista</p>
+                        </div>
                       </div>
                       <button type='submit' className='bg-main rounded-md transition-all duration-200 border border-main text-white h-10 dark:bg-neutral-700 hover:bg-white hover:text-main dark:hover:bg-transparent dark:hover:border-neutral-700 dark:hover:text-neutral-500'>{registerLoading ? <Spinner2 /> : 'Registrarse'}</button>
                     </form>

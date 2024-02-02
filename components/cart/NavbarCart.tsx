@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { ICartProduct } from '../../interfaces'
+import { ICartProduct, ICategory } from '../../interfaces'
 import { NumberFormat, offer } from '../../utils'
 import CartContext from '../../context/cart/CartContext'
 import Image from 'next/image'
@@ -12,9 +12,11 @@ interface Props {
   setCartView: any
   setCartPc?: any
   setCartPosition: any
+  cartRef: any
+  categories: ICategory[]
 }
 
-export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPosition }) => {
+export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPosition, cartRef, categories }) => {
 
   const {cart, setCart} = useContext(CartContext)
 
@@ -23,7 +25,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
   const user = session?.user as { firstName: string, lastName: string, email: string, _id: string, cart: ICartProduct[] }
 
   return (
-    <div onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto flex flex-col max-h-[380px] gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
+    <div ref={cartRef} onMouseEnter={() => setCartPc(false)} onMouseLeave={() => setCartPc(true)} className={`ml-auto flex flex-col max-h-[385px] gap-3 p-4 rounded-md shadow-md bg-white z-40 w-full dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:w-96`}>
       <H3 config='border-b text-center pb-2'>Carrito</H3>
       {
         cart?.length
@@ -34,7 +36,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                 <div key={product.slug} className='flex gap-1 justify-between mb-2'>
                   <div className='flex gap-2'>
                     <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
-                      setCartPosition('-mt-[390px]')
+                      setCartPosition('-mt-[395px]')
                       setTimeout(() => {
                         setCartView('hidden')
                       }, 500)
@@ -43,7 +45,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                     </Link>
                     <div className='mt-auto mb-auto'>
                       <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
-                        setCartPosition('-mt-[390px]')
+                        setCartPosition('-mt-[395px]')
                         setTimeout(() => {
                           setCartView('hidden')
                         }, 500)
@@ -126,13 +128,13 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
             </div>
             <div className='mt-4'>
               <Link className='py-2 rounded-md border border-button transition-colors duration-200 bg-button text-white hover:bg-white hover:text-button hover:dark:bg-transparent' onClick={() => {
-                setCartPosition('-mt-[380px]')
+                setCartPosition('-mt-[395px]')
                 setTimeout(() => {
                   setCartView('hidden')
                 }, 500)
               }} href='/finalizar-compra'><button className='w-full'>Finalizar compra</button></Link>
               <Link href='/carrito' onClick={() => {
-                setCartPosition('-mt-[390px]')
+                setCartPosition('-mt-[395px]')
                 setTimeout(() => {
                   setCartView('hidden')
                 }, 500)
@@ -141,8 +143,13 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
           </>
           : <>
             <p className='dark:text-neutral-400'>No tienes productos añadidos al carrito</p>
+            {
+              categories.map(category => (
+                <Link className='border p-1 text-center transition-colors duration-200 hover:border-black' href={`/tienda/${category.slug}`}>{category.category}</Link>
+              ))
+            }
             <Link className='py-1.5 border border-main rounded-md transition-colors duration-200 bg-main text-white hover:bg-transparent hover:text-main dark:bg-neutral-700 dark:border-neutral-700 dark:hover:text-neutral-500 hover:dark:bg-transparent' href='/tienda' onClick={() => {
-              setCartPosition('-mt-[390px]')
+              setCartPosition('-mt-[395px]')
               setTimeout(() => {
                 setCartView('hidden')
               }, 500)

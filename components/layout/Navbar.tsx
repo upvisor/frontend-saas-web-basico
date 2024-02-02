@@ -17,10 +17,10 @@ interface Props {
 export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, storeData, categories }) => {
 
   const [cartView, setCartView] = useState('hidden')
-  const [cartPosition, setCartPosition] = useState('-mt-[390px]')
+  const [cartPosition, setCartPosition] = useState('-mt-[395px]')
   const [cartPc, setCartPc] = useState(true)
   const [accountView, setAccountView] = useState('hidden')
-  const [accountPosition, setAccountPosition] = useState('-mt-[600px]')
+  const [accountPosition, setAccountPosition] = useState('-mt-[400px]')
   const [accountPc, setAccountPc] = useState(true)
   const [account, setAccount] = useState('Ingresar')
   const [navCategoriesOpacity, setNavCategoriesOpacity] = useState('-mt-[330px]')
@@ -35,6 +35,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
   const {cart} = useContext(CartContext)
 
   const categoriesPhoneRef = useRef<HTMLDivElement>(null)
+  const cartRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (categoriesPhoneRef.current) {
@@ -107,7 +108,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       : (
                         <button onClick={(e: any) => {
                           e.preventDefault()
-                          setAccountPosition('-mt-[600px]')
+                          setAccountPosition('-mt-[400px]')
                           setTimeout(() => {
                             setAccountView('hidden')
                           }, 500)
@@ -145,7 +146,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         )
                       : (
                         <button className='h-full flex mr-2' onClick={() => {
-                          setCartPosition('-mt-[390px]')
+                          setCartPosition('-mt-[395px]')
                           setTimeout(() => {
                             setCartView('hidden')
                           }, 500)
@@ -210,7 +211,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         : (
                           <button onClick={(e: any) => {
                             e.preventDefault()
-                            setAccountPosition('-mt-[600px]')
+                            setAccountPosition('-mt-[400px]')
                             setTimeout(() => {
                               setAccountView('hidden')
                             }, 500)
@@ -248,7 +249,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                           )
                         : (
                           <button onClick={() => {
-                            setCartPosition('-mt-[390px]')
+                            setCartPosition('-mt-[395px]')
                             setTimeout(() => {
                               setCartView('hidden')
                             }, 500)
@@ -281,7 +282,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
               <AccountLogin account={account} setAccount={setAccount} setAccountPc={setAccountPc} setAccountView={setAccountView} setAccountPosition={setAccountPosition} />
             </div>
             <div onClick={() => {
-              setAccountPosition('-mt-[600px]')
+              setAccountPosition('-mt-[400px]')
               setTimeout(() => {
                 setAccountView('hidden')
               }, 500)
@@ -290,7 +291,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         </div>
         <div onClick={() => {
           if (accountPc) {
-            setAccountPosition('-mt-[600px]')
+            setAccountPosition('-mt-[400px]')
             setTimeout(() => {
               setAccountView('hidden')
             }, 500)
@@ -305,10 +306,10 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         <div className={`${cartView} ${cartPosition} transition-all duration-500 w-full -z-10 absolute top-[51px] sm:hidden`} style={{ height: 'calc(100vh - 91px)' }}>
           <div className='w-full px-4 ml-auto mr-auto'>
             <div className='ml-auto h-fit flex w-full sm:w-96'>
-              <NavbarCart setCartView={setCartView} setCartPosition={setCartPosition} />
+              <NavbarCart cartRef={cartRef} setCartView={setCartView} setCartPosition={setCartPosition} categories={categories} />
             </div>
             <div onClick={() => {
-              setCartPosition('-mt-[390px]')
+              setCartPosition('-mt-[395px]')
               setTimeout(() => {
                 setCartView('hidden')
               }, 500)
@@ -317,7 +318,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         </div>
         <div onClick={() => {
           if (cartPc) {
-            setCartPosition('-mt-[390px]')
+            setCartPosition('-mt-[395px]')
             setTimeout(() => {
               setCartView('hidden')
             }, 500)
@@ -325,7 +326,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         }} className={`hidden ${cartPosition} -z-10 transition-all duration-500 absolute top-[53px] w-full sm:${cartView}`} style={{ height: 'calc(100vh - 91px)' }}>
           <div className='w-[1850px] ml-auto mr-auto'>
             <div className='ml-auto h-fit flex w-full sm:w-96'>
-              <NavbarCart setCartView={setCartView} setCartPc={setCartPc} setCartPosition={setCartPosition} />
+              <NavbarCart cartRef={cartRef} setCartView={setCartView} setCartPc={setCartPc} setCartPosition={setCartPosition} categories={categories} />
             </div>
           </div>
         </div>
