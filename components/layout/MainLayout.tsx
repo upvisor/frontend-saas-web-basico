@@ -3,6 +3,7 @@ import { ICategory, IDesign, IStoreData } from "@/interfaces"
 import Subscribe from "../ui/Subscribe"
 import Footer from "../ui/Footer"
 import { Navbar } from "."
+import { Chat } from "../chat"
 
 async function fetchDesign () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
@@ -33,6 +34,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
       { children }
       <Subscribe />
       <Footer />
+      <Chat />
     </Navbar>
   )
 }
