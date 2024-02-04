@@ -1,0 +1,7 @@
+export * from './EditShipping'
+export * from './EditData'
+export * from './ResumePhone'
+export * from './Resume'
+export * from './Data'
+export * from './ShippingPay'
+export * from './ButtonPay'

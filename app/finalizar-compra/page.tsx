@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { initMercadoPago } from '@mercadopago/sdk-react'
 import CartContext from '@/context/cart/CartContext'
+import { ButtonPay, Data, EditData, EditShipping, Resume, ResumePhone, ShippingPay } from '@/components/checkout'
 
 declare const fbq: Function
 
@@ -40,13 +41,8 @@ const CheckOut = () => {
     buyOrder: ''
   })
   const [shipping, setShipping] = useState<IShipping[]>()
-  const [details, setDetails] = useState(0)
-  const [submitLoading, setSubmitLoading] = useState(false)
-  const [token, setToken] = useState('')
-  const [url, setUrl] = useState('')
   const [domain, setDomain] = useState('')
   const [storeData, setStoreData] = useState<IStoreData>()
-  const [rotate, setRotate] = useState('rotate-90')
   const [saveData, setSaveData] = useState(false)
   const [contactView, setContactView] = useState('hidden')
   const [contactOpacity, setContactOpacity] = useState('opacity-0')
@@ -56,6 +52,8 @@ const CheckOut = () => {
   const [shippingMouse, setShippingMouse] = useState(false)
   const [clientId, setClientId] = useState('')
   const [link, setLink] = useState('')
+  const [token, setToken] = useState('')
+  const [url, setUrl] = useState('')
 
   const { data: session, status } = useSession()
   const {cart, setCart} = useContext(CartContext)
@@ -63,8 +61,6 @@ const CheckOut = () => {
   const user = session?.user as { firstName: string, lastName: string, email: string, _id: string }
 
   const router = useRouter()
-
-  const detailsRef = useRef<HTMLDivElement>(null)
 
   initMercadoPago(process.env.MERCADOPAGO_PUBLIC_KEY!)
 
@@ -144,12 +140,6 @@ const CheckOut = () => {
     getStoreData()
   }, [])
 
-  useEffect(() => {
-    if (detailsRef.current) {
-      setDetails(rotate === '-rotate-90' ? detailsRef.current.scrollHeight : 0)
-    }
-  }, [rotate])
-
   const inputChange = async (e: any) => {
     setSell({ ...sell, [e.target.name]: e.target.value, buyOrder: `${storeData?.name ? storeData.name : 'ORDEN'}${Math.floor(Math.random() * 10000) + 1}` })
     if (e.target.name === 'pay' && e.target.value === 'WebPay Plus') {
@@ -171,382 +161,20 @@ const CheckOut = () => {
     }
   }
 
-  const payChange = (e: any) => {
-    setSell({...sell, state: 'No pagado', [e.target.name]: e.target.value})
-  }
-
-  const shippingChange = (e: any) => {
-    setSell({ ...sell, shippingMethod: e.target.className, shipping: e.target.value, shippingState: 'No empaquetado', total: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(e.target.value) })
-  }
-
-  const transbankSubmit = async (e: any) => {
-    e.preventDefault()
-    setSubmitLoading(true)
-    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/sells`, sell)
-    if (clientId !== '') {
-      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/clients/${clientId}`, sell)
-    }
-    localStorage.setItem('sell', JSON.stringify(data))
-    sell.cart.map(async (product) => {
-      if (product.variation) {
-        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity, variation: product.variation })
-      } else {
-        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
-      }
-    })
-    if (saveData) {
-      Cookies.set('firstName', sell.firstName)
-      Cookies.set('lastName', sell.lastName)
-      Cookies.set('email', sell.email)
-      if (sell.phone) {
-        Cookies.set('phone', sell.phone.toString())
-      }
-      Cookies.set('address', sell.address)
-      if (sell.details) {
-        Cookies.set('details', sell.details)
-      }
-      Cookies.set('city', sell.city)
-      Cookies.set('region', sell.region)
-    }
-    fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
-    const form = document.getElementById('formTransbank') as HTMLFormElement
-    if (form) {
-      form.submit()
-    }
-  }
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    setSubmitLoading(true)
-    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/sells`, sell)
-    if (clientId !== '') {
-      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/clients/${clientId}`, sell)
-    }
-    localStorage.setItem('sell', JSON.stringify(data))
-    sell.cart.map(async (product) => {
-      if (product.variation) {
-        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity, variation: product.variation })
-      } else {
-        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
-      }
-    })
-    if (saveData) {
-      Cookies.set('firstName', sell.firstName)
-      Cookies.set('lastName', sell.lastName)
-      Cookies.set('email', sell.email)
-      if (sell.phone) {
-        Cookies.set('phone', sell.phone.toString())
-      }
-      Cookies.set('address', sell.address)
-      if (sell.details) {
-        Cookies.set('details', sell.details)
-      }
-      Cookies.set('city', sell.city)
-      Cookies.set('region', sell.region)
-    }
-    fbq('track', 'Purchase', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
-    router.push('/gracias-por-comprar')
-    setSubmitLoading(false)
-  }
-
-  const mercadoSubmit = async (e: any) => {
-    e.preventDefault()
-    setSubmitLoading(true)
-    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/sells`, sell)
-    if (clientId !== '') {
-      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/clients/${clientId}`, sell)
-    }
-    localStorage.setItem('sell', JSON.stringify(data))
-    sell.cart.map(async (product) => {
-      if (product.variation) {
-        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity, variation: product.variation })
-      } else {
-        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
-      }
-    })
-    if (saveData) {
-      Cookies.set('firstName', sell.firstName)
-      Cookies.set('lastName', sell.lastName)
-      Cookies.set('email', sell.email)
-      if (sell.phone) {
-        Cookies.set('phone', sell.phone.toString())
-      }
-      Cookies.set('address', sell.address)
-      if (sell.details) {
-        Cookies.set('details', sell.details)
-      }
-      Cookies.set('city', sell.city)
-      Cookies.set('region', sell.region)
-    }
-    fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
-    window.location.href = link
-    setSubmitLoading(false)
-  }
-
   return (
     <>
       <Head>
         <title>Finalizar compra</title>
       </Head>
-      <div onClick={() => {
-        if (!contactMouse) {
-          setContactOpacity('opacity-0')
-          setTimeout(() => {
-            setContactView('hidden')
-          }, 200)
-        }
-      }} className={`${contactView} ${contactOpacity} transition-opacity duration-200 w-full h-full fixed z-50 bg-black/20`}>
-        <div onMouseEnter={() => setContactMouse(true)} onMouseLeave={() => setContactMouse(false)} className={`m-auto p-6 bg-white flex flex-col gap-4 rounded-md shadow-md max-w-[500px] w-full`}>
-          <H2>Editar datos de contacto</H2>
-          <div className='flex gap-2'>
-            <div className='flex flex-col w-1/2 gap-2'>
-              <p className='text-sm'>Nombre</p>
-              <input type='text' placeholder='Nombre' name='firstName' onChange={inputChange} value={sell.firstName} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-            </div>
-            <div className='flex flex-col w-1/2 gap-2'>
-              <p className='text-sm'>Apellido</p>
-              <input type='text' placeholder='Apellido' name='lastName' onChange={inputChange} value={sell.lastName} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-            </div>
-          </div>
-          <div className='flex flex-col gap-2'>
-            <p className='text-sm'>Teléfono</p>
-            <div className='flex gap-2'>
-              <span className='mt-auto mb-auto text-sm'>+56</span>
-              <input type='text' placeholder='Teléfono' name='phone' onChange={inputChange} value={sell.phone} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-            </div>
-          </div>
-          <button onClick={(e: any) => {
-            e.preventDefault()
-            setContactOpacity('opacity-0')
-            setTimeout(() => {
-              setContactView('hidden')
-            }, 200)
-          }} className='w-full bg-main text-white h-10 tracking-widest font-medium'>GUARDAR DATOS</button>
-        </div>
-      </div>
-      <div onClick={() => {
-        if (!shippingMouse) {
-          setShippingOpacity('opacity-0')
-          setTimeout(() => {
-            setShippingView('hidden')
-          }, 200)
-        }
-      }} className={`${shippingView} ${shippingOpacity} transition-opacity duration-200 w-full h-full fixed z-50 bg-black/20`}>
-        <div onMouseEnter={() => setShippingMouse(true)} onMouseLeave={() => setShippingMouse(false)} className={`m-auto p-6 bg-white flex flex-col gap-4 rounded-md shadow-md max-w-[500px] w-full`}>
-          <H2>Editar dirección de envío</H2>
-          <div className='flex flex-col gap-2'>
-            <p className='text-sm'>Dirección</p>
-            <input type='text' placeholder='Dirección' name='address' onChange={inputChange} value={sell.address} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-          </div>
-          <div className='flex flex-col gap-2'>
-            <p className='text-sm'>Deptartamento</p>
-            <input type='text' placeholder='Departamento (Opcional)' name='details' onChange={inputChange} value={sell.details} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-          </div>
-          <Shipping setShipping={setShipping} sell={sell} setSell={setSell} />
-          <button onClick={(e: any) => {
-            e.preventDefault()
-            setShippingOpacity('opacity-0')
-            setTimeout(() => {
-              setShippingView('hidden')
-            }, 200)
-          }} className='w-full bg-main text-white h-10 tracking-widest font-medium'>GUARDAR DATOS</button>
-        </div>
-      </div>
-      <div className='fixed top-[51px] bg-[#F5F5F5] w-full border border-[#F5F5F5] p-4 shadow-md block xl:hidden dark:bg-neutral-800 dark:border-neutral-700'>
-        <button className='text-[14px] mb-4 flex gap-2' onClick={() => {
-          if (rotate === 'rotate-90') {
-            setRotate('-rotate-90')
-          } else {
-            setRotate('rotate-90')
-          }
-        }}>{<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className={`${rotate} transition-all duration-150 m-auto w-4 text-lg text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>} resumen del pedido</button>
-        <div ref={detailsRef} className={`mb-2`} style={{ maxHeight: `${details}px`, overflow: 'hidden', transition: 'max-height 0.5s' }}>
-          <div className='border-b mb-2 flex flex-col gap-2 pb-1 dark:border-neutral-700'>
-            <H2>Carrito</H2>
-            {
-              cart?.length !== 0
-                ? cart?.map(product => (
-                  <div className='flex gap-2 justify-between mb-2' key={product._id}>
-                    <div className='flex gap-2'>
-                      <Image className='w-20 h-20 m-auto border rounded-md p-1 dark:border-neutral-700' src={product.image} alt={product.name} width={80} height={80} />
-                      <div className='mt-auto mb-auto'>
-                        <span className='font-medium'>{product.name}</span>
-                        <span className='block'>Cantidad: {product.quantity}</span>
-                        {
-                          product.variation
-                            ? <span className='block'>{product.variation.variation}{product.variation.subVariation ? ` / ${product.variation.subVariation}` : ''}</span>
-                            : ''
-                        }
-                      </div>
-                    </div>
-                    <div className='flex gap-2 mt-auto mb-auto'>
-                      <span className='font-medium'>${NumberFormat(product.quantityOffers?.length ? offer(product) : product.price * product.quantity)}</span>
-                      {
-                        product.beforePrice
-                          ? <span className='text-sm line-through'>${NumberFormat(product.beforePrice * product.quantity)}</span>
-                          : ''
-                      }
-                    </div>
-                  </div>
-                ))
-                : ''
-            }
-          </div>
-          <div className='pb-3 border-b flex flex-col gap-2 dark:border-neutral-700'>
-            <H2>Cupon de descuento</H2>
-            <div className='flex gap-2'>
-              <input type='text' placeholder='Cupon' className='border text-[14px] p-1.5 rounded w-52 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-              <Button2>Agregar</Button2>
-            </div>
-          </div>
-          <div className='mt-2 mb-2 pb-2 border-b dark:border-neutral-700'>
-            <div className='flex gap-2 justify-between mb-1'>
-              <span className='text-[14px]'>Subtotal</span>
-              <span className='text-[14px]'>${NumberFormat(sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0))}</span>
-            </div>
-            <div className='flex gap-2 justify-between'>
-              <span className='text-[14px]'>Envío</span>
-              <span className='text-[14px]'>${NumberFormat(Number(sell.shipping))}</span>
-            </div>
-          </div>
-        </div>
-        <div className='flex gap-2 justify-between'>
-          <span className='font-medium'>Total</span>
-          <span className='font-medium'>${NumberFormat(sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping))}</span>
-        </div>
-      </div>
+      <EditData contactMouse={contactMouse} setContactOpacity={setContactOpacity} setContactView={setContactView} contactView={contactView} contactOpacity={contactOpacity} setContactMouse={setContactMouse} inputChange={inputChange} sell={sell} />
+      <EditShipping shippingMouse={shippingMouse} setShippingOpacity={setShippingOpacity} setShippingView={setShippingView} shippingView={shippingView} shippingOpacity={shippingOpacity} setShippingMouse={setShippingMouse} sell={sell} inputChange={inputChange} setSell={setSell} setShipping={setShipping} />
+      <ResumePhone cart={cart} sell={sell} />
       <div className='mt-28 flex p-4 xl:mt-0'>
         <form className='w-[1600px] m-auto block xl:flex' id='formBuy'>
           <div className='w-full flex flex-col gap-6 pr-0 xl:w-7/12 xl:pr-8'>
             <H1>Finalizar compra</H1>
-            {
-              status === 'authenticated'
-                ? (
-                  <>
-                    <div className='flex flex-col gap-2'>
-                      <H2>Información de contacto</H2>
-                      <div className='bg-neutral-100 p-4 flex gap-2 justify-between dark:bg-neutral-800'>
-                        <div className='flex flex-col gap-2'>
-                          <p>Nombre: {sell?.firstName ? sell.firstName : 'Se necesita ingresar un nombre'}</p>
-                          <p>Apellido: {sell?.lastName ? sell.lastName : 'Se necesita ingresar un apellido'}</p>
-                          <p>Email: {sell?.email}</p>
-                          <p>Teléfono: {sell?.phone ? sell.phone : 'Se necesita un numero de teléfono'}</p>
-                        </div>
-                        <button onClick={(e: any) => {
-                          e.preventDefault()
-                          setContactView('flex')
-                          setTimeout(() => {
-                            setContactOpacity('opacity-1')
-                          }, 50)
-                        }}>Editar datos</button>
-                      </div>
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                      <H2>Dirección de envío</H2>
-                      <div className='bg-neutral-100 p-4 flex gap-2 justify-between dark:bg-neutral-800'>
-                        <div className='flex flex-col gap-2'>
-                          <p>Dirección: {sell?.address ? sell.address : 'Se nececita una dirección'}</p>
-                          <p>Detalles: {sell?.details ? sell.details : '-'}</p>
-                          <p>Región: {sell?.region ? sell.region : 'Se necesita una región'}</p>
-                          <p>Ciudad: {sell?.city ? sell.city : 'Se necesita una ciudad'}</p>
-                        </div>
-                        <button onClick={(e: any) => {
-                          e.preventDefault()
-                          setShippingView('flex')
-                          setTimeout(() => {
-                            setShippingOpacity('opacity-1')
-                          }, 50)
-                        }}>Editar datos</button>
-                      </div>
-                    </div>
-                  </>
-                )
-                : (
-                  <>
-                    <div className='flex flex-col gap-4'>
-                      <H2>Información de contacto</H2>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Email</p>
-                        <input type='email' placeholder='Email' name='email' onChange={inputChange} value={sell.email} className='border p-1.5 rounded w-full text-sm focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                        <div className='flex gap-2'>
-                          <input type='checkbox' checked={sell.subscription} onChange={(e: any) => e.target.checked ? setSell({...sell, subscription: true}) : setSell({...sell, subscription: false})} />
-                          <span className='text-sm text-neutral-400'>Suscribirse a nuestra lista de emails</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className='flex flex-col gap-4'>
-                      <H2>Dirección de envío</H2>
-                      <div className='flex gap-2'>
-                        <div className='flex flex-col gap-2 w-1/2'>
-                          <p className='text-sm'>Nombre</p>
-                          <input type='text' placeholder='Nombre' name='firstName' onChange={inputChange} value={sell.firstName} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                        </div>
-                        <div className='flex flex-col gap-2 w-1/2'>
-                          <p className='text-sm'>Apellido</p>
-                          <input type='text' placeholder='Apellido' name='lastName' onChange={inputChange} value={sell.lastName} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                        </div>
-                      </div>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Dirección</p>
-                        <input type='text' placeholder='Dirección' name='address' onChange={inputChange} value={sell.address} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Departamento (Opcional)</p>
-                        <input type='text' placeholder='Departamento' name='details' onChange={inputChange} value={sell.details} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                      </div>
-                      <Shipping setShipping={setShipping} sell={sell} setSell={setSell} />
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-sm'>Teléfono</p>
-                        <div className='flex gap-2'>
-                          <span className='mt-auto mb-auto text-sm'>+56</span>
-                          <input type='text' placeholder='Teléfono' name='phone' onChange={inputChange} value={sell.phone} className='border text-sm p-1.5 rounded w-full focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )
-            }
-            {
-              shipping !== undefined
-                ? (
-                  <div className='flex flex-col gap-4'>
-                    <H2>Envío</H2>
-                    <div className='flex flex-col gap-2'>
-                      {
-                        shipping.map(item => (
-                          <div className='flex gap-2 justify-between p-2 border rounded-md dark:border-neutral-700' key={item.serviceDescription}>
-                            <div className='flex gap-2'>
-                              <input type='radio' name='shipping' className={item.serviceDescription} value={item.serviceValue} onChange={shippingChange} />
-                              <p className='text-sm mt-auto mb-auto'>{item.serviceDescription}</p>
-                            </div>
-                            <p className='text-sm'>${NumberFormat(Number(item.serviceValue))}</p>
-                          </div>
-                        ))
-                      }
-                    </div>
-                  </div>
-                )
-                : ''
-            }
-            {
-              sell.shippingMethod
-                ? (
-                  <div className='flex flex-col gap-4'>
-                    <H2>Pago</H2>
-                    <div className='flex flex-col gap-2'>
-                      <div className='flex gap-2 p-2 border rounded-md dark:border-neutral-700'>
-                        <input type='radio' name='pay' value='WebPay Plus' onChange={inputChange} />
-                        <p className='text-sm'>WebPay Plus</p>
-                      </div>
-                      <div className='flex gap-2 p-2 border rounded-md dark:border-neutral-700'>
-                        <input type='radio' name='pay' value='MercadoPago' onChange={inputChange} />
-                        <p className='text-sm'>MercadoPago</p>
-                      </div>
-                    </div>
-                  </div>
-                )
-                : ''
-            }
+            <Data status={status} sell={sell} setContactView={setContactView} setContactOpacity={setContactOpacity} setShippingView={setShippingView} setShippingOpacity={setShippingOpacity} inputChange={inputChange} setSell={setSell} setShipping={setShipping} />
+            <ShippingPay shipping={shipping} sell={sell} inputChange={inputChange} setSell={setSell} />
             {
               status === 'authenticated'
                 ? ''
@@ -557,82 +185,9 @@ const CheckOut = () => {
                   </div>
                 )
             }
-            <div className='flex gap-2 justify-between mt-auto mb-auto'>
-              <div className='mt-auto mb-auto'><Link href='/carrito'><span className='flex gap-2 text-sm'><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" className="mt-auto mb-auto" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"></path></svg>Regresar al carrito</span></Link></div>
-              {
-                sell.pay === ''
-                  ? <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
-                  : sell.pay === 'WebPay Plus'
-                    ? (
-                      <form action={url} method="POST" id='formTransbank'>
-                        <input type="hidden" name="token_ws" value={token} />
-                        <button onClick={transbankSubmit} className='w-28 h-10 bg-button transition-all duration-200 border rounded border-button hover:bg-transparent text-white cursor-pointer hover:text-button'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
-                      </form>
-                    )
-                    : sell.pay === 'MercadoPago'
-                      ? link !== ''
-                        ? <button onClick={mercadoSubmit} className='w-28 h-10 rounded bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
-                        : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
-                      : sell.pay === 'Pago en la entrega'
-                        ? <button onClick={handleSubmit} className='w-28 h-10 rounded bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
-                        : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
-              }
-            </div>
+            <ButtonPay sell={sell} clientId={clientId} saveData={saveData} token={token} link={link} url={url} />
           </div>
-          <div className='w-5/12 h-fit border rounded-lg border-[#F5F5F5] p-6 hidden sticky top-28 bg-[#F5F5F5] dark:border-neutral-700 dark:bg-neutral-800 xl:block'>
-            <div className='mb-2 flex flex-col gap-2 pb-2 border-b dark:border-neutral-700'>
-              <H2>Carrito</H2>
-              {
-                cart?.length !== 0
-                  ? cart?.map(product => (
-                    <div className='flex gap-2 justify-between mb-2' key={product._id}>
-                      <div className='flex gap-2'>
-                        <Image className='w-20 h-auto border rounded-md p-1 dark:border-neutral-700' src={product.image} alt={product.name} width={80} height={80} />
-                        <div className='mt-auto mb-auto'>
-                          <span className='block font-medium'>{product.name.toLocaleUpperCase()}</span>
-                          <span className='block'>Cantidad: {product.quantity}</span>
-                          {
-                            product.variation
-                              ? <span className='block'>{product.variation.variation}{product.variation.subVariation ? ` / ${product.variation.subVariation}` : ''}</span>
-                              : ''
-                          }
-                        </div>
-                      </div>
-                      <div className='flex gap-2 mt-auto mb-auto'>
-                        <span className='font-medium'>${NumberFormat(product.quantityOffers?.length ? offer(product) : product.price * product.quantity)}</span>
-                        {
-                          product.beforePrice
-                            ? <span className='text-sm line-through'>${NumberFormat(product.beforePrice * product.quantity)}</span>
-                            : ''
-                        }
-                      </div>
-                    </div>
-                  ))
-                  : ''
-              }
-            </div>
-            <div className='mb-2 flex flex-col gap-2 pb-3 border-b dark:border-neutral-700'>
-              <H2>Cupon de descuento</H2>
-              <div className='flex gap-2'>
-                <input type='text' placeholder='Cupon' className='border p-1 rounded text-[14px] w-72 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
-                <Button2>Agregar</Button2>
-              </div>
-            </div>
-            <div className='mb-2 pb-2 border-b dark:border-neutral-700'>
-              <div className='flex gap-2 justify-between mb-1'>
-                <span className='text-[14px]'>Subtotal</span>
-                <span className='text-[14px]'>${NumberFormat(sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0))}</span>
-              </div>
-              <div className='flex gap-2 justify-between'>
-                <span className='text-[14px]'>Envío</span>
-                <span className='text-[14px]'>${NumberFormat(Number(sell.shipping))}</span>
-              </div>
-            </div>
-            <div className='flex gap-2 justify-between'>
-              <span className='font-medium'>Total</span>
-              <span className='font-medium'>${NumberFormat(sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping))}</span>
-            </div>
-          </div>
+          <Resume cart={cart} sell={sell} />
         </form>
       </div>
     </>
