@@ -2,7 +2,7 @@
 import { IContactData, IDesign } from '@/interfaces'
 import axios from 'axios'
 import React, { useState } from 'react'
-import { ButtonFunction, H1, H2 } from '../ui'
+import { ButtonFunction, H1, H2, Input } from '../ui'
 
 export const ContactPage = ({ design }: { design: IDesign }) => {
 
@@ -63,11 +63,11 @@ export const ContactPage = ({ design }: { design: IDesign }) => {
               <form className='flex flex-col gap-4'>
                 <div className='flex flex-col gap-2'>
                   <p className='text-sm'>Nombre</p>
-                  <input type='text' placeholder='Nombre' name='name' onChange={inputChange} value={formContact.name} className='p-1.5 text-sm w-full transition-colors duration-100 rounded border focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                  <Input inputChange={inputChange} value={formContact.name} type={'text'} placeholder={'Nombre'} name='name' text='text-sm' />
                 </div>
                 <div className='flex flex-col gap-2'>
                   <p className='text-sm'>Email</p>
-                  <input type='email' placeholder='Email' name='email' onChange={inputChange} value={formContact.email} className='p-1.5 text-sm w-full transition-colors duration-100 rounded border focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                  <Input inputChange={inputChange} value={formContact.email} type={'text'} placeholder={'Email'} name='email' text='text-sm' />
                 </div>
                 <div className='flex flex-col gap-2'>
                   <p className='text-sm'>Mensaje</p>

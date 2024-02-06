@@ -90,7 +90,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                     <div className={`mt-auto ${pathname.includes('/contacto') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Contacto</div>
                   </Link>
                   {
-                    accountView === 'hidden'
+                    accountPosition === '-mt-[400px]'
                       ? (
                         <button onClick={(e: any) => {
                           e.preventDefault()
@@ -120,7 +120,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       )
                   }
                   {
-                    cartView === 'hidden'
+                    cartPosition === '-mt-[395px]'
                       ? (
                         <div>
                           <button onClick={() => {

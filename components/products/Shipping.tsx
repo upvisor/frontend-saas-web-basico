@@ -2,6 +2,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { City, ISell, Region } from '../../interfaces'
+import { Select } from '../ui'
 
 interface Props {
   setShipping: any
@@ -68,28 +69,28 @@ export const Shipping: React.FC<Props> = ({ setShipping, sell, setSell }) => {
       }
 
   return (
-    <div className='flex gap-2'>
-      <div className='flex flex-col gap-2 w-1/2'>
+    <div className='flex gap-2 w-full flex-col sm:flex-row'>
+      <div className='flex flex-col gap-2 w-full sm:w-1/2'>
         <p className='text-sm'>Región</p>
-        <select className='border text-sm p-1.5 rounded focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600 w-full' onChange={regionChange}>
+        <Select selectChange={regionChange}>
           <option>Seleccionar Región</option>
           {
           regions !== undefined
             ? regions.map(region => <option key={region.regionId}>{region.regionName}</option>)
             : ''
           }
-        </select>
+        </Select>
       </div>
-      <div className='flex flex-col gap-2 w-1/2'>
+      <div className='flex flex-col gap-2 w-full sm:w-1/2'>
         <p className='text-sm'>Ciudad</p>
-        <select className='block border text-sm p-1.5 rounded focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600 w-full' onChange={cityChange}>
+        <Select selectChange={cityChange}>
           <option>Seleccionar Ciudad</option>
           {
             citys !== undefined
               ? citys.map(city => <option key={city.countyCode}>{city.countyName}</option>)
               : ''
           }
-        </select>
+        </Select>
       </div>
     </div>
   )

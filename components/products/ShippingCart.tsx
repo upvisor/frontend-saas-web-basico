@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { City, Region, IShipping } from '../../interfaces'
 import { FreeShipping, NumberFormat } from '../../utils'
-import { H2 } from '../ui'
+import { H2, Select } from '../ui'
 
 interface Props {
   setShippingCost: any
@@ -75,20 +75,20 @@ export const ShippingCart: React.FC<Props> = ({ setShippingCost }) => {
     <div className='flex flex-col gap-4'>
       <H2>Calcula los costos de envío</H2>
       <div className='flex flex-col gap-2'>
-        <select className='text-sm border p-1 rounded focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-500 dark:text-white' onChange={regionChange}>
+        <Select selectChange={regionChange}>
           <option>Seleccionar Región</option>
           {
-          regions !== undefined
-            ? regions.map(region => <option key={region.regionId}>{region.regionName.toLocaleLowerCase()}</option>)
-            : ''
+            regions !== undefined
+              ? regions.map(region => <option key={region.regionId}>{region.regionName.toLocaleLowerCase()}</option>)
+              : ''
           }
-        </select>
+        </Select>
         {
           citys !== undefined
-          ? <select className='text-sm block border p-1 rounded focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-500 dark:text-white' onChange={cityChange}>
+          ? <Select selectChange={cityChange}>
             <option>Seleccionar Ciudad</option>
             {citys.map(city => <option key={city.countyCode}>{city.countyName}</option>)}
-          </select>
+          </Select>
           : ''
         }
       </div>

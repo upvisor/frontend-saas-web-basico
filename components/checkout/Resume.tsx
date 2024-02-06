@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button2, H2 } from '../ui'
+import { Button2, H2, Input } from '../ui'
 import Image from 'next/image'
 import { NumberFormat, offer } from '@/utils'
 import { ICartProduct, ISell } from '@/interfaces'
@@ -41,7 +41,7 @@ export const Resume = ({ cart, sell }: { cart: ICartProduct[] | undefined, sell:
             <div className='mb-2 flex flex-col gap-2 pb-3 border-b dark:border-neutral-700'>
               <H2>Cupon de descuento</H2>
               <div className='flex gap-2'>
-                <input type='text' placeholder='Cupon' className='border p-1 rounded text-[14px] w-72 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600' />
+                <Input inputChange={undefined} value={undefined} type={'text'} placeholder={'Cupon'} text='text-sm' />
                 <Button2>Agregar</Button2>
               </div>
             </div>

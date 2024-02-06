@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { City, IShipping, Region } from '@/interfaces'
 import { FreeShipping, NumberFormat } from '@/utils'
+import { Select } from '../ui'
 
 export const ShippingPrice = () => {
 
@@ -85,38 +86,38 @@ export const ShippingPrice = () => {
         <h5 className='text-[16px] font-medium md:text-[18px] dark:text-white'>Calcula los costos de envío</h5>
         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" className={`${shippingRotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>
       </button>
-      <div ref={shippingRef} style={{ maxHeight: `${shippingView}px`, overflow: 'hidden', transition: 'max-height 0.2s' }} className='mt-2'>
-      <div>
-      <select className='text-sm border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600 dark:text-white' onChange={regionChange}>
-        <option>Seleccionar Región</option>
-        {
-        regions !== undefined
-          ? regions.map(region => <option key={region.regionId}>{region.regionName}</option>)
-          : ''
-        }
-      </select>
+      <div ref={shippingRef} style={{ maxHeight: `${shippingView}px`, overflow: 'hidden', transition: 'max-height 0.3s' }} className='mt-2'>
+      <div className='flex flex-col gap-2'>
+        <Select selectChange={regionChange}>
+          <option>Seleccionar Región</option>
+          {
+          regions !== undefined
+            ? regions.map(region => <option key={region.regionId}>{region.regionName}</option>)
+            : ''
+          }
+        </Select>
       {
         citys !== undefined
-        ? <select className='text-sm block border p-1 rounded-md mt-2 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600 dark:text-white' onChange={cityChange}>
+        ? <Select selectChange={cityChange}>
           <option>Seleccionar Ciudad</option>
           {citys.map(city => <option key={city.countyCode}>{city.countyName}</option>)}
-        </select>
+        </Select>
         : ''
       }
       {
         shipping !== undefined
-        ? <div className='flex flex-col gap-1 mt-2 '>
-          <span className='mt-1 text-main dark:text-white'>Envíos express:</span>
+        ? <div className='flex flex-col gap-2'>
+          <span className='dark:text-white'>Envíos express:</span>
           {FreeShipping.map(cityFree => {
             if (cityFree === city) {
               return <div className='flex justify-between p-2 border rounded-md dark:border-neutral-600' key={cityFree}>
-                <span className='text-sm text-[#444444] dark:text-neutral-400'>Envío gratis en 24 a 48 horas</span>
+                <span className='text-sm dark:text-neutral-400'>Envío gratis en 24 a 48 horas</span>
                 <span className='text-sm'>$0</span>
               </div>
             }
             return null
           })}
-          <span className='mt-1 text-main dark:text-white'>Chilexpress:</span>
+          <span className='dark:text-white'>Chilexpress:</span>
           {shipping.map(service => (
             <div key={service.serviceDescription} className='flex justify-between p-2 border rounded-md dark:border-neutral-600'>
               <span className='text-sm text-[#444444] dark:text-neutral-400'>{service.serviceDescription}</span>

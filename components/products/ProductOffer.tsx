@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { ICartProduct, IProductsOffer } from '../../interfaces'
 import { NumberFormat } from '../../utils'
-import { Button2AddToCart } from '../ui'
+import { Button2AddToCart, Select } from '../ui'
 import Image from 'next/image'
 
 interface Props {
@@ -51,15 +51,15 @@ export const ProductOffer: React.FC<Props> = ({ offer }) => {
           ? <Image className='w-24 h-24 mr-1 mt-auto mb-auto mobile2:w-28 mobile2:h-28 mobile:w-32 mobile:mr-2 mobile:h-32' src={tempCartProduct.variation.image!.url} alt={`Producto ${tempCartProduct.name}`} width={100} height={100} />
           : <Image className='w-24 h-24 mr-1 mt-auto mb-auto mobile2:w-28 mobile2:h-28 mobile:w-32 mobile:mr-2 mobile:h-32' src={tempCartProduct.image} alt={`Producto ${tempCartProduct.name}`} width={100} height={100} />
       }
-      <div className='mt-auto mb-auto'>
+      <div className='mt-auto mb-auto flex flex-col gap-1'>
         {
           offer.productsSale.length === 1
             ? <span className='dark:text-white'>{tempCartProduct.name}</span>
-            : <select onChange={productChange} className='text-sm p-1 border text-main rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-500 dark:text-white'>
+            : <Select selectChange={productChange}>
               {
                 offer.productsSale.map(product => <option key={product.slug}>{product.name}</option>)
               }
-            </select>
+            </Select>
         }
         <div className='flex gap-2'>
           <span className='dark:text-white'>${NumberFormat(Number(tempCartProduct.price))}</span>
@@ -71,7 +71,7 @@ export const ProductOffer: React.FC<Props> = ({ offer }) => {
         </div>
         {
           tempCartProduct.variation !== undefined
-            ? <select className='text-sm p-1 border rounded block mb-1 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-500 dark:text-white' name={tempCartProduct.name} onChange={variationChange}>
+            ? <Select name={tempCartProduct.name} selectChange={variationChange}>
               {
                 offer.productsSale.map(product => {
                   if (tempCartProduct.name === product.name) {
@@ -80,7 +80,7 @@ export const ProductOffer: React.FC<Props> = ({ offer }) => {
                   return null
                 })
               }
-            </select>
+            </Select>
             : ''
         }
         <Button2AddToCart tempCartProduct={tempCartProduct} />

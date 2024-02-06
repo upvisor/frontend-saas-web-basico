@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import io from 'socket.io-client'
+import { Input } from '../ui'
 
 const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`)
 
@@ -130,8 +131,8 @@ export const Chat = () => {
             }
           </div>
           <form className='flex gap-2 pr-3 pl-3 pb-3 sm:pr-4 sm:pl-4 sm:pb-4'>
-            <input onChange={inputChange} value={newMessage} type='text' placeholder='Mensaje' className='border w-full p-1.5 rounded-md dark:border-neutral-600' />
-            <button type='submit' onClick={submitMessage} className='bg-main text-white w-24 rounded-md dark:bg-neutral-700 border border-main transition-colors duration-200 hover:bg-transparent hover:text-main'>Enviar</button>
+            <Input inputChange={inputChange} newMessage={newMessage} type={'text'} placeholder={'Mensaje'} />
+            <button type='submit' onClick={submitMessage} className='bg-main text-white w-28 rounded-md dark:bg-neutral-700 border border-main transition-colors duration-200 hover:bg-transparent hover:text-main'>Enviar</button>
           </form>
         </div>
         <button onClick={async (e: any) => {

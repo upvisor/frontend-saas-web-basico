@@ -2,7 +2,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { IDesign } from '@/interfaces'
-import { ButtonFunction, H2, Spinner2 } from '.'
+import { ButtonFunction, H2, Input, Spinner2 } from '.'
 
 export const SubscribePage = ({ design }: { design: IDesign }) => {
 
@@ -36,7 +36,7 @@ export const SubscribePage = ({ design }: { design: IDesign }) => {
       <form className='m-auto w-[1600px] mt-16 mb-16 flex flex-col gap-4'>
         <H2 config='text-center'>{design.subscription?.title && design.subscription?.title !== '' ? design.subscription?.title.toUpperCase() : 'Suscribete en nuestra lista'}</H2>
         <div className='flex gap-2'>
-          <input type='email' placeholder='Email' value={subscribeData.email} onChange={inputChange} className='p-2 w-full rounded border transition-colors duration-100 focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:bg-neutral-800 dark:border-neutral-700' />
+          <Input inputChange={inputChange} type='text' placeholder={'Email'} value={subscribeData.email} />
           <ButtonFunction action={handleSubmit}>{loading ? <Spinner2 /> : 'Envíar'}</ButtonFunction>
         </div>
         <div className={successSubscribe}>
