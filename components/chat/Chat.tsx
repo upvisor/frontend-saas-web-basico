@@ -1,42 +1,184 @@
 "use client"
-import React, { useState } from 'react'
+import { IMessage } from '@/interfaces'
+import axios from 'axios'
+import React, { useEffect, useRef, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import io from 'socket.io-client'
+
+const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`)
 
 export const Chat = () => {
 
-  const [chat, setChat] = useState('-mb-[450px]')
+  const [chatOpacity, setChatOpacity] = useState('-mb-[700px]')
+  const [chat, setChat] = useState<IMessage[]>([{
+    agent: false,
+    response: '¡Hola! Mi nombre es Maaibot y soy un asistente virtual de la tienda Maaide, ¿En que te puedo ayudar?. Si en algun momento necesitas hablar con un agente escribe "agente" en el chat',
+    adminView: false,
+    userView: false
+  }])
+  const [newMessage, setNewMessage] = useState('')
+
+  const chatRef = useRef(chat)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const chatOpacityRef = useRef(chatOpacity)
+
+  const getMessages = async () => {
+    if (localStorage.getItem('chatId')) {
+      const senderId = localStorage.getItem('chatId')
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/chat/${senderId}`)
+      setChat(response.data)
+    }
+  }
+
+  useEffect(() => {
+    getMessages()
+  }, [])
+
+  useEffect(() => {
+    chatRef.current = chat
+  }, [chat])
+
+  useEffect(() => {
+    chatOpacityRef.current = chatOpacity
+  }, [chatOpacity])
+
+  useEffect(() => {
+    socket.on('messageAdmin', message => {
+      if (localStorage.getItem('chatId') === message.senderId) {
+        if (chatOpacityRef.current === 'opacity-1') {
+          setChat(chatRef.current.concat([{ senderId: message.senderId, response: message.response, agent: true, adminView: true, userView: true }]))
+        } else {
+          setChat(chatRef.current.concat([{ senderId: message.senderId, response: message.response, agent: true, adminView: true, userView: false }]))
+        }
+      }
+    })
+
+    return () => {
+      socket.off('messageAdmin', message => console.log(message))
+    }
+  }, [])
+
+  const inputChange = (e: any) => {
+    setNewMessage(e.target.value)
+  }
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (container) {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+      })
+    }
+  }, [chat])
+
+  const submitMessage = async (e: any) => {
+    e.preventDefault()
+    let senderId
+    let message = newMessage
+    setNewMessage('')
+    setChat(chat.concat({agent: false, message: message, userView: true}))
+    if (localStorage.getItem('chatId')) {
+      senderId = localStorage.getItem('chatId')
+    } else {
+      senderId = uuidv4()
+      localStorage.setItem('chatId', senderId)
+    }
+    socket.emit('message', {message: message, senderId: senderId, createdAt: new Date()})
+    if (chat.length === 1) {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/chat/create`, { senderId: senderId, response: chat[0].response, agent: false, adminView: false, userView: true })
+    }
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/chat`, { senderId: senderId, message: newMessage, adminView: false, userView: true })
+    if (response.data.response) {
+      setChat(chat.filter(mes => mes.message === message))
+    }
+    setChat(chat.concat(response.data))
+  }
 
   return (
     <>
-      <div className={`${chat} transition-all duration-500 fixed flex flex-col justify-between overflow-hidden shadow-md z-50 bottom-0 right-0 mr-4 w-[350px] h-[450px] bg-white rounded-xl`}>
-        <div className='w-full h-20 bg-main shadow-md flex p-4'>
-          <p className='my-auto font-medium text-lg text-white'>Chat</p>
+        <div className={`${chatOpacity} fixed bottom-24 right-4 flex z-40 h-[480px] ml-3 justify-between flex-col gap-3 transition-all duration-500 bg-white shadow-md rounded-xl dark:bg-main sm:w-96 sm:h-[600px] sm:gap-4`}>
+          <div className='h-28 w-full shadow-md bg-main rounded-t-xl flex p-4'>
+            <span className='text-white mt-auto mb-auto text-xl'>Maaibot</span>
+          </div>
+          <div ref={containerRef} className='flex flex-col h-full gap-2 pl-3 sm:pl-4' style={{ overflow: 'overlay' }}>
+            {
+              chat?.length
+                ? chat.map(info => (
+                  <div key={info.response} className='flex flex-col gap-2 pr-3 sm:pr-4'>
+                    {
+                      info.message
+                        ? (
+                          <div className='flex flex-col gap-2 ml-6'>
+                            <div className='bg-button text-white p-1.5 rounded-md w-fit ml-auto'><p>{info.message}</p></div>
+                          </div>
+                        )
+                        : ''
+                    }
+                    {
+                      info.response
+                        ? (
+                          <div className='flex flex-col gap-2 mr-6'>
+                            <div className='bg-main text-white p-1.5 rounded-md w-fit'><p>{info.response}</p></div>
+                          </div>
+                        )
+                        : ''
+                    }
+                  </div>
+                ))
+                : ''
+            }
+          </div>
+          <form className='flex gap-2 pr-3 pl-3 pb-3 sm:pr-4 sm:pl-4 sm:pb-4'>
+            <input onChange={inputChange} value={newMessage} type='text' placeholder='Mensaje' className='border w-full p-1.5 rounded-md dark:border-neutral-600' />
+            <button type='submit' onClick={submitMessage} className='bg-main text-white w-24 rounded-md dark:bg-neutral-700 border border-main transition-colors duration-200 hover:bg-transparent hover:text-main'>Enviar</button>
+          </form>
         </div>
-        <div className='w-full flex flex-col gap-2 px-4 overflow-y-auto' style={{ height: 'calc(100% - 150px)' }}>
-          <div className='bg-main text-white text-sm p-1.5 w-fit rounded-md mr-6'><p>hola que tal como estas el dia de hoy que esta muy lindo el dia</p></div>
-          <div className=' w-fit ml-auto'><p className='ml-6 bg-[#f5f5f7] p-1.5 text-sm rounded-md'>Hola, sii esta hermoso la verdad me gusto mucho</p></div>
-          <div className='bg-main text-white text-sm p-1.5 w-fit rounded-md mr-6'><p>hola que tal como estas el dia de hoy que esta muy lindo el dia</p></div>
-          <div className=' w-fit ml-auto'><p className='ml-6 bg-[#f5f5f7] p-1.5 text-sm rounded-md'>Hola, sii esta hermoso la verdad me gusto mucho</p></div>
-          <div className='bg-main text-white text-sm p-1.5 w-fit rounded-md mr-6'><p>hola que tal como estas el dia de hoy que esta muy lindo el dia</p></div>
-          <div className=' w-fit ml-auto'><p className='ml-6 bg-[#f5f5f7] p-1.5 text-sm rounded-md'>Hola, sii esta hermoso la verdad me gusto mucho</p></div>
-          <div className='bg-main text-white text-sm p-1.5 w-fit rounded-md mr-6'><p>hola que tal como estas el dia de hoy que esta muy lindo el dia</p></div>
-          <div className=' w-fit ml-auto'><p className='ml-6 bg-[#f5f5f7] p-1.5 text-sm rounded-md'>Hola, sii esta hermoso la verdad me gusto mucho</p></div>
-          <div className='bg-main text-white text-sm p-1.5 w-fit rounded-md mr-6'><p>hola que tal como estas el dia de hoy que esta muy lindo el dia</p></div>
-          <div className=' w-fit ml-auto'><p className='ml-6 bg-[#f5f5f7] p-1.5 text-sm rounded-md'>Hola, sii esta hermoso la verdad me gusto mucho</p></div>
-          <div className='bg-main text-white text-sm p-1.5 w-fit rounded-md mr-6'><p>hola que tal como estas el dia de hoy que esta muy lindo el dia</p></div>
-          <div className=' w-fit ml-auto'><p className='ml-6 bg-[#f5f5f7] p-1.5 text-sm rounded-md'>Hola, sii esta hermoso la verdad me gusto mucho</p></div>
-        </div>
-        <div className='w-full pb-4 px-4 flex gap-2'>
-          <input type='text' placeholder='Escribe tu mensaje' className='border p-1.5 text-sm rounded w-full' />
-          <button className='bg-main text-white w-28 rounded-md text-sm border border-main transition-colors duration-200 hover:bg-transparent hover:text-main'>Enviar</button>
-        </div>
-      </div>
-      <button onClick={() => chat === '-mb-[450px]' ? setChat('mb-[90px]') : setChat('-mb-[450px]')} className='fixed shadow-md z-50 bg-main flex bottom-0 right-0 mr-4 mb-4 w-14 h-14 rounded-full'>
-        {
-          chat === '-mb-[450px]'
-            ? <svg className='m-auto' stroke="#ffffff" fill="#ffffff" stroke-width="0" viewBox="0 0 1024 1024" height="28px" width="28px" xmlns="http://www.w3.org/2000/svg"><path d="M464 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm200 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-400 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z"></path></svg>
-            : <svg className='m-auto' stroke="#ffffff" fill="#ffffff" stroke-width="0" viewBox="0 0 512 512" height="28px" width="28px" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg>
-        }
-      </button>
+        <button onClick={async (e: any) => {
+          e.preventDefault()
+          if (chatOpacity === '-mb-[700px]') {
+            setTimeout(() => {
+              setChatOpacity('')
+            }, 50)
+          } else {
+            setChatOpacity('-mb-[700px]')
+          }
+          const senderId = localStorage.getItem('chatId')
+          if (senderId) {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/chat-user/${senderId}`)
+            getMessages()
+          } else {
+            chat[0].userView = true
+            setChat(chat)
+          }
+        }} className='w-14 h-14 z-50 bg-main flex rounded-full fixed bottom-4 right-4 ml-auto shadow-md'>
+          {
+            chatOpacity === '-mb-[700px]'
+              ? (
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" className="text-3xl text-white m-auto" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path><path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"></path>
+                </svg>
+              )
+              : (
+                <svg className="m-auto w-[19px] text-white" role="presentation" viewBox="0 0 16 14">
+                  <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+                </svg>
+              )
+          }
+          {
+            chat.map((message, index) => (
+              <div key={index}>
+                {
+                  index === chat.length - 1
+                    ? message.userView
+                        ? ''
+                        : <div className='h-3 w-3 rounded-full bg-button right-0 absolute' />
+                    : ''
+                  }
+              </div>
+            ))
+          }
+        </button>
     </>
   )
 }
