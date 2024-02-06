@@ -131,7 +131,7 @@ export const Chat = () => {
             }
           </div>
           <form className='flex gap-2 pr-3 pl-3 pb-3 sm:pr-4 sm:pl-4 sm:pb-4'>
-            <Input inputChange={inputChange} newMessage={newMessage} type={'text'} placeholder={'Mensaje'} />
+            <Input inputChange={inputChange} value={newMessage} type={'text'} placeholder={'Mensaje'} />
             <button type='submit' onClick={submitMessage} className='bg-main text-white w-28 rounded-md dark:bg-neutral-700 border border-main transition-colors duration-200 hover:bg-transparent hover:text-main'>Enviar</button>
           </form>
         </div>
