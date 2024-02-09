@@ -336,7 +336,7 @@ export const Chat = () => {
 
   return (
     <>
-        <div className={`${chatOpacity} fixed bottom-24 right-4 flex z-40 h-[480px] ml-3 justify-between flex-col gap-3 transition-all duration-500 bg-white shadow-md rounded-xl dark:bg-main sm:w-96 sm:h-[600px] sm:gap-4`}>
+        <div className={`${chatOpacity} fixed bottom-24 right-4 flex z-40 h-[480px] ml-3 justify-between flex-col gap-3 transition-all duration-500 bg-white shadow-md rounded-xl dark:bg-main w-96 sm:h-[600px] sm:gap-4`}>
           <div className='h-28 w-full shadow-md bg-main rounded-t-xl flex p-4'>
             <span className='text-white mt-auto mb-auto text-xl'>Maaibot</span>
           </div>
