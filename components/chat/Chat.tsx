@@ -400,7 +400,7 @@ export const Chat = () => {
                                                         <option key={variation.variation}>{variation.variation} / {variation.subVariation}</option>
                                                       ))
                                                       : product.variations?.variations.map(variation => (
-                                                        <option>{variation.variation}</option>
+                                                        <option key={variation.variation}>{variation.variation}</option>
                                                       ))
                                                   }
                                                 </Select>
