@@ -22,8 +22,22 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
   }
 
   const selectVariation = (e: any) => {
-    const variation = product.variations?.variations.find(variation => variation.variation === e.target.value)
-    setTempCartProduct({...tempCartProduct, variation: variation})
+    const tempProduct = { ...tempCartProduct }
+    let vari: string = ''
+    let subVari: string = ''
+    if (e.target.value.includes(' / ')) {
+      const variation = e.target.value.split(' / ')
+      vari = variation[0]
+      subVari = variation[1]
+    } else {
+      vari = e.target.value
+    }
+    const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
+    tempProduct.variation = variationSelect
+    if (subVari !== '') {
+      tempProduct.subVariation = variationSelect?.subVariation
+    }
+    setTempCartProduct(tempProduct)
   }
 
   return (
@@ -43,27 +57,14 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
             {
               product.variations?.variations.length
                 ? product.variations.variations[0].variation !== ''
-                  ? product.variations.variations[0].subVariation && product.variations.variations[0].subVariation !== ''
-                    ? (
-                      <select onChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.variation : 'Seleccionar variación'} className='border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600'>
-                        <option>Seleccionar variación</option>
-                        {
-                          product.variations.variations.map(variation => (
-                            <option key={variation.variation}>{variation.variation} / {variation.subVariation}</option>
-                          ))
-                        }
-                      </select>
-                    )
-                    : (
-                      <select onChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.variation : 'Seleccionar variación'} className='border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600'>
-                        <option>Seleccionar variación</option>
-                        {
-                          product.variations.variations.map(variation => (
-                            <option key={variation.variation}>{variation.variation}</option>
-                          ))
-                        }
-                      </select>
-                    )
+                  ? <select onChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.variation : 'Seleccionar variación'} className='border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600'>
+                      <option>Seleccionar variación</option>
+                      {
+                        product.variations.variations.map(variation => (
+                          <option key={variation.variation}>{variation.variation}{variation.subVariation && variation.subVariation !== '' ? ` / ${variation.subVariation}` : ''}</option>
+                        ))
+                      }
+                    </select>
                   : ''
                 : ''
               }

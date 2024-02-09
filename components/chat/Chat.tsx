@@ -389,19 +389,27 @@ export const Chat = () => {
                                               ? (
                                                 <Select selectChange={(e: any) => {
                                                   const tempProducts = [...tempCartProducts]
-                                                  const variation = product.variations?.variations.find(variation => variation.variation === e.target.value)
-                                                  tempProducts[index].variation = variation
+                                                  let vari: string = ''
+                                                  let subVari: string = ''
+                                                  if (e.target.value.includes(' / ')) {
+                                                    const variation = e.target.value.split(' / ')
+                                                    vari = variation[0]
+                                                    subVari = variation[1]
+                                                  } else {
+                                                    vari = e.target.value
+                                                  }
+                                                  const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
+                                                  tempProducts[index].variation = variationSelect
+                                                  if (subVari !== '') {
+                                                    tempProducts[index].subVariation = variationSelect?.subVariation
+                                                  }
                                                   setTempCartProducts(tempProducts)
                                                 }} config='w-full mb-1'>
                                                   <option>Seleccionar</option>
                                                   {
-                                                    product.variations?.variations[0].subVariation && product.variations?.variations[0].subVariation !== ''
-                                                      ? product.variations?.variations.map(variation => (
-                                                        <option key={variation.variation}>{variation.variation} / {variation.subVariation}</option>
-                                                      ))
-                                                      : product.variations?.variations.map(variation => (
-                                                        <option key={variation.variation}>{variation.variation}</option>
-                                                      ))
+                                                    product.variations?.variations.map(variation => (
+                                                      <option key={variation.variation}>{variation.variation}{variation.subVariation && variation.subVariation !== '' ? ` / ${variation.subVariation}` : ''}</option>
+                                                    ))
                                                   }
                                                 </Select>
                                               )
