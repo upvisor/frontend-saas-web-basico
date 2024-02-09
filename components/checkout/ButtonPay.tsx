@@ -23,7 +23,11 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
         localStorage.setItem('sell', JSON.stringify(data))
         sell.cart.map(async (product) => {
           if (product.variation) {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity, variation: product.variation })
+            if (product.subVariation) {
+              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation, subVariation: product.subVariation })
+            } else {
+              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation })
+            }
           } else {
             await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
           }
@@ -80,7 +84,6 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
         }
         fbq('track', 'Purchase', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
         router.push('/gracias-por-comprar')
-        setSubmitLoading(false)
       }
     
       const mercadoSubmit = async (e: any) => {
@@ -114,7 +117,6 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
         }
         fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
         window.location.href = link
-        setSubmitLoading(false)
       }
 
   return (
@@ -132,10 +134,10 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
                     )
                     : sell.pay === 'MercadoPago'
                       ? link !== ''
-                        ? <button onClick={mercadoSubmit} className='w-28 h-10 rounded-md bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        ? <button onClick={mercadoSubmit} className='w-28 h-10 rounded-md bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
                         : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded-md bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
                       : sell.pay === 'Pago en la entrega'
-                        ? <button onClick={handleSubmit} className='w-28 h-10 rounded-md bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'PAGAR'}</button>
+                        ? <button onClick={handleSubmit} className='w-28 h-10 rounded-md bg-button transition-all duration-200 border border-button hover:bg-transparent text-white hover:text-button'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
                         : <button onClick={(e: any) => e.preventDefault()} className='w-28 h-10 rounded-md bg-button/50 text-white cursor-not-allowed'>{submitLoading ? <Spinner2 /> : 'Pagar'}</button>
               }
             </div>

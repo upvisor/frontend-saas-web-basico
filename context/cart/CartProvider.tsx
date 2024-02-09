@@ -19,7 +19,9 @@ const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setCart(response.data.cart)
       }
     } else {
-      setCart(JSON.parse(localStorage.getItem('cart')!))
+      if (localStorage.getItem('cart')) {
+        setCart(JSON.parse(localStorage.getItem('cart')!))
+      }
     }
   }
 

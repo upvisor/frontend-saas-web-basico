@@ -46,7 +46,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                   ? product.variations.variations[0].subVariation && product.variations.variations[0].subVariation !== ''
                     ? (
                       <select onChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.variation : 'Seleccionar variación'} className='border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600'>
-                        <option>Seleccionar vartiación</option>
+                        <option>Seleccionar variación</option>
                         {
                           product.variations.variations.map(variation => (
                             <option key={variation.variation}>{variation.variation} / {variation.subVariation}</option>
@@ -56,7 +56,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                     )
                     : (
                       <select onChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.variation : 'Seleccionar variación'} className='border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600'>
-                        <option>Seleccionar vartiación</option>
+                        <option>Seleccionar variación</option>
                         {
                           product.variations.variations.map(variation => (
                             <option key={variation.variation}>{variation.variation}</option>

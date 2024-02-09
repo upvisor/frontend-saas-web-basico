@@ -21,7 +21,7 @@ export interface ISell {
   fbc?: string
   shippingState: string
   subscription: boolean
-  buyOrder: string
+  buyOrder?: string
 
   createdAt?: Date
   updatedAt?: Date

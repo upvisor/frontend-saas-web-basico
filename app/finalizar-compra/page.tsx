@@ -30,7 +30,7 @@ const CheckOut = () => {
     cart: typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('cart')!) : [],
     shipping: 0,
     pay: '',
-    state: 'Pago iniciado',
+    state: 'Pedido realizado',
     total: 0,
     fbp: Cookies.get('_fbp'),
     fbc: Cookies.get('_fbc'),
@@ -38,7 +38,6 @@ const CheckOut = () => {
     shippingState: '',
     subscription: false,
     phone: Number(Cookies.get('phone')) || undefined,
-    buyOrder: ''
   })
   const [shipping, setShipping] = useState<IShipping[]>()
   const [domain, setDomain] = useState('')

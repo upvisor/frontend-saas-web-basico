@@ -5,6 +5,7 @@ export interface IMessage {
     response?: string
     adminView?: boolean
     userView?: boolean
+    shop?: number
 
     createdAt?: Date
     updatedAt?: Date
