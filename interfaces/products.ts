@@ -58,6 +58,7 @@ export interface ITypeVariation {
 }
 
 export interface IVariation {
+  _id?: string
   variation: string
   subVariation?: string
   stock: number

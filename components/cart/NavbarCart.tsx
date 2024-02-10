@@ -101,13 +101,22 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                   </div>
                   <button onClick={async () => {
                     const cartProduct = JSON.parse(localStorage.getItem('cart')!)
-                    const productSelect = cartProduct.filter((item: ICartProduct) => item.name === product.name)
+                    const productSelect: ICartProduct[] = cartProduct.filter((item: ICartProduct) => item.name === product.name)
                     if (productSelect.length >= 2) {
-                      const products = cartProduct.filter((item: ICartProduct) => item.variation?.variation !== product.variation?.variation)
-                      localStorage.setItem('cart', JSON.stringify(products))
-                      setCart(products)
-                      if (status === 'authenticated') {
-                        await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/account/${user._id}`, { cart: JSON.parse(localStorage.getItem('cart')!) })
+                      if (productSelect.filter(product => product.variation?.subVariation && product.variation?.subVariation !== '').length) {
+                        const products = productSelect.filter(item => item.variation?.subVariation !== product.variation?.subVariation)
+                        localStorage.setItem('cart', JSON.stringify(products))
+                        setCart(products)
+                        if (status === 'authenticated') {
+                          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/account/${user._id}`, { cart: JSON.parse(localStorage.getItem('cart')!) })
+                        }
+                      } else {
+                        const products = cartProduct.filter((item: ICartProduct) => item.variation?.variation !== product.variation?.variation)
+                        localStorage.setItem('cart', JSON.stringify(products))
+                        setCart(products)
+                        if (status === 'authenticated') {
+                          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/account/${user._id}`, { cart: JSON.parse(localStorage.getItem('cart')!) })
+                        }
                       }
                     } else {
                       const products = cartProduct.filter((item: ICartProduct) => item.name !== product.name)

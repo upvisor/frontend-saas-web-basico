@@ -81,7 +81,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                   : (
                     <div>
                       <p className='mb-4'>No tienes productos agregados al carrito</p>
-                      <Link href='/tienda' className='py-2 px-6 border font-medium tracking-wide border-main transition-colors duration-200 rounded bg-main text-white text-sm hover:bg-transparent hover:text-main'>IR A LA TIENDA</Link>
+                      <Link href='/tienda' className='py-2 px-6 border tracking-wide border-main transition-colors duration-200 rounded-md bg-main text-white text-sm hover:bg-transparent hover:text-main'>Ir a la tienda</Link>
                     </div>
                   )
               }

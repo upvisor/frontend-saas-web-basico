@@ -398,10 +398,15 @@ export const Chat = () => {
                                                   } else {
                                                     vari = e.target.value
                                                   }
-                                                  const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
-                                                  tempProducts[index].variation = variationSelect
                                                   if (subVari !== '') {
-                                                    tempProducts[index].subVariation = variationSelect?.subVariation
+                                                    const variationSelect = product.variations?.variations.filter(variation => variation.variation === vari)
+                                                    const variation = variationSelect?.find(variation => variation.subVariation === subVari)
+                                                    tempProducts[index].variation = variation
+                                                    tempProducts[index].image = variation!.image!.url
+                                                  } else {
+                                                    const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
+                                                    tempProducts[index].variation = variationSelect
+                                                    tempProducts[index].image = variationSelect!.image!.url
                                                   }
                                                   setTempCartProducts(tempProducts)
                                                 }} config='w-full mb-1'>

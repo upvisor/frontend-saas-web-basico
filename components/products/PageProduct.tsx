@@ -67,7 +67,7 @@ export default function PageProduct ({ product, design, products }: { product: I
       }
       <ProductInfo product={product} tempCartProduct={tempCartProduct} setTempCartProduct={setTempCartProduct} setPopup={setPopup} popup={popup} design={design} stars={stars} quantity={quantity} setDetailsPosition={setDetailsPosition} />
       {
-        (product.informations?.length && product.informations[0].title && product.informations[0].title !== '') !== '' || (product.informations?.length && product.informations[0].description && product.informations[0].description !== '')
+        (product.informations?.length && (product.informations[0].title !== '' || product.informations[0].description !== '' || product.informations[0].image.url !== ''))
           ? (
             <Information product={product} />
           )

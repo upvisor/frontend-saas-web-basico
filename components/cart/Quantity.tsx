@@ -54,17 +54,17 @@ export const Quantity = ({ product }: { product: ICartProduct }) => {
                 }
               </div>
               <button onClick={async () => {
-                const cartProduct = JSON.parse(localStorage.getItem('cart')!)
+                const cartProduct: ICartProduct[] = JSON.parse(localStorage.getItem('cart')!)
                 const productSelect = cartProduct.filter((item: ICartProduct) => item.name === product.name)
                 if (productSelect.length >= 2) {
-                  const products = cartProduct.filter((item: ICartProduct) => item.variation?.variation !== product.variation?.variation)
+                  const products = cartProduct.filter(item => item.variation?._id !== product.variation?._id)
                   localStorage.setItem('cart', JSON.stringify(products))
                   setCart(products)
                   if (status === 'authenticated') {
                     await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/account/${user._id}`, { cart: JSON.parse(localStorage.getItem('cart')!) })
                   }
                 } else {
-                  const products = cartProduct.filter((item: ICartProduct) => item.name !== product.name)
+                  const products = cartProduct.filter(item => item.name !== product.name)
                   localStorage.setItem('cart', JSON.stringify(products))
                   setCart(products)
                   if (status === 'authenticated') {

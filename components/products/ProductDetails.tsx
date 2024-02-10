@@ -1,7 +1,7 @@
 import React from 'react'
 import { ICartProduct, IProduct } from '../../interfaces'
 import { NumberFormat } from '../../utils'
-import { ButtonAddToCart, ButtonNone, ItemCounter } from '../ui'
+import { ButtonAddToCart, ButtonNone, ItemCounter, Select } from '../ui'
 import Image from 'next/image'
 
 interface Props {
@@ -32,10 +32,15 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
     } else {
       vari = e.target.value
     }
-    const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
-    tempProduct.variation = variationSelect
     if (subVari !== '') {
-      tempProduct.subVariation = variationSelect?.subVariation
+      const variationSelect = product.variations?.variations.filter(variation => variation.variation === vari)
+      const variation = variationSelect?.find(variation => variation.subVariation === subVari)
+      tempProduct.variation = variation
+      tempProduct.image = variation!.image!.url
+    } else {
+      const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
+      tempProduct.variation = variationSelect
+      tempProduct.image = variationSelect!.image!.url
     }
     setTempCartProduct(tempProduct)
   }
@@ -57,14 +62,14 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
             {
               product.variations?.variations.length
                 ? product.variations.variations[0].variation !== ''
-                  ? <select onChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.variation : 'Seleccionar variación'} className='border p-1 rounded-md focus:outline-none focus:border-main focus:ring-1 focus:ring-main dark:border-neutral-600'>
+                  ? <Select selectChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.subVariation ? `${tempCartProduct.variation?.variation} / ${tempCartProduct.variation.subVariation}` : tempCartProduct.variation?.variation : 'Seleccionar variación'}>
                       <option>Seleccionar variación</option>
                       {
                         product.variations.variations.map(variation => (
                           <option key={variation.variation}>{variation.variation}{variation.subVariation && variation.subVariation !== '' ? ` / ${variation.subVariation}` : ''}</option>
                         ))
                       }
-                    </select>
+                    </Select>
                   : ''
                 : ''
               }

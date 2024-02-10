@@ -11,10 +11,16 @@ export const addToCartVariation = async ({ variation, setText, tempCartProduct, 
     if (cart.find((product: ICartProduct) => product.name === tempCartProduct.name)) {
       const productSelect = cart.find((product: ICartProduct) => product.name === tempCartProduct.name)
       if (productSelect?.variation?.variation === variation.variation) {
-        const productIndex = cart.findIndex((product: ICartProduct) => product.name === tempCartProduct.name)
-        cart[productIndex].quantity = tempCartProduct.quantity + cart[productIndex].quantity
-        localStorage.setItem('cart', JSON.stringify(cart))
-        setCart(JSON.parse(localStorage.getItem('cart')!))
+        if (productSelect?.variation?.subVariation === tempCartProduct.variation?.subVariation) {
+          const productIndex = cart.findIndex((product: ICartProduct) => product.name === tempCartProduct.name)
+          cart[productIndex].quantity = tempCartProduct.quantity + cart[productIndex].quantity
+          localStorage.setItem('cart', JSON.stringify(cart))
+          setCart(JSON.parse(localStorage.getItem('cart')!))
+        } else {
+          const cartFinal = cart.concat(tempCartProduct)
+          localStorage.setItem('cart', JSON.stringify(cartFinal))
+          setCart(JSON.parse(localStorage.getItem('cart')!))
+        }
       } else {
         const cartFinal = cart.concat({ ...tempCartProduct, variation: variation, image: variation.image?.url! })
         localStorage.setItem('cart', JSON.stringify(cartFinal))
