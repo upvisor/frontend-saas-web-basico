@@ -4,11 +4,9 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React, { useState, useEffect, useContext } from 'react'
 import { ProductList, ShippingCart } from '../../components/products'
-import { ICartProduct, IDesign, IProduct } from '../../interfaces'
+import { IDesign, IProduct } from '../../interfaces'
 import { NumberFormat, offer } from '../../utils'
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
-import axios from 'axios'
 import { H1, LinkButton } from '../ui'
 import { Quantity } from '.'
 
@@ -21,12 +19,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
 
   const filterProducts = () => {
     if (products.length) {
-      if (design.home?.products.sectionProducts === 'Productos en oferta') {
-        const filterProducts = products.filter(product => product.beforePrice)
-        setProductsFiltered(filterProducts)
-      } else {
-        setProductsFiltered(products)
-      }
+      setProductsFiltered(products)
     }
   }
 
@@ -129,7 +122,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
       </div>
       {
         productsFiltered.length
-            ? <ProductList products={ productsFiltered } title={design.cart?.title && design.cart?.title !== '' ? design.cart.title : 'Productos recomendados'} />
+            ? <ProductList products={ productsFiltered } title='Productos recomendados' />
             : ''
       }
     </>

@@ -4,12 +4,12 @@ import "swiper/css"
 import "swiper/css/pagination"
 import styles from "./Slider.module.css"
 import { Navigation, Pagination } from "swiper/modules"
-import { IDesign } from "@/interfaces"
 import Link from "next/link"
 import Image from 'next/image'
 import { Button, H1 } from "../ui"
+import { IInfo } from "@/interfaces"
 
-export default function Slider({ design }: { design: IDesign }) {
+export default function Slider({ info }: { info: IInfo }) {
   return (
     <div>
       <Swiper
@@ -22,18 +22,18 @@ export default function Slider({ design }: { design: IDesign }) {
         modules={[Pagination, Navigation]}
       >
         {
-          design.home?.banner.length && design.home?.banner[0].image.url !== ''
-            ? design.home.banner.map(banner => (
+          info.banner
+            ? info.banner.map(banner => (
               <SwiperSlide key={banner.title}>
                 <div className={`flex h-[450px] md:h-[550px] 2xl:h-[700px]`}>
                   <div className="m-auto w-full p-4">
                     <div className='max-w-[1600px] w-full m-auto'>
                       <H1 config="text-white">{banner.title}</H1>
-                      <p className={`text-white text-lg mb-4`}>{banner.text}</p>
-                      <Link href={`${banner.linkButton}`}><Button>{banner.textButton}</Button></Link>
+                      <p className={`text-white text-lg mb-4`}>{banner.description}</p>
+                      <Link href={`${banner.buttonLink}`}><Button>{banner.button}</Button></Link>
                     </div>
                   </div>
-                  <Image width={1920} height={1080} className={`absolute object-cover h-full w-full -z-10`} src={banner.image.url} alt='banner' />
+                  <Image width={1920} height={1080} className={`absolute object-cover h-full w-full -z-10`} src={banner.image!.url} alt='banner' />
                 </div>
               </SwiperSlide>
             ))

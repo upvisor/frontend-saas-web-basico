@@ -88,7 +88,7 @@ export default function PageProduct ({ product, design, products }: { product: I
       </div>
       {
         productsFiltered.length >= 1
-            ? <RecomendedProducts products={ productsFiltered } title={design.product.title !== '' ? design.product.title : 'Productos recomendados'} productSelect={product} />
+            ? <RecomendedProducts products={ productsFiltered } title='Productos recomendados' productSelect={product} />
             : ''
       }
     </>

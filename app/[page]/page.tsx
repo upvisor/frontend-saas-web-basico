@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Products from "@/components/categories/Products"
 import { ContactPage } from "@/components/contact"
 import Categories from "@/components/home/Categories"
@@ -6,6 +5,7 @@ import Slider from "@/components/home/Slider"
 import { H1, H2 } from "@/components/ui"
 import Subscribe from "@/components/ui/Subscribe"
 import { Design, IProduct } from "@/interfaces"
+import Image from 'next/image'
 
 export const revalidate = 60
 
@@ -19,9 +19,13 @@ async function fetchProducts () {
   return res.json()
 }
 
-export async function generateMetadata() {
+export async function generateMetadata({
+  params
+}: {
+  params: { page: string }
+}) {
   const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`).then((res) => res.json())
-  const home = design.pages.find(page => page.page === 'Inicio')
+  const home = design.pages.find(page => page.slug === params.page)
   return {
     title: home?.metaTitle && home?.metaTitle !== '' ? home?.metaTitle : '',
     description: home?.metaDescription && home?.metaDescription !== '' ? home?.metaDescription : '',
@@ -33,8 +37,8 @@ export async function generateMetadata() {
   }
 }
 
-export default async function Home() {
-
+export default async function Page({ params }: { params: { page: string } }) {
+    
   const design: Design = await fetchDesign()
 
   const products: IProduct[] = await fetchProducts()
@@ -43,7 +47,7 @@ export default async function Home() {
     <div className="flex flex-col gap-6">
       {
         design.pages.map(page => {
-          if (page.page === 'Inicio') {
+          if (page.slug === params.page) {
             return (
               <>
                 {

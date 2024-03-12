@@ -2,11 +2,10 @@
 import React, { PropsWithChildren, useState, useEffect } from 'react'
 import DesignContext from './DesignContext'
 import axios from 'axios'
-import { IDesign } from '@/interfaces'
 
 const DesignProvider: React.FC<PropsWithChildren> = ({ children }) => {
   
-  const [design, setDesign] = useState<IDesign>({
+  const [design, setDesign] = useState({
     header: {
       topStrip: ''
     },

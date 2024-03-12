@@ -5,11 +5,11 @@ import { NavbarCart } from '../cart'
 import { usePathname, useRouter } from 'next/navigation'
 import CartContext from '../../context/cart/CartContext'
 import Image from 'next/image'
-import { ICategory, IDesign, IStoreData } from '@/interfaces'
+import { Design, ICategory, IStoreData } from '@/interfaces'
 import { AccountLogin } from '../ui'
 
 interface Props {
-  design: IDesign
+  design: Design
   storeData: IStoreData
   categories: ICategory[]
 }
@@ -48,10 +48,10 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
       <div className='w-full'>
       {
         pathname !== '/finalizar-compra'
-          ? design.header?.topStrip && design.header?.topStrip !== ''
+          ? design.header.topStrip && design.header.topStrip !== ''
             ? (
               <div className='bg-[#22262c] text-white flex pl-2 pr-2 pt-1.5 pb-1.5 text-center sticky z-50'>
-                <p className='m-auto font-medium text-[13px]'>{design.header?.topStrip}</p>
+                <p className='m-auto font-medium text-[13px]'>{design.header.topStrip}</p>
               </div>
             )
             : ''
@@ -71,24 +71,37 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
             pathname !== '/finalizar-compra'
               ? <>
                 <div className='hidden gap-6 sm:flex'>
-                  <Link className='mt-auto flex h-full font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/'>
-                    <div className={`mt-auto ${pathname === '/' ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Inicio</div>
-                  </Link>
-                  <Link className='flex h-full' href='/tienda' onMouseEnter={() => {
-                    setNavCategoriesOpacity('-mt-[1px]')
-                  }} onMouseLeave={() => {
-                    setNavCategoriesOpacity('-mt-[330px]')
-                  }} onClick={() => {
-                    setNavCategoriesOpacity('-mt-[330px]')
-                  }}>
-                    <div className={`mt-auto ${pathname.includes('/tienda') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 font-medium text-[#1c1b1b] mb-auto dark:text-white`}>Tienda</div>
-                  </Link>
-                  <Link className='mt-auto font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/blog'>
-                    <div className={`mt-auto ${pathname.includes('/blog') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Blog</div>
-                  </Link>
-                  <Link className='mt-auto font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/contacto'>
-                    <div className={`mt-auto ${pathname.includes('/contacto') ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>Contacto</div>
-                  </Link>
+                  {
+                    design.pages.map(page => {
+                      if (page.header) {
+                        if (page.page === 'Tienda') {
+                          return (
+                            <Link key={page.slug} className='flex h-full' href='/tienda' onMouseEnter={() => {
+                              setNavCategoriesOpacity('-mt-[1px]')
+                            }} onMouseLeave={() => {
+                              setNavCategoriesOpacity('-mt-[330px]')
+                            }} onClick={() => {
+                              setNavCategoriesOpacity('-mt-[330px]')
+                            }}>
+                              <div className={`mt-auto ${pathname.includes(`/${page.slug}`) ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 font-medium text-[#1c1b1b] mb-auto dark:text-white`}>{page.page}</div>
+                            </Link>
+                          )
+                        } if (page.slug === '') {
+                          return (
+                            <Link key={page.slug} className='mt-auto flex h-full font-medium text-[#1c1b1b] mb-auto dark:text-white' href='/'>
+                              <div className={`mt-auto ${pathname === '/' ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>{page.page}</div>
+                            </Link>
+                          )
+                        }else {
+                          return (
+                            <Link key={page.slug} className='mt-auto flex h-full font-medium text-[#1c1b1b] mb-auto dark:text-white' href={`/${page.slug}`}>
+                              <div className={`mt-auto ${pathname.includes(`/${page.slug}`) ? 'border-main dark:border-white' : 'border-white hover:border-main dark:border-neutral-900 dark:hover:border-white'} transition-colors duration-150 border-b-2 text-[#1c1b1b] mb-auto dark:text-white`}>{page.page}</div>
+                            </Link>
+                          )
+                        }
+                      }
+                    })
+                  }
                   {
                     accountPosition === '-mt-[400px]'
                       ? (
@@ -193,7 +206,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                   </div>
                   <div className='flex w-full justify-end gap-4'>
                     {
-                      accountView === 'hidden'
+                      accountPosition === '-mt-[400px]'
                         ? (
                           <button onClick={(e: any) => {
                             e.preventDefault()
@@ -223,7 +236,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                         )
                     }
                     {
-                      cartView === 'hidden'
+                      cartPosition === '-mt-[395px]'
                         ? (
                           <div>
                             <button onClick={() => {
@@ -332,61 +345,62 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         </div>
         <div className={`${index} w-full absolute z-30 justify-between 530:hidden`} style={{ top: '51px', height: 'calc(100vh - 49px)' }}>
           <div className={`${menu} p-4 shadow-md transition-all duration-500 bg-white overflow-hidden dark:bg-neutral-900`}>
-            <Link className={`mb-4 font-medium text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
-              setMenu('-ml-[350px]')
-              setTimeout(() => {
-                setIndex('hidden')
-              }, 500)
-            }} href='/'>Inicio<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
-            <div className={`border-b mb-4 min-w-[250px] dark:border-neutral-600`}>
-              <div className={`flex justify-between pb-2`}>
-                <Link onClick={() => {
-                  setMenu('-ml-[350px]')
-                  setTimeout(() => {
-                    setIndex('hidden')
-                  }, 500)
-                }} className='font-medium text-[#1c1b1b] w-full dark:text-white' href='/tienda'>Tienda</Link>
-                {
-                  categories.length
-                    ? <button onClick={() => rotate === 'rotate-90' ? setRotate('-rotate-90') : setRotate('rotate-90')}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className={`${rotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></button>
-                    : <Link href='/tienda' onClick={() => {
-                      setMenu('-mt-[350px]')
-                      setTimeout(() => {
-                        setIndex('hidden')
-                      }, 500)
-                    }}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
-                }
-              </div>
-              <div ref={categoriesPhoneRef} style={{ maxHeight: `${categoriesPhone}px`, overflow: 'hidden', transition: 'max-height 0.5s' }} className={`${categoriesPhone} flex flex-col`}>
-                {
-                  categories?.length
-                    ? categories.map(category => (
-                      <Link onClick={() => {
+            {
+              design.pages.map(page => {
+                if (page.header) {
+                  if (page.page === 'Tienda') {
+                    return (
+                      <div key={page.slug} className={`border-b mb-4 min-w-[250px] dark:border-neutral-600`}>
+                        <div className={`flex justify-between pb-2`}>
+                          <Link onClick={() => {
+                            setMenu('-ml-[350px]')
+                            setTimeout(() => {
+                              setIndex('hidden')
+                            }, 500)
+                          }} className='font-medium text-[#1c1b1b] w-full dark:text-white' href={`/${page.slug}`}>{page.page}</Link>
+                          {
+                            categories.length
+                              ? <button onClick={() => rotate === 'rotate-90' ? setRotate('-rotate-90') : setRotate('rotate-90')}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className={`${rotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></button>
+                              : <Link href='/tienda' onClick={() => {
+                                setMenu('-mt-[350px]')
+                                setTimeout(() => {
+                                  setIndex('hidden')
+                                }, 500)
+                              }}><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
+                          }
+                        </div>
+                        <div key={page.slug} ref={categoriesPhoneRef} style={{ maxHeight: `${categoriesPhone}px`, overflow: 'hidden', transition: 'max-height 0.5s' }} className={`${categoriesPhone} flex flex-col`}>
+                          {
+                            categories?.length
+                              ? categories.map(category => (
+                                <Link onClick={() => {
+                                  setMenu('-ml-[350px]')
+                                  setTimeout(() => {
+                                    setIndex('hidden')
+                                  }, 500)
+                                }} href={`/tienda/${category.slug}`} className='flex gap-2 mb-2' key={category._id}>
+                                  <Image className='w-28 rounded-md h-auto' src={category.image?.url!} width={112} height={112} alt={`Categoria ${category.category}`} />
+                                  <p className='mt-auto text-[#1c1b1b] font-medium mb-auto dark:text-white'>{category.category}</p>
+                                </Link>
+                              ))
+                              : ''
+                          }
+                        </div>
+                      </div>
+                    )
+                  } else {
+                    return (
+                      <Link key={page.slug} className={`mb-4 font-medium text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
                         setMenu('-ml-[350px]')
                         setTimeout(() => {
                           setIndex('hidden')
                         }, 500)
-                      }} href={`/tienda/${category.slug}`} className='flex gap-2 mb-2' key={category._id}>
-                        <Image className='w-28 rounded-md h-auto' src={category.image?.url!} width={112} height={112} alt={`Categoria ${category.category}`} />
-                        <p className='mt-auto text-[#1c1b1b] font-medium mb-auto dark:text-white'>{category.category}</p>
-                      </Link>
-                    ))
-                    : ''
+                      }} href={`/${page.slug}`}>{page.page}<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
+                    )
+                  }
                 }
-              </div>
-            </div>
-            <Link className={`mb-4 text-[#1c1b1b] font-medium flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
-              setMenu('-ml-[350px]')
-              setTimeout(() => {
-                setIndex('hidden')
-              }, 500)
-            }} href='/blog'>Blog<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
-            <Link className={`mb-4 text-[#1c1b1b] font-medium flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
-              setMenu('-ml-[350px]')
-              setTimeout(() => {
-                setIndex('hidden')
-              }, 500)
-            }} href='/contacto'>Contacto<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
+              })
+            }
           </div>
           <div className='h-full' style={{ width: 'calc(100% - 344px)' }} onClick={() => {
             setMenu('-ml-[350px]')

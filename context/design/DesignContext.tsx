@@ -2,7 +2,7 @@ import { IDesign } from '@/interfaces'
 import { createContext } from 'react'
 
 interface ContextProps {
-    design: IDesign,
+    design: any,
     setDesign: any,
     load: boolean
 }

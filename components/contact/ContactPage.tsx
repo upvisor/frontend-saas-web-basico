@@ -1,10 +1,10 @@
 "use client"
-import { IContactData, IDesign } from '@/interfaces'
+import { IContactData, IInfo } from '@/interfaces'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { ButtonFunction, H1, H2, Input } from '../ui'
 
-export const ContactPage = ({ design }: { design: IDesign }) => {
+export const ContactPage = ({ info }: { info: IInfo }) => {
 
   const [formContact, setFormContact] = useState<IContactData>({
     name: '',
@@ -54,12 +54,12 @@ export const ContactPage = ({ design }: { design: IDesign }) => {
       <div className='flex px-4'>
         <div className='m-auto w-[1600px] py-10 block gap-16 xl:flex'>
           <div className='w-full m-auto flex flex-col gap-2 mb-10 xl:w-1/2 xl:mb-auto'>
-            <H1>{design.contact?.title && design.contact?.title !== '' ? design.contact?.title : 'Contacto'}</H1>
-            <p>{design.contact?.text && design.contact?.text !== '' ? design.contact?.text : 'Para cualquier pregunta o consulta que tengas, no dudes en ponerte en contacto con nosotros a traves del siguiente formulario.'}</p>
+            <H1>{info.title}</H1>
+            <p>{info.description}</p>
           </div>
           <div className='w-full m-auto sm:w-[560px] xl:w-1/2'>
             <div className='rounded-md border flex flex-col gap-4 border-white shadow-2xl p-4 sm:p-10 dark:shadow-none dark:border dark:border-neutral-700 dark:bg-neutral-800'>
-              <H2>{design.contact?.titleForm && design.contact?.titleForm !== '' ? design.contact?.titleForm : 'Llena el siguiente formulario'}</H2>
+              <H2>{info.titleForm}</H2>
               <form className='flex flex-col gap-4'>
                 <div className='flex flex-col gap-2'>
                   <p className='text-sm'>Nombre</p>

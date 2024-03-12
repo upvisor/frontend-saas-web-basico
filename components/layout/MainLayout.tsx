@@ -1,6 +1,5 @@
 import React from "react"
-import { ICategory, IDesign, IStoreData } from "@/interfaces"
-import Subscribe from "../ui/Subscribe"
+import { Design, ICategory, IStoreData } from "@/interfaces"
 import Footer from "../ui/Footer"
 import { Navbar } from "."
 import { Chat } from "../chat"
@@ -22,7 +21,7 @@ async function fetchCategories () {
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
   
-  const design: IDesign = await fetchDesign()
+  const design: Design = await fetchDesign()
   
   const storeData: IStoreData = await fetchStoreData()
 
@@ -32,7 +31,6 @@ export default async function MainLayout({ children }: { children: React.ReactNo
     <Navbar design={design} storeData={storeData} categories={categories}>
       <div className="h-[50px] sm:h-[53px]" />
       { children }
-      <Subscribe />
       <Footer />
       <Chat />
     </Navbar>

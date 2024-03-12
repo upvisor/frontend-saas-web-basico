@@ -1,10 +1,10 @@
 "use client"
 import axios from 'axios'
 import React, { useState } from 'react'
-import { IDesign } from '@/interfaces'
+import { IDesign, IInfo } from '@/interfaces'
 import { ButtonFunction, H2, Input, Spinner2 } from '.'
 
-export const SubscribePage = ({ design }: { design: IDesign }) => {
+export const SubscribePage = ({ info }: { info: IInfo }) => {
 
   const [subscribeData, setSubscribeData] = useState({ email: '', tags: ['Suscriptores'] })
   const [successSubscribe, setSuccessSubscribe] = useState('hidden')
@@ -34,7 +34,7 @@ export const SubscribePage = ({ design }: { design: IDesign }) => {
   return (
     <div className='w-full bg-neutral-100 pl-4 pr-4 flex dark:bg-neutral-900/40'>
       <form className='m-auto w-[1600px] mt-16 mb-16 flex flex-col gap-4'>
-        <H2 config='text-center'>{design.subscription?.title && design.subscription?.title !== '' ? design.subscription?.title.toUpperCase() : 'Suscribete en nuestra lista'}</H2>
+        <H2 config='text-center'>{info?.title ? info.title : 'Suscribete a nuestra lista'}</H2>
         <div className='flex gap-2'>
           <Input inputChange={inputChange} type='text' placeholder={'Email'} value={subscribeData.email} />
           <ButtonFunction action={handleSubmit}>{loading ? <Spinner2 /> : 'Envíar'}</ButtonFunction>
