@@ -1,12 +1,14 @@
 import React from 'react'
 import { ContactPage } from '@/components/contact'
-import { Design, IProduct } from '@/interfaces'
+import { Design, ICategory, IProduct } from '@/interfaces'
 import Slider from '@/components/home/Slider'
 import Categories from '@/components/home/Categories'
 import { H1, H2 } from '@/components/ui'
 import Products from '@/components/categories/Products'
 import Subscribe from '@/components/ui/Subscribe'
 import Image from 'next/image'
+import Cate from '../../components/categories/Categories'
+import Prod from '@/components/home/Products'
 
 export const revalidate = 60
 
@@ -17,6 +19,11 @@ async function fetchDesign () {
 
 async function fetchProducts () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+  return res.json()
+}
+
+async function fetchCategories () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
   return res.json()
 }
 
@@ -39,6 +46,8 @@ export default async function Page () {
   const design: Design = await fetchDesign()
 
   const products: IProduct[] = await fetchProducts()
+
+  const categories: ICategory[] = await fetchCategories()
 
   return (
     <div className="flex flex-col gap-6">
@@ -192,6 +201,10 @@ export default async function Page () {
                           }
                         </div>
                       )
+                    } else if (content.content === 'Categorias 2') {
+                      return <Cate key={content.content} categories={categories} />
+                    } else if (content.content === 'Carrusel productos') {
+                      return <Prod key={content.content} products={products} />
                     }
                   })
                 }
