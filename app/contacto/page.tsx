@@ -205,7 +205,7 @@ export default async function Page () {
                     } else if (content.content === 'Categorias 2') {
                       return <Cate key={content.content} categories={categories} />
                     } else if (content.content === 'Carrusel productos') {
-                      return <Prod key={content.content} products={products} />
+                      return <Prod key={content.content} products={products} title={content.info.title!} filter={content.info.products!} categories={categories} />
                     }
                   })
                 }

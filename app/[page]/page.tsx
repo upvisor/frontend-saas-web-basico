@@ -73,7 +73,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                             <div className="w-full m-auto flex flex-col gap-4 md:w-1/2">
                               <H1>{content.info.title}</H1>
                               <p className={`transition-opacity duration-200 text-sm lg:text-[16px]`}>{content.info.description}</p>
-                              <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a] m-auto md:m-0'>{content.info.button}</Link>
+                              <Link href={content.info.buttonLink!} className='bg-[#f6531a] border border-[#f6531a] w-fit transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a] m-auto md:m-0'>{content.info.button}</Link>
                             </div>
                             <div className="w-full flex md:w-1/2">
                               {
@@ -99,7 +99,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                             <div className="w-full m-auto flex flex-col gap-4 md:w-1/2">
                               <H1>{content.info.title}</H1>
                               <p className={`transition-opacity duration-200 text-sm lg:text-[16px]`}>{content.info.description}</p>
-                              <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a] m-auto md:m-0'>{content.info.button}</Link>
+                              <Link href={content.info.buttonLink!} className='bg-[#f6531a] border border-[#f6531a] w-fit transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a] m-auto md:m-0'>{content.info.button}</Link>
                             </div>
                             <div className="w-full flex md:w-1/2 md:hidden">
                               {
@@ -118,7 +118,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                             <div className='flex gap-4 flex-col'>
                               <H1>{content.info.title}</H1>
                               <p className={`transition-opacity duration-200 text-sm lg:text-[16px]`}>{content.info.description}</p>
-                              <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
+                              <Link href={content.info.buttonLink!} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
                             </div>
                             {
                               content.info?.image?.url && content.info.image.url !== ''
@@ -137,17 +137,17 @@ export default async function Page({ params }: { params: { page: string } }) {
                                 <div className="w-full flex flex-col gap-2 md:w-1/3">
                                   <H2>{content.info.subTitle}</H2>
                                   <p className='text-sm lg:text-[16px]'>{content.info.description}</p>
-                                  <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
+                                  <Link href={content.info.buttonLink!} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
                                 </div>
                                 <div className="w-full flex flex-col gap-2 md:w-1/3">
                                   <H2>{content.info.subTitle2}</H2>
                                   <p className='text-sm lg:text-[16px]'>{content.info.description2}</p>
-                                  <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink2!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button2}</Link>
+                                  <Link href={content.info.buttonLink2!} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button2}</Link>
                                 </div>
                                 <div className="w-full flex flex-col gap-2 md:w-1/3">
                                   <H2>{content.info.subTitle3}</H2>
                                   <p className='text-sm lg:text-[16px]'>{content.info.description3}</p>
-                                  <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink3!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button3}</Link>
+                                  <Link href={content.info.buttonLink3!} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button3}</Link>
                                 </div>
                               </div>
                               {
@@ -167,12 +167,12 @@ export default async function Page({ params }: { params: { page: string } }) {
                                 <div className="w-full flex flex-col gap-2 md:w-1/2">
                                   <H2>{content.info.subTitle}</H2>
                                   <p className='text-sm lg:text-[16px]'>{content.info.description}</p>
-                                  <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
+                                  <Link href={content.info.buttonLink!} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
                                 </div>
                                 <div className="w-full flex flex-col gap-2 md:w-1/2">
                                   <H2>{content.info.subTitle2}</H2>
                                   <p className='text-sm lg:text-[16px]'>{content.info.description2}</p>
-                                  <Link href={`${process.env.NEXT_PUBLIC_WEB_URL}${content.info.buttonLink2!}`} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
+                                  <Link href={content.info.buttonLink2!} className='bg-[#f6531a] border border-[#f6531a] w-fit m-auto transition-colors duration-200 text-white py-1.5 px-6 hover:bg-transparent rounded-md hover:text-[#f6531a]'>{content.info.button}</Link>
                                 </div>
                               </div>
                               {
@@ -208,7 +208,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Categorias 2') {
                       return <Cate key={content.content} categories={categories} />
                     } else if (content.content === 'Carrusel productos') {
-                      return <Prod key={content.content} products={products} />
+                      return <Prod key={content.content} products={products} title={content.info.title!} filter={content.info.products!} categories={categories} />
                     }
                   })
                 }
