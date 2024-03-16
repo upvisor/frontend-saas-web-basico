@@ -1,6 +1,8 @@
 export interface Design {
     header: IHeader
     pages: IPage[]
+    productPage: IProductPage
+    categoryPage: ICategoryPage[]
 }
 
 export interface IHeader {
@@ -13,6 +15,15 @@ export interface IPage {
     header: boolean
     metaTitle?: string
     metaDescription?: string
+    design: IDesign[]
+}
+
+export interface IProductPage {
+    title: string
+    text: string
+}
+
+export interface ICategoryPage {
     design: IDesign[]
 }
 
