@@ -1,7 +1,7 @@
 export interface Design {
     header: IHeader
     pages: IPage[]
-    productPage: IProductPage
+    productPage: IProductPage[]
     categoryPage: ICategoryPage[]
 }
 
@@ -22,6 +22,7 @@ export interface IProductPage {
     reviews: boolean
     title: string
     text: string
+    design: IDesign[]
 }
 
 export interface ICategoryPage {

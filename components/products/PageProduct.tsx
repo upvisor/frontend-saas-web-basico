@@ -1,14 +1,14 @@
 "use client"
-import { Design, ICartProduct, IProduct } from "@/interfaces"
+import { Design, ICartProduct, ICategory, IProduct } from "@/interfaces"
 import { useEffect, useState } from "react"
 import { Information, NoReviewsProduct, PopupAddCart, ProductDetails, ProductInfo, RecomendedProducts, ReviewsProduct } from "./"
-import { H2 } from "../ui"
+import { H1, H2 } from "../ui"
 import axios from "axios"
 import Cookies from 'js-cookie'
 
 declare const fbq: Function
 
-export default function PageProduct ({ product, design, products }: { product: IProduct, design: Design, products: IProduct[] }) {
+export default function PageProduct ({ product, design, products, categories }: { product: IProduct, design: Design, products: IProduct[], categories: ICategory[] }) {
 
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
@@ -74,7 +74,7 @@ export default function PageProduct ({ product, design, products }: { product: I
           : ''
       }
       {
-        design.productPage.reviews
+        design.productPage[0].reviews
           ? (
             <div className='flex p-4'>
               <div className='w-[1600px] m-auto'>
@@ -91,12 +91,6 @@ export default function PageProduct ({ product, design, products }: { product: I
             </div>
           )
           : ''
-      }
-      
-      {
-        productsFiltered.length >= 1
-            ? <RecomendedProducts products={ productsFiltered } title='Productos recomendados' productSelect={product} />
-            : ''
       }
     </>
   )

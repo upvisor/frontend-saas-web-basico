@@ -4,7 +4,7 @@ import SliderProducts from "./SliderProducts"
 import { H2 } from "../ui"
 import { useEffect, useState } from "react"
 
-export default function Products({ products, title, filter, categories }: { products: IProduct[], title: string, filter: string, categories: ICategory[] }) {
+export default function Products({ products, title, filter, categories, product }: { products: IProduct[], title: string, filter: string, categories: ICategory[], product?: IProduct }) {
 
   const [productsFilter, setProductsFilter] = useState(products)
 
@@ -14,6 +14,12 @@ export default function Products({ products, title, filter, categories }: { prod
     } else if (filter === 'Productos en oferta') {
       const fil = products.filter(product => product.beforePrice)
       setProductsFilter(fil)
+    } else if (filter === 'Productos con que contengan algun tag' && product) {
+      const productsTag = products.filter(producto => {
+        return producto.tags.some(tag => product.tags.includes(tag))
+      })
+      const productsFinal = productsTag.filter(prod => prod._id !== product._id)
+      setProductsFilter(productsFinal)
     } else {
       const fil = products.filter(product => product.category.category === filter)
       setProductsFilter(fil)
