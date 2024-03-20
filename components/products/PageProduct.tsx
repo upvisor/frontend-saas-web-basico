@@ -1,5 +1,5 @@
 "use client"
-import { ICartProduct, IDesign, IProduct } from "@/interfaces"
+import { Design, ICartProduct, IProduct } from "@/interfaces"
 import { useEffect, useState } from "react"
 import { Information, NoReviewsProduct, PopupAddCart, ProductDetails, ProductInfo, RecomendedProducts, ReviewsProduct } from "./"
 import { H2 } from "../ui"
@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 
 declare const fbq: Function
 
-export default function PageProduct ({ product, design, products }: { product: IProduct, design: IDesign, products: IProduct[] }) {
+export default function PageProduct ({ product, design, products }: { product: IProduct, design: Design, products: IProduct[] }) {
 
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
@@ -73,19 +73,26 @@ export default function PageProduct ({ product, design, products }: { product: I
           )
           : ''
       }
-      <div className='flex p-4'>
-        <div className='w-[1600px] m-auto'>
-          <H2>Evaluaciones de clientes</H2>
-          <span className='text-[14px] md:text-[16px] dark:text-neutral-400'>Valoracion media</span>
-          <div className='mt-2'>
-            {
-              product?.reviews?.length
-                ? <ReviewsProduct quantity={quantity} stars={stars} reviews={product.reviews} />
-                : <NoReviewsProduct />
-            }
-          </div>
-        </div>
-      </div>
+      {
+        design.productPage.reviews
+          ? (
+            <div className='flex p-4'>
+              <div className='w-[1600px] m-auto'>
+                <H2>Evaluaciones de clientes</H2>
+                <span className='text-[14px] md:text-[16px] dark:text-neutral-400'>Valoracion media</span>
+                <div className='mt-2'>
+                  {
+                    product?.reviews?.length
+                      ? <ReviewsProduct quantity={quantity} stars={stars} reviews={product.reviews} />
+                      : <NoReviewsProduct />
+                  }
+                </div>
+              </div>
+            </div>
+          )
+          : ''
+      }
+      
       {
         productsFiltered.length >= 1
             ? <RecomendedProducts products={ productsFiltered } title='Productos recomendados' productSelect={product} />

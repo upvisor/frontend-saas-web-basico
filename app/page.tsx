@@ -10,25 +10,23 @@ import Cate from '../components/categories/Categories'
 import Prod from '@/components/home/Products'
 import Link from 'next/link'
 
-export const revalidate = 60
-
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchProducts () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchCategories () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, { cache: 'no-store' })
   return res.json()
 }
 
 export async function generateMetadata() {
-  const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`).then((res) => res.json())
+  const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { next: { revalidate: 3600 } }).then((res) => res.json())
   const home = design.pages.find(page => page.page === 'Inicio')
   return {
     title: home?.metaTitle && home?.metaTitle !== '' ? home?.metaTitle : '',

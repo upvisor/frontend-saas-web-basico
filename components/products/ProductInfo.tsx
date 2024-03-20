@@ -3,7 +3,7 @@ import { H1, ProductSlider } from '../ui'
 import Link from 'next/link'
 import { AddToCart, NoReviews, ProductOffer, ProductVariations, Reviews, ShippingPrice } from '.'
 import { NumberFormat } from '@/utils'
-import { ICartProduct, IDesign, IProduct } from '@/interfaces'
+import { Design, ICartProduct, IProduct } from '@/interfaces'
 
 interface Props {
     product: IProduct
@@ -11,7 +11,7 @@ interface Props {
     setTempCartProduct: any
     setPopup: any
     popup: any
-    design: IDesign
+    design: Design
     stars: number
     quantity: number
     setDetailsPosition: any
@@ -22,10 +22,13 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
   const [returnView, setReturnView] = useState(0)
   const [descriptionView, setDescriptionView] = useState(0)
   const [descriptionRotate, setDescriptionRotate] = useState('-rotate-90')
+  const [designView, setDesignView] = useState(0)
+  const [designRotate, setDesignRotate] = useState('rotate-90')
   const [returnRotate, setReturnRotate] = useState('rotate-90')
 
   const infoRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const designRef = useRef<HTMLDivElement>(null)
   const reviewRef = useRef<HTMLDivElement>(null)
 
   const handleScrollClick = () => {
@@ -37,6 +40,12 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
       setDescriptionView(descriptionRotate === '-rotate-90' ? contentRef.current.scrollHeight : 0)
     }
   }, [descriptionRotate])
+
+  useEffect(() => {
+    if (designRef.current) {
+      setDesignView(designRotate === '-rotate-90' ? designRef.current.scrollHeight : 0)
+    }
+  }, [designRotate])
 
   useEffect(() => {
     if (infoRef.current) {
@@ -58,24 +67,32 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
         <div className='w-full mt-2 lg:w-5/12 lg:mt-11'>
           <H1>{ product?.name }</H1>
           {
-            product?.reviews?.length
-              ? product.reviews.map(review => {
-                stars = stars + review.calification
-                quantity = quantity + 1
-                return null
-              })
-              : (
-                <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
-                  <NoReviews />
-                </div>
-              )
-          }
-          {
-            product?.reviews?.length
+            design.productPage.reviews
               ? (
-                <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
-                  <Reviews reviews={product.reviews} quantity={quantity} stars={stars} />
-                </div>
+                <>
+                  {
+                    product?.reviews?.length
+                      ? product.reviews.map(review => {
+                        stars = stars + review.calification
+                        quantity = quantity + 1
+                        return null
+                      })
+                      : (
+                        <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
+                          <NoReviews />
+                        </div>
+                      )
+                  }
+                  {
+                    product?.reviews?.length
+                      ? (
+                        <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
+                          <Reviews reviews={product.reviews} quantity={quantity} stars={stars} />
+                        </div>
+                      )
+                      : ''
+                  }
+                </>
               )
               : ''
           }
@@ -146,6 +163,28 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
             </div>
           </div>
           <ShippingPrice />
+          {
+            design.productPage.title !== '' && design.productPage.text !== ''
+              ? (
+                <div className='mt-4 border-b pb-4 dark:border-neutral-800'>
+                  <button onClick={(e: any) => {
+                    e.preventDefault()
+                    if (designRotate === '-rotate-90') {
+                      setDesignRotate('rotate-90')
+                    } else {
+                      setDesignRotate('-rotate-90')
+                    }
+                  }} className='flex gap-2 w-full justify-between'>
+                    <h5 className='text-[16px] font-medium md:text-[18px] dark:text-white'>{design.productPage.title}</h5>
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" className={`${designRotate} transition-all duration-150 ml-auto text-lg w-4 text-neutral-500`} xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>
+                  </button>
+                  <div ref={designRef} style={{ maxHeight: `${designView}px`, overflow: 'hidden', transition: 'max-height 0.3s' }} className={`${designView} transition-all duration-200 flex flex-col gap-2 mt-2`}>
+                    <p className='text-[#444444] mb-1 text-sm dark:text-neutral-400 md:text-[16px]'>{design.productPage.text}</p>
+                  </div>
+                </div>
+              )
+              : ''
+          }
         </div>
       </div>
     </div>

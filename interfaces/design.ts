@@ -19,6 +19,7 @@ export interface IPage {
 }
 
 export interface IProductPage {
+    reviews: boolean
     title: string
     text: string
 }

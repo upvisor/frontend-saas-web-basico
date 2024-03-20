@@ -1,21 +1,21 @@
 import PageProduct from "@/components/products/PageProduct"
-import { IProduct } from "@/interfaces"
+import { Design, IProduct } from "@/interfaces"
 import type { Metadata } from 'next'
 
 export const revalidate = 60
 
 async function fetchProduct (product: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${product}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${product}`, { cache: 'no-cache' })
   return res.json()
 }
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-cache' })
   return res.json()
 }
 
 async function fetchProducts () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, { cache: 'no-cache' })
   return res.json()
 }
  
@@ -26,7 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 
   const id = params.product
-  const product: IProduct = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`).then((res) => res.json())
+  const product: IProduct = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`, { next: { revalidate: 3600 } }).then((res) => res.json())
  
   return {
     title: product.titleSeo !== '' ? product.titleSeo : product.name,
@@ -44,7 +44,7 @@ export default async function ({ params }: { params: { product: string } }) {
 
   const product: IProduct = await fetchProduct(params.product)
 
-  const design = await fetchDesign()
+  const design: Design = await fetchDesign()
 
   const products = await fetchProducts()
 

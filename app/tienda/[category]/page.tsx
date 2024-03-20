@@ -10,25 +10,23 @@ import Link from "next/link"
 import Cate from '@/components/categories/Categories'
 import Prod from '@/components/home/Products'
 
-export const revalidate = 60
-
 async function fetchCategory (category: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${category}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${category}`, { cache: 'no-cache' })
   return res.json()
 }
 
 async function fetchCategories () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, { cache: 'no-cache' })
   return res.json()
 }
 
 async function fetchProductsCategory (category: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products-category/${category}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products-category/${category}`, { cache: 'no-cache' })
   return res.json()
 }
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-cache' })
   return res.json()
 }
 
