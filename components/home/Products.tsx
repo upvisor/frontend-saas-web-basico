@@ -32,7 +32,7 @@ export default function Products({ products, title, filter, categories, product 
 
   return (
     <div className="w-full flex px-4 mb-8">
-      <div className="w-full max-w-[1280px] m-auto flex flex-col gap-4">
+      <div className="w-full max-w-[1360px] m-auto flex flex-col gap-4">
         <H2>{ title }</H2>
         <div>
           <SliderProducts products={productsFilter} />

@@ -27,7 +27,7 @@ export default function Slider({ info }: { info: IInfo }) {
               <SwiperSlide key={banner.title}>
                 <div className={`flex h-[450px] md:h-[550px] 2xl:h-[700px]`}>
                   <div className="m-auto w-full p-4">
-                    <div className='max-w-[1280px] w-full m-auto'>
+                    <div className='max-w-[1360px] w-full m-auto'>
                       <H1 config="text-white">{banner.title}</H1>
                       <p className={`text-white text-lg mb-4`}>{banner.description}</p>
                       <Link href={`${banner.buttonLink}`}><Button>{banner.button}</Button></Link>
@@ -40,7 +40,7 @@ export default function Slider({ info }: { info: IInfo }) {
             : (
               <SwiperSlide>
                 <div className={`h-[450px] bg-gradient-to-r from-sky-500 to-indigo-500 pt-20 pb-20 flex md:h-[550px] 2xl:h-[700px]`}>
-                  <div className='p-4 w-[1600px] m-auto'>
+                  <div className='p-4 w-[1360px] m-auto'>
                   <H1 config="text-white">Encuentra nuestros ultimos productos</H1>
                   <Link href='/tienda'><Button>Comprar ahora</Button></Link>
                   </div>

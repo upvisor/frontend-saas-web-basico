@@ -52,7 +52,7 @@ export const ContactPage = ({ info }: { info: IInfo }) => {
 
   return (
       <div className='flex px-4'>
-        <div className='m-auto w-[1280px] py-10 block gap-16 xl:flex'>
+        <div className='m-auto w-[1360px] py-10 block gap-16 xl:flex'>
           <div className='w-full m-auto flex flex-col gap-2 mb-10 xl:w-1/2 xl:mb-auto'>
             <H1>{info.title}</H1>
             <p>{info.description}</p>

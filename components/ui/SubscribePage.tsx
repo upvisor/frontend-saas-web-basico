@@ -33,7 +33,7 @@ export const SubscribePage = ({ info }: { info: IInfo }) => {
 
   return (
     <div className='w-full bg-neutral-100 pl-4 pr-4 flex dark:bg-neutral-900/40'>
-      <form className='m-auto w-[1280px] mt-16 mb-16 flex flex-col gap-4'>
+      <form className='m-auto w-[1360px] mt-16 mb-16 flex flex-col gap-4'>
         <H2 config='text-center'>{info?.title ? info.title : 'Suscribete a nuestra lista'}</H2>
         <div className='flex gap-2'>
           <Input inputChange={inputChange} type='text' placeholder={'Email'} value={subscribeData.email} />

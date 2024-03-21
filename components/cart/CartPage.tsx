@@ -33,7 +33,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
         <title>Carrito</title>
       </Head>
       <div className='p-4 flex'>
-        <div className='m-auto w-[1600px] flex flex-col gap-4'>
+        <div className='m-auto w-[1360px] flex flex-col gap-4'>
           <H1>Carrito</H1>
           <div className='block gap-8 xl:flex'>
             <div className='w-full xl:w-7/12'>

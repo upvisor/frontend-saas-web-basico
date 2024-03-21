@@ -169,7 +169,7 @@ const CheckOut = () => {
       <EditShipping shippingMouse={shippingMouse} setShippingOpacity={setShippingOpacity} setShippingView={setShippingView} shippingView={shippingView} shippingOpacity={shippingOpacity} setShippingMouse={setShippingMouse} sell={sell} inputChange={inputChange} setSell={setSell} setShipping={setShipping} />
       <ResumePhone cart={cart} sell={sell} />
       <div className='mt-28 flex p-4 xl:mt-0'>
-        <form className='w-[1600px] m-auto block xl:flex' id='formBuy'>
+        <form className='w-[1360px] m-auto block xl:flex' id='formBuy'>
           <div className='w-full flex flex-col gap-6 pr-0 xl:w-7/12 xl:pr-8'>
             <H1>Finalizar compra</H1>
             <Data status={status} sell={sell} setContactView={setContactView} setContactOpacity={setContactOpacity} setShippingView={setShippingView} setShippingOpacity={setShippingOpacity} inputChange={inputChange} setSell={setSell} setShipping={setShipping} />

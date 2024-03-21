@@ -10,7 +10,7 @@ export default function CategoryCard({ category, title }: { category: ICategory,
   const [mouse, setMouse] = useState(false)
   
   return (
-    <Link onMouseEnter={() => setMouse(true)} onMouseLeave={() => setMouse(false)} href={`/tienda/${category.slug}`} key={category._id} className="flex max-w-[1280px] flex-row gap-4 w-full lg:flex-col">
+    <Link onMouseEnter={() => setMouse(true)} onMouseLeave={() => setMouse(false)} href={`/tienda/${category.slug}`} key={category._id} className="flex max-w-[1360px] flex-row gap-4 w-full lg:flex-col">
       <div className="relative rounded-xl overflow-hidden w-1/2 lg:w-full">
         <Image className={`${mouse ? 'scale-110' : 'scale-100'} transition-transform duration-150 rounded-xl w-full h-auto`} width={500} height={500} src={category.image?.url!} alt={`Imagen de la categoria ${category.category}`} />
       </div>

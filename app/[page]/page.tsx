@@ -67,7 +67,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Bloque 1') {
                       return (
                         <div key={content.content} className="w-full py-12 px-2 flex md:py-24">
-                          <div className="w-full flex max-w-[1600px] m-auto gap-8 flex-col text-center md:flex-row md:text-left">
+                          <div className="w-full flex max-w-[1360px] m-auto gap-8 flex-col text-center md:flex-row md:text-left">
                             <div className="w-full m-auto flex flex-col gap-4 md:w-1/2">
                               <H1>{content.info.title}</H1>
                               <p className={`transition-opacity duration-200 text-sm lg:text-[16px]`}>{content.info.description}</p>
@@ -86,7 +86,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Bloque 2') {
                       return (
                         <div key={content.content} className="w-full flex py-12 px-2 md:py-24">
-                          <div className="w-full flex max-w-[1600px] gap-8 m-auto flex-col text-center md:flex-row md:text-left">
+                          <div className="w-full flex max-w-[1360px] gap-8 m-auto flex-col text-center md:flex-row md:text-left">
                             <div className="w-full hidden md:w-1/2 md:flex">
                               {
                                 content.info?.image?.url && content.info.image.url !== ''
@@ -112,7 +112,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Bloque 3') {
                       return (
                         <div key={content.content} className="w-full flex py-12 px-2 md:py-24">
-                          <div className="text-center m-auto max-w-[1600px] w-full flex flex-col gap-8">
+                          <div className="text-center m-auto max-w-[1360px] w-full flex flex-col gap-8">
                             <div className='flex gap-4 flex-col'>
                               <H1>{content.info.title}</H1>
                               <p className={`transition-opacity duration-200 text-sm lg:text-[16px]`}>{content.info.description}</p>
@@ -129,7 +129,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Bloque 4') {
                       return (
                         <div key={content.content} className="w-full flex py-12 px-2 md:py-24">
-                          <div className="w-full text-center max-w-[1600px] m-auto flex flex-col gap-4">
+                          <div className="w-full text-center max-w-[1360px] m-auto flex flex-col gap-4">
                             <H1>{content.info.title}</H1>
                               <div className="flex gap-4 flex-col md:flex-row">
                                 <div className="w-full flex flex-col gap-2 md:w-1/3">
@@ -159,7 +159,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Bloque 5') {
                       return (
                         <div key={content.content} className="w-full flex py-12 px-2 md:py-24">
-                          <div className="w-full text-center max-w-[1600px] m-auto flex flex-col gap-4">
+                          <div className="w-full text-center max-w-[1360px] m-auto flex flex-col gap-4">
                             <H1>{content.info.title}</H1>
                               <div className="flex gap-4 flex-col md:flex-row">
                                 <div className="w-full flex flex-col gap-2 md:w-1/2">
@@ -190,7 +190,7 @@ export default async function Page({ params }: { params: { page: string } }) {
                     } else if (content.content === 'Bloque 6') {
                       return (
                         <div key={content.content} className="w-full flex">
-                          <div className={`${content.info.image?.url ? 'h-64 xl:h-80 2xl:h-96 text-white' : 'pt-10 pb-2'} w-full max-w-[1600px] m-auto flex flex-col gap-2`}>
+                          <div className={`${content.info.image?.url ? 'h-64 xl:h-80 2xl:h-96 text-white' : 'pt-10 pb-2'} w-full max-w-[1360px] m-auto flex flex-col gap-2`}>
                             <div className="m-auto flex flex-col gap-2">
                               <H1 config="text-center">{content.info.title}</H1>
                               <p className="text-center">{content.info.description}</p>

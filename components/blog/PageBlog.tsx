@@ -7,7 +7,7 @@ import { H1, H2 } from '../ui'
 export const PageBlog = ({ posts }: { posts: IPost[] }) => {
   return (
     <div className="w-full flex p-4">
-      <div className="w-full max-w-[1600px] m-auto flex flex-col gap-4">
+      <div className="w-full max-w-[1360px] m-auto flex flex-col gap-4">
         <H1>Blog</H1>
         <H2>Ultimos posts</H2>
         <div className='flex flex-wrap gap-4 w-full'>

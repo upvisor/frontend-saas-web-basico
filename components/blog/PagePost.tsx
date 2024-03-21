@@ -20,7 +20,7 @@ const PagePost = ({ post, posts }: { post: IPost, posts: IPost[] }) => {
 
   return (
     <div className="w-full px-2 py-8 flex">
-      <div className="w-[1280px] m-auto flex flex-col gap-8 1280:flex-row">
+      <div className="w-[1360px] m-auto flex flex-col gap-8 1280:flex-row">
         <div className={`flex flex-col gap-4 w-full ${postsFiltered.length ? '' : 'm-auto'} 1280:w-2/3`}>
           {
             post.image.url && post.image.url !== ''
