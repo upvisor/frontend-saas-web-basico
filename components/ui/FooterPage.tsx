@@ -15,7 +15,7 @@ export const FooterPage = ({ storeData, categories }: { storeData: IStoreData, c
 
   return (
     <div className='flex pl-4 pr-4 pt-14 pb-24 z-40 bg-neutral-900'>
-      <div className='w-[1600px] m-auto'>
+      <div className='w-[1280px] m-auto'>
         <div className='flex gap-4 justify-between flex-wrap pb-6 border-b'>
           <div>
             {

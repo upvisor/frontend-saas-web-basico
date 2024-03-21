@@ -89,19 +89,14 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
               </div>
             )
             : (
-              <div className='flex'>
-                <div className='flex m-auto justify-around gap-2 h-fit'>
-                  <ItemCounter
-                    currentValue={ tempCartProduct.quantity }
-                    updatedQuantity={ onUpdateQuantity }
-                    maxValue={ product.stock }
-                  />
+              <div className='flex w-full max-w-[500px]'>
+                <div className='flex m-auto justify-around gap-2 w-full h-fit'>
                   {
                     product.variations?.variations.length
                       ? product.variations.variations[0].variation !== ''
                         ? tempCartProduct.variation
                           ? (
-                            <div className="w-fit h-fit" onClick={() => {
+                            <div className="w-full h-fit" onClick={() => {
                               setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
                               setTimeout(() => {
                                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
@@ -112,7 +107,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                           )
                           : <ButtonNone>Añadir al carrito</ButtonNone>
                         : (
-                          <div className="w-fit h-fit" onClick={() => {
+                          <div className="w-full h-fit" onClick={() => {
                             setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
                             setTimeout(() => {
                               setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
@@ -122,7 +117,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                           </div>
                         )
                       : (
-                        <div className="w-fit h-fit" onClick={() => {
+                        <div className="w-full h-fit" onClick={() => {
                           setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
                           setTimeout(() => {
                             setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })

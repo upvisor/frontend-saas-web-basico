@@ -10,7 +10,7 @@ export const Information = ({ product }: { product: IProduct }) => {
         product.informations?.map((information, index) => {
           if (information.align === 'Izquierda') {
             return (
-              <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1600px] sm:flex-row">
+              <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1280px] sm:flex-row">
                 <div className="w-full flex sm:w-1/2 sm:hidden">
                   <Image className="m-auto w-full sm:w-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
                 </div>
@@ -33,7 +33,7 @@ export const Information = ({ product }: { product: IProduct }) => {
             )
           } else {
             return (
-              <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1600px] sm:flex-row">
+              <div key={index} className="flex flex-col gap-16 w-full m-auto max-w-[1280px] sm:flex-row">
                 <div className="w-full flex sm:w-1/2">
                   <Image className="m-auto w-full sm:w-auto" src={information.image.url} alt={`Imagen zona informativa ${product.name}`} width={500} height={500} />
                 </div>

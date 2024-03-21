@@ -4,22 +4,22 @@ import { ICartProduct, IProduct } from '@/interfaces'
 
 export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct }: { product: IProduct, tempCartProduct: ICartProduct, setTempCartProduct: any }) => {
   return (
-    <div className='mb-2'>
-      <div className='flex mb-2 gap-2'>
+    <div>
+      <div className='flex gap-2'>
         <span className='text-sm font-medium'>{product.variations?.nameVariation}:</span>
         <span className='text-sm dark:text-neutral-400'>{tempCartProduct.variation?.variation}</span>
       </div>
       {
         product?.variations?.nameSubVariation
           ? (
-            <div className='flex gap-2 mb-2'>
+            <div className='flex gap-2'>
               <span className='text-sm font-medium'>{product.variations.nameSubVariation}:</span>
               <span className='text-sm dark:text-neutral-400'>{tempCartProduct.variation?.subVariation}</span>
             </div>
           )
           : ''
       }
-      <div className='flex gap-2 mt-1'>
+      <div className='flex gap-2'>
         {
           product?.variations?.variations.map(variation => {
             if (variation.stock > 0) {

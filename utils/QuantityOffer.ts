@@ -10,6 +10,6 @@ export const offer = (product: ICartProduct) => {
         offerPrice = filter[0]
       }
     }
-    const finalPrice = offerPrice !== undefined ? Math.floor(((product.price * product.quantity) / 100) * (100 - offerPrice.descount)) : product.price * product.quantity
+    const finalPrice = offerPrice !== undefined ? Math.round(((product.price * product.quantity) / 100) * (100 - offerPrice.descount)) : product.price * product.quantity
     return finalPrice
 }

@@ -33,7 +33,7 @@ export default function Products({ products }: { products: IProduct[] }) {
   return (
     <>
       <div className="w-full flex px-4">
-        <div className="max-w-[1600px] w-full m-auto flex gap-4 justify-between flex-wrap">
+        <div className="max-w-[1280px] w-full m-auto flex gap-4 justify-between flex-wrap">
           <button>Filtros</button>
           <select value={order} onChange={(e: any) => setOrder(e.target.value)} className="border rounded py-1 w-44">
             <option>Más recientes</option>
@@ -43,7 +43,7 @@ export default function Products({ products }: { products: IProduct[] }) {
         </div>
       </div>
       <div className="w-full flex px-4 mb-8">
-        <div className="max-w-[1600px] w-full m-auto flex gap-4 justify-between flex-wrap">
+        <div className="max-w-[1280px] w-full m-auto flex gap-4 justify-between flex-wrap">
           {
             productsOrder.map(product => (
               <ProductCard key={product._id} product={product} />

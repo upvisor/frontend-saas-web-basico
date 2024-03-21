@@ -55,8 +55,8 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
   
   return (
     <div className='flex p-4'>
-      <div className='block m-auto w-full max-w-[1600px] gap-4 lg:flex xl2:gap-8'>
-        <div className='w-full lg:w-7/12'>
+      <div className='block m-auto w-full max-w-[1360px] gap-12 lg:flex xl2:gap-8'>
+        <div className='w-full lg:w-1/2'>
           <div className='mb-2'>
             <span className='text-15'><Link href='/tienda'>Tienda</Link> / <Link href={`/tienda/${ product.category.slug }`}>{ product?.category.category }</Link> / <Link href={`/tienda/${product.category.slug}/${ product?.slug }`}>{ product?.name }</Link></span>
           </div>
@@ -64,69 +64,72 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
             <ProductSlider images={ product?.images } />
           </div>
         </div>
-        <div className='w-full mt-2 lg:w-5/12 lg:mt-11'>
-          <H1>{ product?.name }</H1>
-          {
-            design.productPage[0].reviews
-              ? (
-                <>
-                  {
-                    product?.reviews?.length
-                      ? product.reviews.map(review => {
-                        stars = stars + review.calification
-                        quantity = quantity + 1
-                        return null
-                      })
-                      : (
-                        <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
-                          <NoReviews />
-                        </div>
-                      )
-                  }
-                  {
-                    product?.reviews?.length
-                      ? (
-                        <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
-                          <Reviews reviews={product.reviews} quantity={quantity} stars={stars} />
-                        </div>
-                      )
-                      : ''
-                  }
-                </>
-              )
-              : ''
-          }
-          <div className='flex gap-2 mb-2'>
-            <span className='text-[16px] font-medium dark:text-white'>${ product?.price ? NumberFormat(product.price) : '' }</span>
+        <div className='w-full flex flex-col gap-4 mt-2 lg:w-1/2 lg:mt-11'>
+          <div className='flex flex-col gap-2'>
+            <H1>{ product?.name }</H1>
             {
-              product?.beforePrice
-                ? <span className='text-sm line-through dark:text-neutral-400'>${ NumberFormat(product?.beforePrice) }</span>
+              design.productPage[0].reviews
+                ? (
+                  <>
+                    {
+                      product?.reviews?.length
+                        ? product.reviews.map(review => {
+                          stars = stars + review.calification
+                          quantity = quantity + 1
+                          return null
+                        })
+                        : (
+                          <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
+                            <NoReviews />
+                          </div>
+                        )
+                    }
+                    {
+                      product?.reviews?.length
+                        ? (
+                          <div onClick={handleScrollClick} className="w-fit h-fit cursor-pointer">
+                            <Reviews reviews={product.reviews} quantity={quantity} stars={stars} />
+                          </div>
+                        )
+                        : ''
+                    }
+                  </>
+                )
                 : ''
             }
-          </div>
-          {
-            product?.variations?.variations.length && product.variations?.variations[0].variation !== '' && product.variations?.nameVariation !== ''
-              ? (
-                <ProductVariations product={product} tempCartProduct={tempCartProduct} setTempCartProduct={setTempCartProduct} />
-              )
-              : ''
+            <div className='flex gap-2'>
+              <span className='text-[16px] font-medium dark:text-white'>${ product?.price ? NumberFormat(product.price) : '' }</span>
+              {
+                product?.beforePrice
+                  ? <span className='text-sm line-through dark:text-neutral-400'>${ NumberFormat(product?.beforePrice) }</span>
+                  : ''
+              }
+            </div>
+            {
+              product?.variations?.variations.length && product.variations?.variations[0].variation !== '' && product.variations?.nameVariation !== ''
+                ? (
+                  <ProductVariations product={product} tempCartProduct={tempCartProduct} setTempCartProduct={setTempCartProduct} />
+                )
+                : ''
             }
-            <span className='mb-2 text-[14px] block dark:text-neutral-400'><span className='font-medium dark:text-white'>Stock:</span> { product?.stock } { product?.stock === 1 ? 'unidad' : 'unidades' }</span>
+            <span className='text-[14px] block dark:text-neutral-400'><span className='font-medium dark:text-white'>Stock:</span> { product?.stock } { product?.stock === 1 ? 'unidad' : 'unidades' }</span>
+          </div>
             {
               product?.quantityOffers?.length && product?.quantityOffers[0].descount
                 ? (
-                  <div className='mb-2 bg-[#f5f5f7] p-3 rounded-md w-fit'>
-                    <p className='text-sm mb-2'>Descuentos por cantidad</p>
-                    <div className='flex gap-2'>
-                      {
+                  <div className='flex flex-col gap-2'>
+                    {
                         product.quantityOffers.map(offer => (
-                          <div key={offer._id} className=' rounded w-20 flex flex-col'>
-                            <p className='text-sm m-auto'>{offer.quantity}+</p>
-                            <p className='text-sm m-auto'>${NumberFormat(Math.round((product.price / 100) * (100 - offer.descount)))}</p>
+                          <div onClick={() => setTempCartProduct({ ...tempCartProduct, quantity: offer.quantity })} key={offer._id} className={`${tempCartProduct.quantity === offer.quantity ? 'border-button' : ''} flex gap-4 justify-between p-3 border transition-colors duration-150 bg-gray-50 cursor-pointer hover:border-button`}>
+                            <div className='flex flex-col gap-2'>
+                              <p>{offer.quantity}</p>
+                              <p className='py-1 px-3 text-sm rounded-full bg-button text-white'>Ahorra {offer.descount}%</p>
+                            </div>
+                            <p>${NumberFormat(Math.round(((product.price * offer.quantity) / 100) * (100 - offer.descount)))}</p>
                           </div>
-                        ))
-                      }
-                    </div>
+                        )
+                      )
+                    }
                   </div>
                 )
                 : ''

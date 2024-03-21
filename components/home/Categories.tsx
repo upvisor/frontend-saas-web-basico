@@ -13,7 +13,7 @@ export default async function Categories({ info }: { info: IInfo }) {
 
   return (
     <div className="w-full flex px-4">
-      <div className="w-full max-w-[1600px] m-auto flex flex-col gap-4">
+      <div className="w-full max-w-[1280px] m-auto flex flex-col gap-4">
         {
           info.title
             ? <H2 config="text-center">{info.title}</H2>

@@ -9,7 +9,7 @@ export default function Categories({ categories }: { categories: ICategory[] }) 
   
   return (
     <div className="w-full flex px-4 overflow-y-auto">
-      <div className="max-w-[1600px] m-auto flex gap-4">
+      <div className="max-w-[1280px] m-auto flex gap-4">
         <Link className={`${pathname === '/tienda' ? 'border-black' : 'hover:border-black'} transition-colors duration-200 py-1 px-4 border`} href='/tienda'>Todos los productos</Link>
         {
           categories.map(category => (

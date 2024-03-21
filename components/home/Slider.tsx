@@ -27,7 +27,7 @@ export default function Slider({ info }: { info: IInfo }) {
               <SwiperSlide key={banner.title}>
                 <div className={`flex h-[450px] md:h-[550px] 2xl:h-[700px]`}>
                   <div className="m-auto w-full p-4">
-                    <div className='max-w-[1600px] w-full m-auto'>
+                    <div className='max-w-[1280px] w-full m-auto'>
                       <H1 config="text-white">{banner.title}</H1>
                       <p className={`text-white text-lg mb-4`}>{banner.description}</p>
                       <Link href={`${banner.buttonLink}`}><Button>{banner.button}</Button></Link>

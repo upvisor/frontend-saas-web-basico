@@ -5,6 +5,7 @@ import React, { useContext, useState } from 'react'
 import CartContext from '../../context/cart/CartContext'
 import { ICartProduct } from '../../interfaces'
 import { useSession } from 'next-auth/react'
+import { NumberFormat, offer } from '@/utils'
 
 interface Props {
   tempCartProduct: ICartProduct
@@ -72,8 +73,8 @@ export const ButtonAddToCart: React.FC<Props> = ({ tempCartProduct }) => {
   }
 
   return (
-    <button onClick={addToCart} className='py-2 h-fit w-56 rounded-md transition-all duration-200 border border-button bg-button text-white hover:bg-transparent hover:text-button'>
-      {text}
+    <button onClick={addToCart} className='py-3 w-full min-w-64 h-fit rounded-md transition-all duration-200 border border-button bg-button text-white hover:bg-transparent hover:text-button'>
+      {text} - ${NumberFormat(offer(tempCartProduct))}
     </button>
   )
 }
