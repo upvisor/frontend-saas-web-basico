@@ -74,7 +74,7 @@ export const ShippingPrice = () => {
       }
 
   return (
-    <div className='border-b pb-4 mt-4 dark:border-neutral-800'>
+    <div className='border-b pb-2 dark:border-neutral-800'>
       <button onClick={(e: any) => {
         e.preventDefault()
         if (shippingRotate === '-rotate-90') {

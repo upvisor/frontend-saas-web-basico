@@ -138,7 +138,7 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
           {
             product?.productsOffer?.length
               ? product.productsOffer[0].productsSale.length
-                ? <div className='mt-4 border-b pb-4 dark:border-neutral-800'>
+                ? <div className='border-b pb-4 dark:border-neutral-800'>
                   <h5 className='text-[16px] font-medium mb-2 md:text-[18px] dark:text-white'>Ofertas por la compra de este producto</h5>
                   {
                     product.productsOffer.map(offer => <ProductOffer key={offer.productsSale[0].slug} offer={offer} />)
@@ -147,7 +147,7 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
               : ''
             : ''
           }
-          <div ref={reviewRef} className='mt-4 border-b pb-4 dark:border-neutral-800'>
+          <div ref={reviewRef} className='border-b pb-2 dark:border-neutral-800'>
             <button onClick={(e: any) => {
               e.preventDefault()
               if (descriptionRotate === '-rotate-90') {
@@ -169,7 +169,7 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
           {
             design.productPage[0].title !== '' && design.productPage[0].text !== ''
               ? (
-                <div className='mt-4 border-b pb-4 dark:border-neutral-800'>
+                <div className='border-b pb-2 dark:border-neutral-800'>
                   <button onClick={(e: any) => {
                     e.preventDefault()
                     if (designRotate === '-rotate-90') {
