@@ -77,7 +77,7 @@ export default function PageProduct ({ product, design, products, categories }: 
         design.productPage[0].reviews
           ? (
             <div className='flex p-4'>
-              <div className='w-[1280px] m-auto'>
+              <div className='w-[1360px] m-auto'>
                 <H2>Evaluaciones de clientes</H2>
                 <span className='text-[14px] md:text-[16px] dark:text-neutral-400'>Valoracion media</span>
                 <div className='mt-2'>

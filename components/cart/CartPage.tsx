@@ -83,7 +83,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
               cart?.length
                 ? (
                   <div className='w-full xl:w-5/12'>
-                    <div className='bg-[#f5f5f7] rounded-md p-4 border border-[#F5F5F5] 450:p-6 dark:bg-neutral-800 dark:border-neutral-700'>
+                    <div className='bg-gray-50 p-6 border 450:p-6 dark:bg-neutral-800 dark:border-neutral-700'>
                       <div className='mb-2 pb-2 border-b dark:border-neutral-700'>
                         <div className='mb-4 border-b pb-4 dark:border-neutral-700'>
                           <ShippingCart setShippingCost={setShippingCost} />

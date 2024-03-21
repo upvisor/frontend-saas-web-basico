@@ -6,7 +6,7 @@ import { ICartProduct, ISell } from '@/interfaces'
 
 export const Resume = ({ cart, sell }: { cart: ICartProduct[] | undefined, sell: ISell }) => {
   return (
-    <div className='w-5/12 h-fit border rounded-lg border-[#f5f5f7] p-6 hidden sticky top-28 bg-[#f5f5f7] dark:border-neutral-700 dark:bg-neutral-800 xl:block'>
+    <div className='w-5/12 h-fit border p-6 hidden sticky top-28 bg-gray-50 dark:border-neutral-700 dark:bg-neutral-800 xl:block'>
             <div className='mb-2 flex flex-col gap-2 pb-2 border-b dark:border-neutral-700'>
               <H2>Carrito</H2>
               {

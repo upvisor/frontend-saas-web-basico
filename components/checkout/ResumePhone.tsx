@@ -18,7 +18,7 @@ export const ResumePhone = ({ cart, sell }: { cart: ICartProduct[] | undefined, 
   }, [rotate])
 
   return (
-    <div className='fixed top-[51px] bg-[#f5f5f7] w-full border border-[#f5f5f7] p-4 shadow-md block xl:hidden dark:bg-neutral-800 dark:border-neutral-700'>
+    <div className='fixed top-[51px] bg-gray-50 w-full border-b p-4 block xl:hidden dark:bg-neutral-800 dark:border-neutral-700'>
         <button className='text-[14px] mb-4 flex gap-2' onClick={() => {
           if (rotate === 'rotate-90') {
             setRotate('-rotate-90')
