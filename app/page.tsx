@@ -27,7 +27,7 @@ async function fetchCategories () {
 
 export async function generateMetadata() {
   const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { next: { revalidate: 3600 } }).then((res) => res.json())
-  const home = design.pages.find(page => page.page === 'Inicio')
+  const home = design.pages?.find(page => page.page === 'Inicio')
   return {
     title: home?.metaTitle && home?.metaTitle !== '' ? home?.metaTitle : '',
     description: home?.metaDescription && home?.metaDescription !== '' ? home?.metaDescription : '',
@@ -50,7 +50,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-6">
       {
-        design.pages.map(page => {
+        design.pages?.map(page => {
           if (page.page === 'Inicio') {
             return (
               <>
@@ -59,7 +59,9 @@ export default async function Home() {
                     if (content.content === 'Carrusel') {
                       return <Slider key={content.content} info={ content.info } />
                     } else if (content.content === 'Categorias') {
-                      return <Categories key={content.content} info={ content.info } />
+                      if (categories.length) {
+                        return <Categories key={content.content} info={ content.info } />
+                      }
                     } else if (content.content === 'Bloque 1') {
                       return (
                         <div key={content.content} className="w-full py-12 px-2 flex md:py-24">
@@ -178,7 +180,9 @@ export default async function Home() {
                         </div>
                       )
                     } else if (content.content === 'Productos') {
-                      return <Products key={content.content} products={ products } />
+                      if (products.length) {
+                        return <Products key={content.content} products={ products } />
+                      }
                     } else if (content.content === 'Contacto') {
                       return <ContactPage key={content.content} info={ content.info } />
                     } else if (content.content === 'Suscripción') {
@@ -202,7 +206,9 @@ export default async function Home() {
                     } else if (content.content === 'Categorias 2') {
                       return <Cate key={content.content} categories={categories} />
                     } else if (content.content === 'Carrusel productos') {
-                      return <Prod key={content.content} products={products} title={content.info.title!} filter={content.info.products!} categories={categories} />
+                      if (products.length) {
+                        return <Prod key={content.content} products={products} title={content.info.title!} filter={content.info.products!} categories={categories} />
+                      }
                     }
                   })
                 }

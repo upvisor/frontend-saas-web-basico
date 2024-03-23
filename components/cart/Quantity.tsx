@@ -57,7 +57,7 @@ export const Quantity = ({ product }: { product: ICartProduct }) => {
                 const cartProduct: ICartProduct[] = JSON.parse(localStorage.getItem('cart')!)
                 const productSelect = cartProduct.filter((item: ICartProduct) => item.name === product.name)
                 if (productSelect.length >= 2) {
-                  const products = cartProduct.filter(item => item.variation?._id !== product.variation?._id)
+                  const products = cartProduct.filter(item => item.variation?.variation !== product.variation?.variation || item.variation?.subVariation !== product.variation?.subVariation || item.variation?.subVariation2 !== product.variation?.subVariation2)
                   localStorage.setItem('cart', JSON.stringify(products))
                   setCart(products)
                   if (status === 'authenticated') {

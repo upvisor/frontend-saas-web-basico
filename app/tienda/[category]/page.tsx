@@ -50,7 +50,9 @@ export default async function CategoryPage({ params }: { params: { category: str
                     if (content.content === 'Carrusel') {
                       return <Slider key={content.content} info={ content.info } />
                     } else if (content.content === 'Categorias') {
-                      return <Categories key={content.content} info={ content.info } />
+                      if (categories.length) {
+                        return <Categories key={content.content} info={ content.info } />
+                      }
                     } else if (content.content === 'Bloque 1') {
                       return (
                         <div key={content.content} className="w-full py-12 px-2 flex md:py-24">
@@ -169,7 +171,9 @@ export default async function CategoryPage({ params }: { params: { category: str
                         </div>
                       )
                     } else if (content.content === 'Productos') {
-                      return <Products key={content.content} products={ productsCategory } />
+                      if (productsCategory.length) {
+                        return <Products key={content.content} products={ productsCategory } />
+                      }
                     } else if (content.content === 'Contacto') {
                       return <ContactPage key={content.content} info={ content.info } />
                     } else if (content.content === 'Suscripción') {
@@ -193,7 +197,9 @@ export default async function CategoryPage({ params }: { params: { category: str
                     } else if (content.content === 'Categorias 2') {
                       return <Cate key={content.content} categories={categories} />
                     } else if (content.content === 'Carrusel productos') {
-                      return <Prod key={content.content} products={productsCategory} title={content.info.title!} filter={content.info.products!} categories={categories} />
+                      if (productsCategory.length) {
+                        return <Prod key={content.content} products={productsCategory} title={content.info.title!} filter={content.info.products!} categories={categories} />
+                      }
                     }
                   })
                 }

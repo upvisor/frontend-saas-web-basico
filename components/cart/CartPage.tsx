@@ -42,7 +42,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                   ? cart?.map((product) => (
                     <div className='flex gap-4 mb-2 justify-between' key={product._id}>
                       <div className='flex gap-2'>
-                        <Link href={`/productos/${product.slug}`}>
+                        <Link href={`/tienda/${product.category.slug}/${product.slug}`}>
                           <Image className='w-28 h-auto rounded-md 450:w-32' src={product.image} alt={product.name} width={128} height={128} />
                         </Link>
                         <div className='mt-auto mb-auto'>
@@ -63,7 +63,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                           </div>
                           {
                             product.variation
-                              ? <span className='dark:text-neutral-400'>{product.variation.variation}{product.variation.subVariation ? ` / ${product.variation.subVariation}` : ''}</span>
+                              ? <span className='dark:text-neutral-400'>{product.variation.variation}{product.variation.subVariation ? ` / ${product.variation.subVariation}` : ''}{product.variation.subVariation2 ? ` / ${product.variation.subVariation2}` : ''}</span>
                               : ''
                           }
                         </div>

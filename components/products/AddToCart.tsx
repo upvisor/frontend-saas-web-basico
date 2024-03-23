@@ -59,12 +59,12 @@ export const AddToCart: React.FC<Props> = ({ product, tempCartProduct, setPopup,
                     <ItemCounter
                       currentValue={ tempCartProduct.quantity }
                       updatedQuantity={ onUpdateQuantity }
-                      maxValue={ product?.stock }
+                      maxValue={ tempCartProduct.stock ? tempCartProduct.stock : product.stock }
                     />
                     {
-                      product?.variations?.variations.length
-                        ? product.variations.variations[0].variation !== ''
-                          ? tempCartProduct.variation
+                      product?.variations?.variations.length && product.variations.variations[0].variation !== '' && tempCartProduct.variation?.variation
+                        ? product.variations.variations[0].subVariation !== '' && tempCartProduct.variation?.subVariation
+                          ? product.variations.variations[0].subVariation2 !== '' && tempCartProduct.variation?.subVariation2
                             ? (
                               <div className="w-full h-fit" onClick={() => {
                                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
@@ -76,26 +76,8 @@ export const AddToCart: React.FC<Props> = ({ product, tempCartProduct, setPopup,
                               </div>
                             )
                             : <ButtonNone>Añadir al carrito</ButtonNone>
-                          : (
-                            <div className="w-full h-fit" onClick={() => {
-                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                              setTimeout(() => {
-                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                              }, 10)
-                            }}>
-                              <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                            </div>
-                          )
-                        : (
-                          <div className="w-full h-fit" onClick={() => {
-                            setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                            setTimeout(() => {
-                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                            }, 10)
-                          }}>
-                            <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                          </div>
-                        )
+                          : <ButtonNone>Añadir al carrito</ButtonNone>
+                        : <ButtonNone>Añadir al carrito</ButtonNone>
                     }
                   </div>
             )

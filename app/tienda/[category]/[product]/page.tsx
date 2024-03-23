@@ -82,7 +82,9 @@ export default async function ({ params }: { params: { product: string } }) {
                     if (content.content === 'Carrusel') {
                       return <Slider key={content.content} info={ content.info } />
                     } else if (content.content === 'Categorias') {
-                      return <Categories key={content.content} info={ content.info } />
+                      if (categories.length) {
+                        return <Categories key={content.content} info={ content.info } />
+                      }
                     } else if (content.content === 'Bloque 1') {
                       return (
                         <div key={content.content} className="w-full py-12 px-2 flex md:py-24">
@@ -201,7 +203,9 @@ export default async function ({ params }: { params: { product: string } }) {
                         </div>
                       )
                     } else if (content.content === 'Productos') {
-                      return <Products key={content.content} products={ products } />
+                      if (products.length) {
+                        return <Products key={content.content} products={ products } />
+                      }
                     } else if (content.content === 'Contacto') {
                       return <ContactPage key={content.content} info={ content.info } />
                     } else if (content.content === 'Suscripción') {
@@ -225,7 +229,9 @@ export default async function ({ params }: { params: { product: string } }) {
                     } else if (content.content === 'Categorias 2') {
                       return <Cate key={content.content} categories={categories} />
                     } else if (content.content === 'Carrusel productos') {
-                      return <Prod key={content.content} products={products} title={content.info.title!} filter={content.info.products!} categories={categories} product={product} />
+                      if (products.length) {
+                        return <Prod key={content.content} products={products} title={content.info.title!} filter={content.info.products!} categories={categories} product={product} />
+                      }
                     }
                   })
                 }

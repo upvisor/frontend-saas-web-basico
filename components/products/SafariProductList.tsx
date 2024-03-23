@@ -16,7 +16,7 @@ interface Props {
 export const SafariProductList: React.FC<Props> = ({ products, title }) => {
   return (
     <div className='flex w-full p-4'>
-      <div className='m-auto w-full max-w-[1600px] relative items-center'>
+      <div className='m-auto w-full max-w-[1360px] relative items-center'>
         <H2>{ title }</H2>
         <Swiper
           className={styles.mySwiper}

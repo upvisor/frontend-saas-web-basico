@@ -10,10 +10,14 @@ export default function PageBuyError () {
     const cart = JSON.parse(localStorage.getItem('cart')!)
     cart.map(async (product: ICartProduct) => {
       if (product.variation) {
-        if (product.subVariation) {
-          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation, subVariation: product.subVariation })
+        if (product.variation.subVariation) {
+          if (product.variation.subVariation2) {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation, subVariation2: product.variation.subVariation2 })
+          } else {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation })
+          }
         } else {
-          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation })
+          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation })
         }
       } else {
         await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity })

@@ -292,9 +292,13 @@ export const Chat = () => {
     setSubmitLoading(true)
     const cart = JSON.parse(localStorage.getItem('cart')!)
     cart.map(async (product: ICartProduct) => {
-      if (product.variation) {
-        if (product.subVariation) {
-          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation, subVariation: product.subVariation })
+      if (product.variation?.variation) {
+        if (product.variation.subVariation) {
+          if (product.variation.subVariation2) {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation, subVariation2: product.variation.subVariation2 })
+          } else {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation })
+          }
         } else {
           await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation })
         }
@@ -317,9 +321,13 @@ export const Chat = () => {
     setSubmitLoading(true)
     const cart = JSON.parse(localStorage.getItem('cart')!)
     cart.map(async (product: ICartProduct) => {
-      if (product.variation) {
-        if (product.subVariation) {
-          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation, subVariation: product.subVariation })
+      if (product.variation?.variation) {
+        if (product.variation.subVariation) {
+          if (product.variation.subVariation2) {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation, subVariation2: product.variation.subVariation2 })
+          } else {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation })
+          }
         } else {
           await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation })
         }
@@ -349,7 +357,7 @@ export const Chat = () => {
                       info.message
                         ? (
                           <div className='flex flex-col gap-2 ml-6'>
-                            <div className='bg-button text-white p-1.5 rounded-md w-fit ml-auto'><p>{info.message}</p></div>
+                            <div className='bg-gray-200 p-1.5 rounded-md w-fit ml-auto'><p>{info.message}</p></div>
                           </div>
                         )
                         : ''

@@ -48,7 +48,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
       <div className='w-full'>
       {
         pathname !== '/finalizar-compra'
-          ? design.header.topStrip && design.header.topStrip !== ''
+          ? design.header?.topStrip && design.header.topStrip !== ''
             ? (
               <div className='bg-[#22262c] text-white flex pl-2 pr-2 pt-1.5 pb-1.5 text-center sticky z-50'>
                 <p className='m-auto font-medium text-[13px]'>{design.header.topStrip}</p>
@@ -72,7 +72,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
               ? <>
                 <div className='hidden gap-6 sm:flex'>
                   {
-                    design.pages.map(page => {
+                    design.pages?.map(page => {
                       if (page.header) {
                         if (page.page === 'Tienda') {
                           return (
@@ -346,7 +346,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
         <div className={`${index} w-full absolute z-30 justify-between 530:hidden`} style={{ top: '51px', height: 'calc(100vh - 49px)' }}>
           <div className={`${menu} p-4 shadow-md transition-all duration-500 bg-white overflow-hidden dark:bg-neutral-900`}>
             {
-              design.pages.map(page => {
+              design.pages?.map(page => {
                 if (page.header) {
                   if (page.page === 'Tienda') {
                     return (

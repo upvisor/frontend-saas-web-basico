@@ -112,7 +112,7 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
                 )
                 : ''
             }
-            <span className='text-[14px] block dark:text-neutral-400'><span className='font-medium dark:text-white'>Stock:</span> { product?.stock } { product?.stock === 1 ? 'unidad' : 'unidades' }</span>
+            <span className='text-[14px] block dark:text-neutral-400'><span className='font-medium dark:text-white'>Stock:</span> { tempCartProduct.stock ? tempCartProduct.stock : product?.stock } { tempCartProduct.stock ? tempCartProduct.stock === 1 ? 'unidad' : 'unidades' : product?.stock === 1 ? 'unidad' : 'unidades' }</span>
           </div>
             {
               product?.quantityOffers?.length && product?.quantityOffers[0].descount
@@ -120,12 +120,12 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
                   <div className='flex flex-col gap-2'>
                     {
                         product.quantityOffers.map(offer => (
-                          <div onClick={() => setTempCartProduct({ ...tempCartProduct, quantity: offer.quantity })} key={offer._id} className={`${tempCartProduct.quantity === offer.quantity ? 'border-button' : ''} flex gap-4 justify-between p-3 border transition-colors duration-150 bg-gray-50 cursor-pointer hover:border-button`}>
+                          <div onClick={() => setTempCartProduct({ ...tempCartProduct, quantity: tempCartProduct.stock ? tempCartProduct.stock >= offer.quantity ? offer.quantity : tempCartProduct.quantity : product.stock >= offer.quantity ? offer.quantity : tempCartProduct.quantity })} key={offer._id} className={`${tempCartProduct.quantity === offer.quantity ? 'border-button' : ''} flex gap-4 justify-between p-3 border transition-colors duration-150 bg-gray-50 cursor-pointer hover:border-button`}>
                             <div className='flex flex-col gap-2'>
-                              <p>{offer.quantity}</p>
+                              <p>{offer.quantity} unidades</p>
                               <p className='py-1 px-3 text-sm rounded-full bg-button text-white'>Ahorra {offer.descount}%</p>
                             </div>
-                            <p>${NumberFormat(Math.round(((product.price * offer.quantity) / 100) * (100 - offer.descount)))}</p>
+                            <p className='my-auto'>${NumberFormat(Math.round(((product.price * offer.quantity) / 100) * (100 - offer.descount)))}</p>
                           </div>
                         )
                       )

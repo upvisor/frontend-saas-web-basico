@@ -1,7 +1,7 @@
 import React from 'react'
 import { ICartProduct, IProduct } from '../../interfaces'
 import { NumberFormat } from '../../utils'
-import { ButtonAddToCart, ButtonNone, ItemCounter, Select } from '../ui'
+import { ButtonAddToCart, ButtonNone, Select } from '../ui'
 import Image from 'next/image'
 
 interface Props {
@@ -25,18 +25,28 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
     const tempProduct = { ...tempCartProduct }
     let vari: string = ''
     let subVari: string = ''
+    let subVari2: string = ''
     if (e.target.value.includes(' / ')) {
       const variation = e.target.value.split(' / ')
       vari = variation[0]
       subVari = variation[1]
+      if (variation[2]) {
+        subVari2 = variation[2]
+      }
     } else {
       vari = e.target.value
     }
     if (subVari !== '') {
       const variationSelect = product.variations?.variations.filter(variation => variation.variation === vari)
       const variation = variationSelect?.find(variation => variation.subVariation === subVari)
-      tempProduct.variation = variation
-      tempProduct.image = variation!.image!.url
+      if (subVari2 !== '') {
+        const varia = variationSelect?.find(variation => variation.subVariation2 === subVari2)
+        tempProduct.variation = varia
+        tempProduct.image = varia!.image!.url
+      } else {
+        tempProduct.variation = variation
+        tempProduct.image = variation!.image!.url
+      }
     } else {
       const variationSelect = product.variations?.variations.find(variation => variation.variation === vari)
       tempProduct.variation = variationSelect
@@ -62,11 +72,11 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
             {
               product.variations?.variations.length
                 ? product.variations.variations[0].variation !== ''
-                  ? <Select selectChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.subVariation ? `${tempCartProduct.variation?.variation} / ${tempCartProduct.variation.subVariation}` : tempCartProduct.variation?.variation : 'Seleccionar variación'}>
+                  ? <Select selectChange={selectVariation} value={tempCartProduct.variation?.variation ? tempCartProduct.variation.subVariation ? tempCartProduct.variation.subVariation2 ? `${tempCartProduct.variation?.variation} / ${tempCartProduct.variation.subVariation} / ${tempCartProduct.variation.subVariation2}` : `${tempCartProduct.variation?.variation} / ${tempCartProduct.variation.subVariation}` : tempCartProduct.variation?.variation : 'Seleccionar variación'}>
                       <option>Seleccionar variación</option>
                       {
                         product.variations.variations.map(variation => (
-                          <option key={variation.variation}>{variation.variation}{variation.subVariation && variation.subVariation !== '' ? ` / ${variation.subVariation}` : ''}</option>
+                          <option key={variation.variation}>{variation.variation}{variation.subVariation && variation.subVariation !== '' ? ` / ${variation.subVariation}` : ''}{variation.subVariation2 && variation.subVariation2 !== '' ? ` / ${variation.subVariation2}` : ''}</option>
                         ))
                       }
                     </Select>
