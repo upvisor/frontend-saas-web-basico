@@ -31,7 +31,7 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
                               <div onClick={() => {
                                 setTempCartProduct({...tempCartProduct, variation: {...tempCartProduct.variation, subVariation: variation?.variation}, image: find!.image!.url, stock: find?.stock})
                               }} className={`w-10 h-10 rounded-full border p-1 cursor-pointer transition-colors duration-150 hover:border-main ${tempCartProduct.variation?.subVariation && tempCartProduct.variation.subVariation === variation?.variation ? 'border-button' : 'dark:border-neutral-700 hover:dark:border-button'}`}>
-                                <div className={`m-auto w-full h-full rounded-full bg-[${variation.colorVariation}]`} />
+                                <div className={`m-auto w-full h-full rounded-full`} style={{ backgroundColor: `${variation.colorVariation}` }} />
                               </div>
                             )
                             : product.variations?.formatVariation === 'Texto'
@@ -80,7 +80,7 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
                               <div onClick={() => {
                                 setTempCartProduct({...tempCartProduct, variation: {...tempCartProduct.variation, subVariation: variation?.subVariation}, image: find!.image!.url, stock: find?.stock})
                               }} className={`w-10 h-10 rounded-full border p-1 cursor-pointer transition-colors duration-150 hover:border-main ${tempCartProduct.variation?.subVariation && tempCartProduct.variation.subVariation === variation?.subVariation ? 'border-button' : 'dark:border-neutral-700 hover:dark:border-button'}`}>
-                                <div className={`m-auto w-full h-full rounded-full bg-[${variation.colorSubVariation}]`} />
+                                <div className={`m-auto w-full h-full rounded-full`} style={{ backgroundColor: `${variation.colorSubVariation}` }} />
                               </div>
                             )
                             : product.variations?.formatSubVariation === 'Texto'
@@ -129,7 +129,7 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
                               <div onClick={() => {
                                 setTempCartProduct({...tempCartProduct, variation: {...tempCartProduct.variation, subVariation2: variation?.subVariation2}, image: find!.image!.url, stock: find?.stock})
                               }} className={`w-10 h-10 rounded-full border p-1 cursor-pointer transition-colors duration-150 hover:border-main ${tempCartProduct.variation?.subVariation2 && tempCartProduct.variation.subVariation2 === variation?.subVariation2 ? 'border-button' : 'dark:border-neutral-700 hover:dark:border-button'}`}>
-                                <div className={`m-auto w-full h-full rounded-full bg-[${variation.colorSubVariation2}]`} />
+                                <div className={`m-auto w-full h-full rounded-full`} style={{ backgroundColor: `${variation.colorSubVariation2}` }} />
                               </div>
                             )
                             : product.variations?.formatSubVariation2 === 'Texto'
