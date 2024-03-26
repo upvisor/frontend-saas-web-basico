@@ -75,8 +75,30 @@ export const AddToCart: React.FC<Props> = ({ product, tempCartProduct, setPopup,
                                 <ButtonAddToCart tempCartProduct={tempCartProduct} />
                               </div>
                             )
-                            : <ButtonNone>Añadir al carrito</ButtonNone>
-                          : <ButtonNone>Añadir al carrito</ButtonNone>
+                            : product.variations.variations[0].subVariation2
+                              ? <ButtonNone>Añadir al carrito</ButtonNone>
+                              : (
+                                <div className="w-full h-fit" onClick={() => {
+                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                  setTimeout(() => {
+                                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                  }, 10)
+                                }}>
+                                  <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                                </div>
+                              )
+                          : product.variations.variations[0].subVariation
+                            ? <ButtonNone>Añadir al carrito</ButtonNone>
+                            : (
+                              <div className="w-full h-fit" onClick={() => {
+                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                setTimeout(() => {
+                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                }, 10)
+                              }}>
+                                <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                              </div>
+                            )
                         : <ButtonNone>Añadir al carrito</ButtonNone>
                     }
                   </div>

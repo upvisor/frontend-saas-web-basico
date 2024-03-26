@@ -61,7 +61,7 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
             <span className='text-15'><Link href='/tienda'>Tienda</Link> / <Link href={`/tienda/${ product.category.slug }`}>{ product?.category.category }</Link> / <Link href={`/tienda/${product.category.slug}/${ product?.slug }`}>{ product?.name }</Link></span>
           </div>
           <div className='relative top-0 mb-0 lg:mb-5 lg:sticky lg:top-32'>
-            <ProductSlider images={ product?.images } />
+            <ProductSlider images={ tempCartProduct.image && tempCartProduct.image !== '' ? [{ public_id: '', url: tempCartProduct.image }]: product?.images } />
           </div>
         </div>
         <div className='w-full flex flex-col gap-4 mt-2 lg:w-1/2 lg:mt-11'>

@@ -40,7 +40,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
       const variationSelect = product.variations?.variations.filter(variation => variation.variation === vari)
       const variation = variationSelect?.find(variation => variation.subVariation === subVari)
       if (subVari2 !== '') {
-        const varia = variationSelect?.find(variation => variation.subVariation2 === subVari2)
+        const varia = variationSelect?.find(variation => variation.subVariation2 === subVari2 && variation.subVariation === subVari && variation.variation === vari)
         tempProduct.variation = varia
         tempProduct.image = varia!.image!.url
       } else {

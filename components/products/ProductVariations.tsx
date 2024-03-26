@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import Image from 'next/image'
-import { ICartProduct, IProduct } from '@/interfaces'
+import { ICartProduct, IProduct, IVariation } from '@/interfaces'
 
 export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct }: { product: IProduct, tempCartProduct: ICartProduct, setTempCartProduct: any }) => {
   return (
@@ -16,7 +16,16 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
             <div className='flex gap-2'>
               {
                 product.variations?.nameVariations.map(variation => {
-                  const find = product.variations?.variations.find(vari => vari.variation === variation.variation)
+                  let find: IVariation | undefined
+                  if (tempCartProduct.variation?.subVariation && tempCartProduct.variation?.subVariation) {
+                    if (tempCartProduct.variation?.subVariation2 && tempCartProduct.variation?.subVariation2) {
+                      find = product.variations?.variations.find(vari => vari.variation === variation.variation && vari.subVariation === tempCartProduct.variation?.subVariation && vari.subVariation2 === tempCartProduct.variation?.subVariation2)
+                    } else {
+                      find = product.variations?.variations.find(vari => vari.variation === variation.variation && vari.subVariation === tempCartProduct.variation?.subVariation)
+                    }
+                  } else {
+                    find = product.variations?.variations.find(vari => vari.variation === variation.variation)
+                  }
                   return (
                     <div key={variation?.variation}>
                       {
@@ -29,8 +38,8 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
                           : product.variations?.formatVariation === 'Color'
                             ? (
                               <div onClick={() => {
-                                setTempCartProduct({...tempCartProduct, variation: {...tempCartProduct.variation, subVariation: variation?.variation}, image: find!.image!.url, stock: find?.stock})
-                              }} className={`w-10 h-10 rounded-full border p-1 cursor-pointer transition-colors duration-150 hover:border-main ${tempCartProduct.variation?.subVariation && tempCartProduct.variation.subVariation === variation?.variation ? 'border-button' : 'dark:border-neutral-700 hover:dark:border-button'}`}>
+                                setTempCartProduct({...tempCartProduct, variation: {...tempCartProduct.variation, variation: variation?.variation}, image: find!.image!.url, stock: find?.stock})
+                              }} className={`w-10 h-10 rounded-full border p-1 cursor-pointer transition-colors duration-150 hover:border-main ${tempCartProduct.variation?.variation && tempCartProduct.variation.variation === variation?.variation ? 'border-button' : 'dark:border-neutral-700 hover:dark:border-button'}`}>
                                 <div className={`m-auto w-full h-full rounded-full`} style={{ backgroundColor: `${variation.colorVariation}` }} />
                               </div>
                             )
@@ -65,7 +74,16 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
             <div className='flex gap-2'>
               {
                 product.variations?.nameSubVariations?.map(variation => {
-                  const find = product.variations?.variations.find(vari => vari.subVariation === variation.subVariation)
+                  let find: IVariation | undefined
+                  if (tempCartProduct.variation?.variation && tempCartProduct.variation?.variation) {
+                    if (tempCartProduct.variation?.subVariation2 && tempCartProduct.variation?.subVariation2) {
+                      find = product.variations?.variations.find(vari => vari.subVariation === variation.subVariation && vari.variation === tempCartProduct.variation?.variation && vari.subVariation2 === tempCartProduct.variation.subVariation2)
+                    } else {
+                      find = product.variations?.variations.find(vari => vari.subVariation === variation.subVariation && vari.variation === tempCartProduct.variation?.variation)
+                    }
+                  } else {
+                    find = product.variations?.variations.find(vari => vari.subVariation === variation.subVariation)
+                  }
                   return (
                     <div key={variation?.subVariation}>
                       {
@@ -114,7 +132,16 @@ export const ProductVariations = ({ product, tempCartProduct, setTempCartProduct
             <div className='flex gap-2'>
               {
                 product.variations?.nameSubVariations2?.map(variation => {
-                  const find = product.variations?.variations.find(vari => vari.subVariation2 === variation.subVariation2)
+                  let find: IVariation | undefined
+                  if (tempCartProduct.variation?.variation && tempCartProduct.variation?.variation) {
+                    if (tempCartProduct.variation?.subVariation && tempCartProduct.variation?.subVariation) {
+                      find = product.variations?.variations.find(vari => vari.subVariation2 === variation.subVariation2 && vari.variation === tempCartProduct.variation?.variation && vari.subVariation === tempCartProduct.variation.subVariation)
+                    } else {
+                      find = product.variations?.variations.find(vari => vari.subVariation2 === variation.subVariation2 && vari.variation === tempCartProduct.variation?.variation)
+                    }
+                  } else {
+                    find = product.variations?.variations.find(vari => vari.subVariation2 === variation.subVariation2)
+                  }
                   return (
                     <div key={variation?.subVariation2}>
                       {

@@ -9,20 +9,28 @@ export default function Products({ products, title, filter, categories, product 
   const [productsFilter, setProductsFilter] = useState(products)
 
   const filterProducts = () => {
+    let prod = products
     if (filter === 'Todos') {
-      setProductsFilter(products)
+      if (product) {
+        prod = products.filter(produ => produ._id !== product?._id)
+      }
+      setProductsFilter(prod)
     } else if (filter === 'Productos en oferta') {
-      const fil = products.filter(product => product.beforePrice)
-      setProductsFilter(fil)
+      if (product) {
+        prod = products.filter(produ => produ._id !== product?._id)
+      }
+      prod = prod.filter(product => product.beforePrice)
+      setProductsFilter(prod)
     } else if (filter === 'Productos con que contengan algun tag' && product) {
-      const productsTag = products.filter(producto => {
-        return producto.tags.some(tag => product.tags.includes(tag))
-      })
+      const productsTag = products.filter(producto => producto.tags.some(tag => product.tags.includes(tag)))
       const productsFinal = productsTag.filter(prod => prod._id !== product._id)
       setProductsFilter(productsFinal)
     } else {
-      const fil = products.filter(product => product.category.category === filter)
-      setProductsFilter(fil)
+      if (product) {
+        prod = products.filter(produ => produ._id !== product?._id)
+      }
+      prod = prod.filter(product => product.category.category === filter)
+      setProductsFilter(prod)
     }
   }
 
