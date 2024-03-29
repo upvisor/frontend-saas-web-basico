@@ -58,7 +58,7 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
   return (
       <div className='m-auto p-4 block bg-white gap-2 w-full border-t justify-around dark:bg-neutral-900 dark:border dark:border-neutral-800 sm:flex'>
         <div className='flex mb-2 justify-around gap-2 sm:mb-0'>
-          <Image className='w-20 h-20 mt-auto mb-auto' src={product.images[0].url} alt={product.name} width={80} height={80} />
+          <Image className='w-20 h-20 mt-auto mb-auto' src={ tempCartProduct.image && tempCartProduct.image !== '' ? tempCartProduct.image : product?.images[0].url} alt={product.name} width={80} height={80} />
           <div className='mt-auto mb-auto'>
             <p>{product.name}</p>
             <div className='flex gap-1'>
@@ -101,42 +101,46 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
             : (
               <div className='flex w-full max-w-[500px]'>
                 <div className='flex m-auto justify-around gap-2 w-full h-fit'>
-                  {
-                    product.variations?.variations.length
-                      ? product.variations.variations[0].variation !== ''
-                        ? tempCartProduct.variation
-                          ? (
-                            <div className="w-full h-fit" onClick={() => {
-                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                              setTimeout(() => {
-                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                              }, 10)
-                            }}>
-                              <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                            </div>
-                          )
-                          : <ButtonNone>Añadir al carrito</ButtonNone>
-                        : (
-                          <div className="w-full h-fit" onClick={() => {
-                            setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                            setTimeout(() => {
-                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                            }, 10)
-                          }}>
-                            <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                          </div>
-                        )
-                      : (
-                        <div className="w-full h-fit" onClick={() => {
-                          setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                          setTimeout(() => {
-                            setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                          }, 10)
-                        }}>
-                          <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                        </div>
-                      )
-                  }
+                {
+                      product?.variations?.variations.length && product.variations.variations[0].variation !== '' && tempCartProduct.variation?.variation
+                        ? product.variations.variations[0].subVariation !== '' && tempCartProduct.variation?.subVariation
+                          ? product.variations.variations[0].subVariation2 !== '' && tempCartProduct.variation?.subVariation2
+                            ? (
+                              <div className="w-full h-fit" onClick={() => {
+                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                setTimeout(() => {
+                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                }, 10)
+                              }}>
+                                <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                              </div>
+                            )
+                            : product.variations.variations[0].subVariation2
+                              ? <ButtonNone>Añadir al carrito</ButtonNone>
+                              : (
+                                <div className="w-full h-fit" onClick={() => {
+                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                  setTimeout(() => {
+                                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                  }, 10)
+                                }}>
+                                  <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                                </div>
+                              )
+                          : product.variations.variations[0].subVariation
+                            ? <ButtonNone>Añadir al carrito</ButtonNone>
+                            : (
+                              <div className="w-full h-fit" onClick={() => {
+                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                                setTimeout(() => {
+                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                                }, 10)
+                              }}>
+                                <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                              </div>
+                            )
+                        : <ButtonNone>Añadir al carrito</ButtonNone>
+                    }
                 </div>
               </div>
             )
