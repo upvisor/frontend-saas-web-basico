@@ -27,10 +27,22 @@ export const ButtonCart: React.FC<Props> = ({ tempCartProduct }) => {
       if (cart.find((product: ICartProduct) => product.name === tempCartProduct.name)) {
         const productSelect = cart.find((product: ICartProduct) => product.name === tempCartProduct.name)
         if (productSelect?.variation?.variation === tempCartProduct.variation?.variation) {
-          const productIndex = cart.findIndex((product: ICartProduct) => product.name === tempCartProduct.name)
-          cart[productIndex].quantity = tempCartProduct.quantity + cart[productIndex].quantity
-          localStorage.setItem('cart', JSON.stringify(cart))
-          setCart(JSON.parse(localStorage.getItem('cart')!))
+          if (productSelect?.variation?.subVariation === tempCartProduct.variation?.subVariation) {
+            if (productSelect?.variation?.subVariation2 === tempCartProduct.variation?.subVariation2) {
+              const productIndex = cart.findIndex((product: ICartProduct) => product.name === tempCartProduct.name)
+              cart[productIndex].quantity = tempCartProduct.quantity + cart[productIndex].quantity
+              localStorage.setItem('cart', JSON.stringify(cart))
+              setCart(JSON.parse(localStorage.getItem('cart')!))
+            } else {
+              const cartFinal = cart.concat(tempCartProduct)
+              localStorage.setItem('cart', JSON.stringify(cartFinal))
+              setCart(JSON.parse(localStorage.getItem('cart')!))
+            }
+          } else {
+            const cartFinal = cart.concat(tempCartProduct)
+            localStorage.setItem('cart', JSON.stringify(cartFinal))
+            setCart(JSON.parse(localStorage.getItem('cart')!))
+          }
         } else {
           const cartFinal = cart.concat(tempCartProduct)
           localStorage.setItem('cart', JSON.stringify(cartFinal))
