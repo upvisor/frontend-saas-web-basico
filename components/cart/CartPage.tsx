@@ -92,7 +92,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                           <span className='text-[14px] dark:text-neutral-400'>Subtotal</span>
                           {
                             cart?.length
-                              ? <span className='text-[14px]'>${NumberFormat(cart.reduce((bef, curr) => curr.quantityOffers ? offer(curr) : bef + curr.price * curr.quantity, 0))}</span>
+                              ? <span className='text-[14px]'>${NumberFormat(cart.reduce((bef, curr) => curr.quantityOffers ? bef + offer(curr) : bef + curr.price * curr.quantity, 0))}</span>
                               : ''
                           }
                         </div>
@@ -105,7 +105,7 @@ const CartPage = ({ design, products }: { design: IDesign, products: IProduct[] 
                         <span className='font-medium'>Total</span>
                         {
                           cart?.length
-                            ? <span className='font-medium'>${NumberFormat(cart.reduce((bef, curr) => curr.quantityOffers ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(shippingCost))}</span>
+                            ? <span className='font-medium'>${NumberFormat(cart.reduce((bef, curr) => curr.quantityOffers ? bef + offer(curr) : bef + curr.price * curr.quantity, 0) + Number(shippingCost))}</span>
                             : ''
                         }
                       </div>

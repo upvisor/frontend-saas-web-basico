@@ -1,4 +1,4 @@
-import { ISell } from '@/interfaces'
+import { ICartProduct, IProduct, ISell, IVariation } from '@/interfaces'
 import { offer } from '@/utils'
 import axios from 'axios'
 import Link from 'next/link'
@@ -21,19 +21,27 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
           await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/clients/${clientId}`, sell)
         }
         localStorage.setItem('sell', JSON.stringify(data))
-        sell.cart.map(async (product) => {
+        sell.cart.map(async (product: ICartProduct) => {
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/${product.slug}`)
+          let prod: IProduct = res.data
           if (product.variation?.variation) {
             if (product.variation.subVariation) {
               if (product.variation.subVariation2) {
-                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation, subVariation2: product.variation.subVariation2 })
+                const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation && variation.subVariation === product.variation.subVariation && variation.subVariation2 === product.variation.subVariation2)
+                prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
               } else {
-                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation })
+                const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation && variation.subVariation === product.variation.subVariation)
+                prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
               }
             } else {
-              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation })
+              const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation)
+              prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
             }
           } else {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity })
           }
         })
         if (saveData) {
@@ -50,7 +58,7 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
           Cookies.set('city', sell.city)
           Cookies.set('region', sell.region)
         }
-        fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
+        fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? bef + offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
         const form = document.getElementById('formTransbank') as HTMLFormElement
         if (form) {
           form.submit()
@@ -66,18 +74,26 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
         }
         localStorage.setItem('sell', JSON.stringify(data))
         sell.cart.map(async (product) => {
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/${product.slug}`)
+          let prod: IProduct = res.data
           if (product.variation?.variation) {
             if (product.variation.subVariation) {
               if (product.variation.subVariation2) {
-                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation, subVariation2: product.variation.subVariation2 })
+                const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation && variation.subVariation === product.variation.subVariation && variation.subVariation2 === product.variation.subVariation2)
+                prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
               } else {
-                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation.variation, subVariation: product.variation.subVariation })
+                const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation && variation.subVariation === product.variation.subVariation)
+                prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
               }
             } else {
-              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: -product.quantity, variation: product.variation })
+              const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation)
+              prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
             }
           } else {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity })
           }
         })
         if (saveData) {
@@ -94,7 +110,7 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
           Cookies.set('city', sell.city)
           Cookies.set('region', sell.region)
         }
-        fbq('track', 'Purchase', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
+        fbq('track', 'Purchase', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? bef + offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
         router.push('/gracias-por-comprar')
       }
     
@@ -107,10 +123,26 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
         }
         localStorage.setItem('sell', JSON.stringify(data))
         sell.cart.map(async (product) => {
-          if (product.variation) {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity, variation: product.variation })
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/${product.slug}`)
+          let prod: IProduct = res.data
+          if (product.variation?.variation) {
+            if (product.variation.subVariation) {
+              if (product.variation.subVariation2) {
+                const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation && variation.subVariation === product.variation.subVariation && variation.subVariation2 === product.variation.subVariation2)
+                prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
+              } else {
+                const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation && variation.subVariation === product.variation.subVariation)
+                prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+                await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
+              }
+            } else {
+              const variationIndex = prod.variations!.variations.findIndex((variation: IVariation) => variation.variation === product.variation?.variation)
+              prod.variations!.variations[variationIndex].stock = prod.variations!.variations[variationIndex].stock - product.quantity!
+              await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity, variations: prod.variations })
+            }
           } else {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/product/${product._id}`, { stock: product.quantity })
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${product._id}`, { stock: prod.stock - product.quantity })
           }
         })
         if (saveData) {
@@ -127,7 +159,7 @@ export const ButtonPay = ({ sell, clientId, saveData, token, link, url }: { sell
           Cookies.set('city', sell.city)
           Cookies.set('region', sell.region)
         }
-        fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
+        fbq('track', 'InitiateCheckout', {contents: sell.cart, currency: "CLP", value: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? bef + offer(curr) : bef + curr.price * curr.quantity, 0) + Number(sell.shipping)})
         window.location.href = link
       }
 

@@ -13,7 +13,7 @@ interface Props {
 export const ShippingPay: React.FC<Props> = ({ shipping, sell, inputChange, setSell }) => {
 
     const shippingChange = (e: any) => {
-        setSell({ ...sell, shippingMethod: e.target.className, shipping: e.target.value, shippingState: 'No empaquetado', total: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? offer(curr) : bef + curr.price * curr.quantity, 0) + Number(e.target.value) })
+        setSell({ ...sell, shippingMethod: e.target.className, shipping: e.target.value, shippingState: 'No empaquetado', total: sell.cart.reduce((bef, curr) => curr.quantityOffers?.length ? bef + offer(curr) : bef + curr.price * curr.quantity, 0) + Number(e.target.value) })
       }
 
   return (
