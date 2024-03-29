@@ -101,33 +101,21 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
             : (
               <div className='flex w-full max-w-[500px]'>
                 <div className='flex m-auto justify-around gap-2 w-full h-fit'>
-                {
-                      product?.variations?.variations.length && product.variations.variations[0].variation !== '' && tempCartProduct.variation?.variation
-                        ? product.variations.variations[0].subVariation !== '' && tempCartProduct.variation?.subVariation
-                          ? product.variations.variations[0].subVariation2 !== '' && tempCartProduct.variation?.subVariation2
-                            ? (
-                              <div className="w-full h-fit" onClick={() => {
-                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                                setTimeout(() => {
-                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                                }, 10)
-                              }}>
-                                <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                              </div>
-                            )
-                            : product.variations.variations[0].subVariation2
-                              ? <ButtonNone>Añadir al carrito</ButtonNone>
-                              : (
-                                <div className="w-full h-fit" onClick={() => {
-                                  setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
-                                  setTimeout(() => {
-                                    setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
-                                  }, 10)
-                                }}>
-                                  <ButtonAddToCart tempCartProduct={tempCartProduct} />
-                                </div>
-                              )
-                          : product.variations.variations[0].subVariation
+                  {
+                    product?.variations?.variations.length && product.variations.variations[0].variation !== '' && tempCartProduct.variation?.variation
+                      ? product.variations.variations[0].subVariation !== '' && tempCartProduct.variation?.subVariation
+                        ? product.variations.variations[0].subVariation2 !== '' && tempCartProduct.variation?.subVariation2
+                          ? (
+                            <div className="w-full h-fit" onClick={() => {
+                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                              setTimeout(() => {
+                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                              }, 10)
+                            }}>
+                              <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                            </div>
+                          )
+                          : product.variations.variations[0].subVariation2
                             ? <ButtonNone>Añadir al carrito</ButtonNone>
                             : (
                               <div className="w-full h-fit" onClick={() => {
@@ -139,7 +127,19 @@ export const ProductDetails: React.FC<Props> = ({ product, tempCartProduct, setT
                                 <ButtonAddToCart tempCartProduct={tempCartProduct} />
                               </div>
                             )
-                        : <ButtonNone>Añadir al carrito</ButtonNone>
+                        : product.variations.variations[0].subVariation
+                          ? <ButtonNone>Añadir al carrito</ButtonNone>
+                          : (
+                            <div className="w-full h-fit" onClick={() => {
+                              setPopup({ ...popup, view: 'flex', opacity: 'opacity-0' })
+                              setTimeout(() => {
+                                setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
+                              }, 10)
+                            }}>
+                              <ButtonAddToCart tempCartProduct={tempCartProduct} />
+                            </div>
+                          )
+                      : <ButtonNone>Añadir al carrito</ButtonNone>
                     }
                 </div>
               </div>
