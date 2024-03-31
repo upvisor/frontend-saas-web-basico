@@ -3,7 +3,7 @@ import { IQuantityOffer, IVariation } from "."
 export interface ICartProduct {
   _id?: string
   name: string
-  image: string
+  image?: string
   price: number
   beforePrice?: number
   variation?: IVariation

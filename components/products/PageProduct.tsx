@@ -13,7 +13,6 @@ export default function PageProduct ({ product, design, products, categories }: 
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     name: product.name,
-    image: product.images[0].url,
     price: product.price,
     beforePrice: product.beforePrice,
     slug: product.slug,
