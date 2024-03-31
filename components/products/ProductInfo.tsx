@@ -105,15 +105,15 @@ export const ProductInfo: React.FC<Props> = ({ product, tempCartProduct, setTemp
                   : ''
               }
             </div>
-            {
-              product?.variations?.variations.length && product.variations?.variations[0].variation !== '' && product.variations?.nameVariation !== ''
-                ? (
-                  <ProductVariations product={product} tempCartProduct={tempCartProduct} setTempCartProduct={setTempCartProduct} />
-                )
-                : ''
-            }
-            <span className='text-[14px] block dark:text-neutral-400'><span className='font-medium dark:text-white'>Stock:</span> { tempCartProduct.stock ? tempCartProduct.stock : product?.stock } { tempCartProduct.stock ? tempCartProduct.stock === 1 ? 'unidad' : 'unidades' : product?.stock === 1 ? 'unidad' : 'unidades' }</span>
           </div>
+          {
+            product?.variations?.variations.length && product.variations?.variations[0].variation !== '' && product.variations?.nameVariation !== ''
+              ? (
+                <ProductVariations product={product} tempCartProduct={tempCartProduct} setTempCartProduct={setTempCartProduct} />
+              )
+              : ''
+          }
+          <span className='text-[14px] block dark:text-neutral-400'><span className='font-medium dark:text-white'>Stock:</span> { tempCartProduct.stock ? tempCartProduct.stock : product?.stock } { tempCartProduct.stock ? tempCartProduct.stock === 1 ? 'unidad' : 'unidades' : product?.stock === 1 ? 'unidad' : 'unidades' }</span>
             {
               product?.quantityOffers?.length && product?.quantityOffers[0].descount
                 ? (
