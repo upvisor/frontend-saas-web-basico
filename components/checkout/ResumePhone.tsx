@@ -34,7 +34,7 @@ export const ResumePhone = ({ cart, sell }: { cart: ICartProduct[] | undefined, 
                 ? cart?.map(product => (
                   <div className='flex gap-2 justify-between mb-2' key={product._id}>
                     <div className='flex gap-2'>
-                      <Image className='w-20 h-20 m-auto border rounded-md p-1 dark:border-neutral-700' src={product.image} alt={product.name} width={80} height={80} />
+                      <Image className='w-20 h-20 m-auto border rounded-md p-1 dark:border-neutral-700' src={product.image!} alt={product.name} width={80} height={80} />
                       <div className='mt-auto mb-auto'>
                         <span className='font-medium'>{product.name}</span>
                         <span className='block'>Cantidad: {product.quantity}</span>
