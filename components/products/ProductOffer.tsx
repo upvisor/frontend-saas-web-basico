@@ -49,7 +49,7 @@ export const ProductOffer: React.FC<Props> = ({ offer }) => {
       {
         tempCartProduct.variation
           ? <Image className='w-24 h-24 mr-1 mt-auto mb-auto mobile2:w-28 mobile2:h-28 mobile:w-32 mobile:mr-2 mobile:h-32' src={tempCartProduct.variation.image!.url} alt={`Producto ${tempCartProduct.name}`} width={100} height={100} />
-          : <Image className='w-24 h-24 mr-1 mt-auto mb-auto mobile2:w-28 mobile2:h-28 mobile:w-32 mobile:mr-2 mobile:h-32' src={tempCartProduct.image} alt={`Producto ${tempCartProduct.name}`} width={100} height={100} />
+          : <Image className='w-24 h-24 mr-1 mt-auto mb-auto mobile2:w-28 mobile2:h-28 mobile:w-32 mobile:mr-2 mobile:h-32' src={tempCartProduct.image!} alt={`Producto ${tempCartProduct.name}`} width={100} height={100} />
       }
       <div className='mt-auto mb-auto flex flex-col gap-1'>
         {
