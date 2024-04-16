@@ -41,7 +41,7 @@ export const NavbarCart: React.FC<Props> = ({ setCartView, setCartPc, setCartPos
                         setCartView('hidden')
                       }, 500)
                     }}>
-                      <Image src={product.image} alt={product.name} width={96} height={96} className='w-24 h-24 mt-auto mb-auto' />
+                      <Image src={product.image!} alt={product.name} width={96} height={96} className='w-24 h-24 mt-auto mb-auto' />
                     </Link>
                     <div className='mt-auto mb-auto'>
                       <Link href={`/tienda/${product.category.slug}/${product.slug}`} onClick={() => {
