@@ -57,7 +57,7 @@ export default async function ShopPage() {
                 {
                   page.design.map(content => {
                     if (content.content === 'Carrusel') {
-                      return <Slider key={content.content} info={ content.info } />
+                      return <Slider key={content.content} info={content.info} />
                     } else if (content.content === 'Categorias') {
                       if (categories.length) {
                         return <Categories key={content.content} info={ content.info } />
