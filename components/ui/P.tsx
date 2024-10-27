@@ -1,5 +1,9 @@
-export const P = ({ children, config }: { children: React.ReactNode, config?: string }) => {
+export const P = ({ config, text, color }: { config?: string, text?: string, color?: string }) => {
   return (
-    <p className={`${config} text-sm lg:text-[16px]`}>{ children }</p>
+    <p
+      className={`${config ? config : ''} text-base lg:text-lg`}
+      style={{ color: color }}
+      dangerouslySetInnerHTML={{ __html: text ? text : '' }}
+    />
   )
-}
+};

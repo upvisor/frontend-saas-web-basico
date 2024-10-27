@@ -1,31 +1,23 @@
 "use client"
-import { ICategory, IStoreData } from '@/interfaces'
+import { Design, IPolitics, IStoreData } from '@/interfaces'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
-export const FooterPage = ({ storeData, categories }: { storeData: IStoreData, categories: ICategory[] }) => {
-
-  const [politics, setPolitics] = useState({
-    terms: '',
-    shipping: '',
-    privacy: '',
-    devolutions: ''
-  })
-
+export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreData, politics?: IPolitics, design: Design }) => {
   return (
     <div className='flex pl-4 pr-4 pt-14 pb-24 z-40 bg-neutral-900'>
-      <div className='w-[1360px] m-auto'>
+      <div className='w-[1280px] m-auto'>
         <div className='flex gap-4 justify-between flex-wrap pb-6 border-b'>
           <div>
             {
-              storeData?.logoWhite.url
-                ? <Image className='w-36 h-auto mb-3' src={storeData.logoWhite.url} alt='Logo' width={144} height={50.39} />
-                : <Link href='/' className='text-white text-3xl font-medium'>TIENDA</Link>
+              storeData?.logoWhite
+                ? <Link href='/'><Image className='w-48 h-auto mb-3' src={storeData.logoWhite} alt='Logo' width={320} height={150} /></Link>
+                : <Link href='/' className='text-white text-3xl font-medium'>SITIO WEB</Link>
             }
             {
-              storeData?.email
-                ? <p className='text-white mb-4 text-sm'>contacto@blaspod.cl</p>
+              storeData?.email && storeData?.email !== ''
+                ? <p className='text-white mb-4 text-sm'>{storeData.email}</p>
                 : ''
             }
             <div className='flex gap-4'>
@@ -46,42 +38,33 @@ export const FooterPage = ({ storeData, categories }: { storeData: IStoreData, c
               }
             </div>
           </div>
-          <div>
-            <h3 className='text-white mb-2'>TIENDA</h3>
-            <Link className='block text-white text-sm mb-1' href='/tienda'>Productos</Link>
-            {
-              categories.length
-                ? categories.map(category => (
-                  <Link className='block text-white text-sm mb-1' key={category._id} href={`/tienda/${category.slug}`}>{category.category}</Link>
+          <div className='flex flex-col gap-3'>
+            <h3 className='text-white'>PAGINAS</h3>
+            <div className='flex flex-col gap-1'>
+              {
+                design.pages.map(page => (
+                  <Link key={page._id} href={page.slug === '' ? '/' : page.slug} className='text-white'>{ page.page }</Link>
                 ))
-                : ''
-            }
+              }
+            </div>
           </div>
           {
-            politics.terms || politics.privacy || politics.devolutions || politics.shipping
+            politics?.terms && politics?.terms !== '' || politics?.privacy && politics?.privacy !== ''
               ? (
-                <div>
-                  <h3 className='text-white mb-2'>POLITICAS</h3>
-                  {
-                    politics.terms && politics.terms !== ''
-                      ? <Link className='block text-white text-sm mb-1' href='/terminos-y-condiciones'>Terminos y condiciones</Link>
-                      : ''
-                  }
-                  {
-                    politics.privacy && politics.privacy !== ''
-                      ? <Link className='block text-white text-sm mb-1' href='/politicas-de-privacidad'>Politicas de privacidad</Link>
-                      : ''
-                  }
-                  {
-                    politics.devolutions && politics.devolutions !== ''
-                      ? <Link className='block text-white text-sm mb-1' href='/politicas-de-devoluciones'>Politicas de devoluciones y reembolsos</Link>
-                      : ''
-                  }
-                  {
-                    politics.shipping && politics.shipping !== ''
-                      ? <Link className='block text-white text-sm mb-1' href='/politicas-de-envios'>Politicas de envío</Link>
-                      : ''
-                  }
+                <div className='flex flex-col gap-3'>
+                  <h3 className='text-white'>POLITICAS</h3>
+                  <div className='flex flex-col gap-1'>
+                    {
+                      politics.terms && politics.terms !== ''
+                        ? <Link className='block text-white text-sm mb-1' href='/terminos-y-condiciones'>Terminos y condiciones</Link>
+                        : ''
+                    }
+                    {
+                      politics.privacy && politics.privacy !== ''
+                        ? <Link className='block text-white text-sm mb-1' href='/politicas-de-privacidad'>Politicas de privacidad</Link>
+                        : ''
+                    }
+                  </div>
                 </div>
               )
               : ''

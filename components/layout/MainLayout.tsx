@@ -1,21 +1,44 @@
 import React from "react"
-import { Design, ICategory, IStoreData } from "@/interfaces"
-import Footer from "../ui/Footer"
-import { Navbar } from "."
-import { Chat } from "../chat"
+import { Design, ICall, IForm, IFunnel, IPayment, IPolitics, IService, IStoreData } from "@/interfaces"
+import { AllNavbar } from "."
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-cache' })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, { cache: 'no-cache' })
   return res.json()
 }
 
-async function fetchCategories () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+async function fetchFunnels () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`)
+  return res.json()
+}
+
+async function fetchPolitics () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/politics`)
+  return res.json()
+}
+
+async function fetchCalls () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`)
+  return res.json()
+}
+
+async function fetchForms () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`)
+  return res.json()
+}
+
+async function fetchPayment () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`)
+  return res.json()
+}
+
+async function fetchServices () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`)
   return res.json()
 }
 
@@ -25,14 +48,21 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   
   const storeData: IStoreData = await fetchStoreData()
 
-  const categories: ICategory[] = await fetchCategories()
+  const funnels: IFunnel[] = await fetchFunnels()
+
+  const politics: IPolitics | undefined = await fetchPolitics()
+
+  const calls: ICall[] = await fetchCalls()
+
+  const forms: IForm[] = await fetchForms()
+
+  const payment: IPayment = await fetchPayment()
+
+  const services: IService[] = await fetchServices()
   
   return (
-    <Navbar design={design} storeData={storeData} categories={categories}>
-      <div className="h-[50px] sm:h-[53px]" />
+    <AllNavbar design={design} storeData={storeData} funnels={funnels} politics={politics} calls={calls} forms={forms} payment={payment} services={services}>
       { children }
-      <Footer />
-      <Chat />
-    </Navbar>
+    </AllNavbar>
   )
 }

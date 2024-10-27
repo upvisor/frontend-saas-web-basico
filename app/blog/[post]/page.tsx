@@ -2,7 +2,7 @@ import PagePost from "@/components/blog/PagePost"
 import { IPost } from "@/interfaces"
 import { Metadata } from "next"
 
-export const revalidate = 60
+export const revalidate = 3600
 
 async function fetchPost (post: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post}`)
@@ -24,12 +24,12 @@ export async function generateMetadata({
   const post: IPost = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`).then((res) => res.json())
 
   return {
-    title: post.titleSeo,
-    description: post.descriptionSeo,
+    title: post.titleSeo && post.titleSeo !== '' ? post.titleSeo : post.title,
+    description: post.descriptionSeo && post.descriptionSeo !== '' ? post.descriptionSeo : '',
     openGraph: {
-      title: post.titleSeo,
-      description: post.descriptionSeo,
-      images: [post.image?.url ? post.image?.url : ''],
+      title: post.titleSeo && post.titleSeo !== '' ? post.titleSeo : post.title,
+      description: post.descriptionSeo && post.descriptionSeo !== '' ? post.descriptionSeo : '',
+      images: [post.image && post.image !== '' ? post.image : ''],
     },
   }
 }

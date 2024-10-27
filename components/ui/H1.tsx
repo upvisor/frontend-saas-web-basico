@@ -1,5 +1,9 @@
-export const H1 = ({ children, config }: { children: React.ReactNode, config?: string }) => {
+export const H1 = ({ config, text, color }: { config?: string, text?: string, color?: string }) => {
   return (
-    <h1 className={`${config} text-[25px] font-medium lg:text-[32px]`}>{ children }</h1>
+    <h1
+      className={`${config ? config : 'font-semibold'} text-3xl lg:text-5xl`}
+      style={{ color: color }}
+      dangerouslySetInnerHTML={{ __html: text ? text : '' }}
+    />
   )
-}
+};

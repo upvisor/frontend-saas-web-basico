@@ -1,14 +1,21 @@
 "use client"
 import axios from 'axios'
 import React, { useState } from 'react'
-import { IDesign, IInfo } from '@/interfaces'
-import { ButtonFunction, H2, Input, Spinner2 } from '.'
+import { IInfo } from '@/interfaces'
+import { ButtonFunction, ButtonSubmit, H2, H3, Input, P, Spinner2 } from '.'
+import { usePathname } from 'next/navigation'
+import Cookies from 'js-cookie'
+
+declare const fbq: Function
 
 export const SubscribePage = ({ info }: { info: IInfo }) => {
 
-  const [subscribeData, setSubscribeData] = useState({ email: '', tags: ['Suscriptores'] })
-  const [successSubscribe, setSuccessSubscribe] = useState('hidden')
+  const [subscribeData, setSubscribeData] = useState({ email: '', tags: ['suscriptores'] })
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [send, setSend] = useState(false)
+
+  const pathname = usePathname()
 
   const inputChange = (e: any) => {
     setSubscribeData({...subscribeData, email: e.target.value})
@@ -16,32 +23,51 @@ export const SubscribePage = ({ info }: { info: IInfo }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    setLoading(true)
-    try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, subscribeData)
-      if (response.data.email) {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/subscription`, { email: response.data.email })
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!loading) {
+      setLoading(true)
+      setError('')
+      if (emailRegex.test(subscribeData.email)) {
+        const newEventId = new Date().getTime().toString()
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, { ...subscribeData, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), page: pathname, eventId: newEventId })
+        fbq('track', 'Lead', { email: subscribeData.email, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}` }, { eventID: newEventId })
+        setSubscribeData({ ...subscribeData, email: '' })
+        setSend(true)
+        setLoading(false)
+      } else {
+        setError('Correo no valido')
+        setLoading(false)
       }
-      setSuccessSubscribe('block')
-      setLoading(false)
-    } catch (error) {
-      console.log(error)
-      setSuccessSubscribe('block')
-      setLoading(false)
     }
   }
 
   return (
-    <div className='w-full bg-neutral-100 pl-4 pr-4 flex dark:bg-neutral-900/40'>
-      <form className='m-auto w-[1360px] mt-16 mb-16 flex flex-col gap-4'>
-        <H2 config='text-center'>{info?.title ? info.title : 'Suscribete a nuestra lista'}</H2>
-        <div className='flex gap-2'>
-          <Input inputChange={inputChange} type='text' placeholder={'Email'} value={subscribeData.email} />
-          <ButtonFunction action={handleSubmit}>{loading ? <Spinner2 /> : 'Envíar'}</ButtonFunction>
-        </div>
-        <div className={successSubscribe}>
-          <p className='text-green mt-2'>Suscripción realizada con exito</p>
-        </div>
+    <div className='w-full min-h-[230px] bg-neutral-100 pl-4 pr-4 flex dark:bg-neutral-900/40' style={{ background: `${info.typeBackground === 'Degradado' ? info.background : info.typeBackground === 'Color' ? info.background : ''}` }}>
+      <form className='w-[1280px] m-auto flex flex-col gap-4'>
+        {
+          error !== ''
+            ? <p className='bg-red-500 px-2 py-1 text-white w-fit'>{error}</p>
+            : ''
+        }
+        {
+          send
+            ? (
+              <>
+                <H3 text='¡Listo!' config='text-center font-medium' color={info.textColor} />
+                <P text='Pronto empezaras a recibir nuestros correos.' config='text-center' color={info.textColor} />
+              </>
+            )
+            : (
+              <>
+                <H3 text={info?.title ? info.title : 'Suscribete a nuestra lista'} config='text-center font-medium' color={info.textColor} />
+                <div className='flex gap-2'>
+                  <Input inputChange={inputChange} type='text' placeholder={'Email'} value={subscribeData.email} />
+                  <ButtonSubmit action={handleSubmit} submitLoading={loading} textButton='Enviar' config='w-28' />
+                </div>
+              </>
+            )
+        }
+        
       </form>
     </div>
   )

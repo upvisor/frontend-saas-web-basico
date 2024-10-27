@@ -3,7 +3,7 @@ export interface IPost {
     title: string
     content: string,
     state: boolean
-    image: { public_id: string, url: string }
+    image: string
     description: string
     titleSeo?: string
     descriptionSeo?: string

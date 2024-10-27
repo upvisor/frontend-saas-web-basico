@@ -1,7 +1,9 @@
-import React from "react";
-
-export const H3 = ({ children, config }: { children: React.ReactNode, config?: string }) => {
+export const H3 = ({ config, text, color }: { config?: string, text?: string, color?: string }) => {
   return (
-    <h3 className={`${config} font-medium text-[16px] lg:text-[20px]`}>{ children }</h3>
+    <h3
+      className={`${config ? config : 'font-semibold'} text-xl lg:text-3xl`}
+      style={{ color: color }}
+      dangerouslySetInnerHTML={{ __html: text ? text : '' }}
+    />
   )
-}
+};

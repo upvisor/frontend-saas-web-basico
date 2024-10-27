@@ -1,8 +1,7 @@
 import { PageBlog } from '@/components/blog'
-import { IDesign, IPost } from '@/interfaces'
-import { Metadata } from 'next'
+import { IPost } from '@/interfaces'
 
-export const revalidate = 60
+export const revalidate = 3600
 
 async function fetchPosts () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
