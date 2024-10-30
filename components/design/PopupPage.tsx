@@ -2,8 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Calendar, Input } from '../ui'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { Design, ICall, IClient, IDesign, IForm, IPayment } from '@/interfaces'
+import { usePathname, useRouter } from 'next/navigation'
+import { Design, ICall, IClient, IForm, IPayment } from '@/interfaces'
+import Cookies from 'js-cookie'
+
+declare const fbq: Function
 
 interface Props {
     popup: any
@@ -25,6 +28,7 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
   const popupRef = useRef<any>(null);
     
   const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -119,10 +123,29 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
                                     if (!loading) {
                                       setLoading(true)
                                       setError('')
-                                      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                                       const form = forms.find(form => form._id === content)
                                       let valid = true
+                                      let errorMessage = ''
+                                      form?.labels.forEach(label => {
+                                        if (label.data && (!clientData[label.data] || clientData[label.data].trim() === '')) {
+                                          valid = false
+                                          errorMessage = `Por favor, completa el campo ${label.text || label.name}.`
+                                        }
+                                      })
+                                      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                                      if (clientData.email && !emailRegex.test(clientData.email)) {
+                                        valid = false
+                                        errorMessage = 'Por favor, ingresa un correo electrónico válido.'
+                                      }
+                                      if (!valid) {
+                                        setError(errorMessage)
+                                        setLoading(false)
+                                        return
+                                      }
                                       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, clientData)
+                                      const newEventId = new Date().getTime().toString()
+                                      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead`, { firstName: clientData.firstName, lastName: clientData.lastName, email: clientData.email, phone: clientData.phone, fbc: Cookies.get('_fbc'), fbp: Cookies.get('_fbp'), service: clientData.services?.length && clientData.services[0].service !== '' ? clientData.services[0].service : undefined, funnel: clientData.funnel, step: clientData.funnel?.step, page: pathname, eventId: newEventId })
+                                      fbq('track', 'Lead', { first_name: clientData.firstName, last_name: clientData.lastName, email: clientData.email, phone: clientData.phone && clientData.phone !== '' ? `56${clientData.phone}` : undefined, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), content_name: clientData.services?.length && clientData.services[0].service !== '' ? clientData.services[0].service : undefined, contents: { id: clientData.services?.length && clientData.services[0].service !== '' ? clientData.services[0].service : undefined, quantity: 1 }, event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}` }, { eventID: newEventId })
                                       if (form?.action === 'Ir a una pagina') {
                                         router.push(form.redirect!)
                                       } else if (form?.action === 'Mostrar mensaje') {

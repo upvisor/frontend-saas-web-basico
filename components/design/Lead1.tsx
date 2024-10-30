@@ -98,7 +98,7 @@ export const Lead1 = ({ content, forms, step, index, services }: { content: IDes
                         errorMessage = `Por favor, completa el campo ${label.text || label.name}.`
                       }
                     })
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                     if (client.email && !emailRegex.test(client.email)) {
                       valid = false
                       errorMessage = 'Por favor, ingresa un correo electrónico válido.'
