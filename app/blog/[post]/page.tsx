@@ -35,10 +35,11 @@ export async function generateMetadata({
 }
 
 export default async function Page ({ params }: { params: { post: string } }) {
-  
-  const post: IPost = await fetchPost(params.post)
 
-  const posts: IPost[] = await fetchPosts()
+  const [post, posts] = await Promise.all([
+    fetchPost(params.post),
+    fetchPosts(),
+  ])
 
   return (
     <PagePost post={post} posts={posts} />
