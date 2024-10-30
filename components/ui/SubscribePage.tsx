@@ -53,13 +53,13 @@ export const SubscribePage = ({ info }: { info: IInfo }) => {
           send
             ? (
               <>
-                <H3 text='¡Listo!' config='text-center font-medium' color={info.textColor} />
+                <P text='¡Listo!' config='text-center font-medium text-xl lg:text-3xl' color={info.textColor} />
                 <P text='Pronto empezaras a recibir nuestros correos.' config='text-center' color={info.textColor} />
               </>
             )
             : (
               <>
-                <H3 text={info?.title ? info.title : 'Suscribete a nuestra lista'} config='text-center font-medium' color={info.textColor} />
+                <H2 text={info?.title ? info.title : 'Suscribete a nuestra lista'} config='text-center font-medium text-xl lg:text-3xl' color={info.textColor} />
                 <div className='flex gap-2'>
                   <Input inputChange={inputChange} type='text' placeholder={'Email'} value={subscribeData.email} />
                   <ButtonSubmit action={handleSubmit} submitLoading={loading} textButton='Enviar' config='w-28' />

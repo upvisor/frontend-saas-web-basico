@@ -158,7 +158,7 @@ export const Chat = () => {
             chat[0].userView = true
             setChat(chat)
           }
-        }} className='w-14 h-14 z-50 bg-main flex rounded-full fixed bottom-4 right-4 ml-auto shadow-md'>
+        }} aria-label='Boton para abrir y cerrar el chat' className='w-14 h-14 z-50 bg-main flex rounded-full fixed bottom-4 right-4 ml-auto shadow-md'>
           {
             chatOpacity === '-mb-[700px]'
               ? (

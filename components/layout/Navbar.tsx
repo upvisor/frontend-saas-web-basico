@@ -301,7 +301,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                             setTimeout(() => {
                               setMenu('')
                             }, 10)
-                          }}>
+                          }} aria-label='Boton para abrir el menu'>
                           <svg className="w-5" role="presentation" viewBox="0 0 20 14">
                             <path d="M0 14v-1h20v1H0zm0-7.5h20v1H0v-1zM0 0h20v1H0V0z" fill="currentColor"></path>
                           </svg>
@@ -311,7 +311,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                             setTimeout(() => {
                               setIndex('hidden')
                             }, 500)
-                          }} className='flex w-5'>
+                          }} className='flex w-5' aria-label='Boton para cerrar el menu'>
                           <svg className="m-auto w-[17px]" role="presentation" viewBox="0 0 16 14">
                             <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
                           </svg>
