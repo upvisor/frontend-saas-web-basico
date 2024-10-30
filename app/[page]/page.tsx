@@ -2,6 +2,7 @@ import { ContactPage } from "@/components/contact"
 import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Video } from "@/components/design"
 import { Slider } from "@/components/home"
 import { Subscribe } from "@/components/ui"
+import { Design, ICall, IForm, IPayment, IService, IStoreData } from "@/interfaces"
 
 export const revalidate = 3600
 
@@ -61,16 +62,20 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
+    
+  const page: any = await fetchDesign(params.page)
 
-  const [page, calls, forms, design, services, storeData, payment] = await Promise.all([
-    fetchDesign(params.page),
-    fetchCalls(),
-    fetchForms(),
-    fetchDesign1(),
-    fetchServices(),
-    fetchStoreData(),
-    fetchPayment()
-  ])
+  const calls: ICall[] = await fetchCalls()
+
+  const forms: IForm[] = await fetchForms()
+
+  const design: Design = await fetchDesign1()
+
+  const services: IService[] = await fetchServices()
+
+  const storeData: IStoreData = await fetchStoreData()
+
+  const payment: IPayment = await fetchPayment()
 
   return (
     <div className="flex flex-col">

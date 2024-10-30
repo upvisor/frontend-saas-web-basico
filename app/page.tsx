@@ -1,7 +1,7 @@
 import { ContactPage } from "@/components/contact"
 import { Slider } from "@/components/home"
 import { Subscribe } from "@/components/ui"
-import { Design } from "@/interfaces"
+import { Design, ICall, IForm, IPayment, IService, IStoreData } from "@/interfaces"
 import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Video } from '@/components/design'
 
 export const revalidate = 3600
@@ -53,24 +53,27 @@ export async function generateMetadata() {
 
 export default async function Home() {
 
-  const [design, forms, calls, services, storeData, payment] = await Promise.all([
-    fetchDesign(),
-    fetchForms(),
-    fetchCalls(),
-    fetchServices(),
-    fetchStoreData(),
-    fetchPayment()
-  ]);
+  const design: Design = await fetchDesign()
+
+  const forms: IForm[] = await fetchForms()
+
+  const calls: ICall[] = await fetchCalls()
+
+  const services: IService[] = await fetchServices()
+
+  const storeData: IStoreData = await fetchStoreData()
+
+  const payment: IPayment = await fetchPayment()
 
   return (
     <div className="flex flex-col">
       {
-        design.pages?.map((page: any) => {
+        design.pages?.map(page => {
           if (page.page === 'Inicio') {
             return (
               <>
                 {
-                  page.design.map((content: any, index: any) => {
+                  page.design.map((content, index) => {
                     if (content.content === 'Carrusel') {
                       return <Slider key={content.content} info={content.info} index={index} calls={calls} forms={forms} design={design} payment={payment} />
                     } else if (content.content === 'Bloque 1') {
