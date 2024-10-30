@@ -282,14 +282,29 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
                     if (!loading) {
                       setLoading(true)
                       setError('')
-                      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                      const form = forms.find(form => form._id === content)
                       let valid = true
+                      let errorMessage = ''
+                      forms.find(form => form._id === content)?.labels.forEach(label => {
+                        if (label.data && (!clientData[label.data] || clientData[label.data].trim() === '')) {
+                          valid = false
+                          errorMessage = `Por favor, completa el campo ${label.text || label.name}.`
+                        }
+                      })
+                      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                      if (clientData.email && !emailRegex.test(clientData.email)) {
+                        valid = false
+                        errorMessage = 'Por favor, ingresa un correo electrónico válido.'
+                      }
+                      if (!valid) {
+                        setError(errorMessage)
+                        setLoading(false)
+                        return
+                      }
                       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, clientData)
-                      if (form?.action === 'Ir a una pagina') {
-                        router.push(form.redirect!)
-                      } else if (form?.action === 'Mostrar mensaje') {
-                        setMessage(form.message!)
+                      if (forms.find(form => form._id === content)?.action === 'Ir a una pagina') {
+                        router.push(forms.find(form => form._id === content)?.redirect!)
+                      } else if (forms.find(form => form._id === content)?.action === 'Mostrar mensaje') {
+                        setMessage(forms.find(form => form._id === content)?.message!)
                       }
                       setLoading(false)
                     }
