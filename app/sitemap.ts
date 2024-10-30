@@ -1,13 +1,30 @@
-import { Design, IFunnel, IPost } from "@/interfaces";
-import { MetadataRoute } from "next";
+import { Design, IFunnel, IPost } from "@/interfaces"
+import { MetadataRoute } from "next"
+
+export const revalidate = 3600
+
+async function fetchDesign () {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+    return res.json()
+}
+
+async function fetchFunnels () {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`)
+    return res.json()
+}
+
+async function fetchPosts () {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
+    return res.json()
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
-    const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: "no-store" }).then((res) => res.json())
+    const design: Design = await fetchDesign()
 
-    const funnels: IFunnel[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`, { cache: "no-store" }).then((res) => res.json())
+    const funnels: IFunnel[] = await fetchFunnels()
 
-    const posts: IPost[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, { cache: "no-store" }).then((res) => res.json())
+    const posts: IPost[] = await fetchPosts()
 
     const pagesEntries: MetadataRoute.Sitemap = design.pages.map(page => ({
         url: `${process.env.NEXT_PUBLIC_WEB_URL}/${page.slug}`,
