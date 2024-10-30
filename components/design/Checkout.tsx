@@ -11,7 +11,9 @@ import Cookies from 'js-cookie'
 import Link from 'next/link';
 import Image from 'next/image'
 
-const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`)
+const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`, {
+  transports: ['websocket']
+})
 
 interface Props {
     content: IDesign

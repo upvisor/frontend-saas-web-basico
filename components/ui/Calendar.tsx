@@ -8,7 +8,9 @@ import { io } from 'socket.io-client'
 import { CardPayment, initMercadoPago, StatusScreen } from '@mercadopago/sdk-react'
 import Cookies from 'js-cookie'
 
-const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`)
+const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`, {
+  transports: ['websocket']
+})
 
 type CalendarProps = {
   newClient: IClient

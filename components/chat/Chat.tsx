@@ -8,7 +8,9 @@ import { Input } from '../ui'
 
 declare const fbq: Function
 
-const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`)
+const socket = io(`${process.env.NEXT_PUBLIC_API_URL}/`, {
+  transports: ['websocket']
+})
 
 export const Chat = () => {
 
