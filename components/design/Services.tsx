@@ -1,6 +1,6 @@
 import { IDesign, IService } from '@/interfaces'
 import React from 'react'
-import { Button, H1, H2, P } from '../ui'
+import { Button, H1, H2, H3, P } from '../ui'
 
 interface Props {
     content: IDesign
@@ -11,18 +11,26 @@ interface Props {
 export const Services: React.FC<Props> = ({ content, services, index }) => {
   return (
     <div className="flex flex-col gap-8 px-4 py-12 m-auto w-full max-w-[1280px]" style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
-      <div className='flex flex-col gap-4'>
-        {
-          index === 0
-            ? <H1 text={content.info.title} color={content.info.textColor} config='text-center font-semibold' />
-            : <H2 text={content.info.title} color={content.info.textColor} config='text-center font-semibold' />
-        }
-        {
-          content.info.description && content.info.description !== ''
-            ? <P config='text-center' text={content.info.description} />
-            : ''
-        }
-      </div>
+      {
+        content.info.title && content.info.title !== '' || content.info.description && content.info.description !== ''
+          ? (
+            <div className='flex flex-col gap-4'>
+              {
+                content.info.title && content.info.title !== ''
+                  ? index === 0
+                    ? <H1 text={content.info.title} color={content.info.textColor} config='text-center font-semibold' />
+                    : <H2 text={content.info.title} color={content.info.textColor} config='text-center font-semibold' />
+                  : ''
+              }
+              {
+                content.info.description && content.info.description !== ''
+                  ? <P config='text-center' text={content.info.description} />
+                  : ''
+              }
+            </div>
+          )
+          : ''
+      }
       <div className='flex gap-8 flex-wrap justify-center'>
         {
           content.services?.length
@@ -31,7 +39,11 @@ export const Services: React.FC<Props> = ({ content, services, index }) => {
               if (serviceFind) {
                 return (
                   <div key={service} className='flex flex-col gap-2 p-4 rounded-xl border border-main/5 w-[350px] h-60 justify-center' style={{ boxShadow: '0px 3px 10px 3px #c447ff15' }}>
-                    <p className='font-medium text-2xl text-center text-main'>{serviceFind.name}</p>
+                    {
+                      index === 0
+                        ? <h2 className={`text-center font-semibold text-xl lg:text-3xl`} style={{ color: content.info.textColor }}>{serviceFind.name}</h2>
+                        : <h3 className={`text-center font-semibold text-lg lg:text-2xl`} style={{ color: content.info.textColor }}>{serviceFind.name}</h3>
+                    }
                     <p className='text-center'>{serviceFind.description}</p>
                     <Button config='mx-auto'>Ver más información</Button>
                   </div>

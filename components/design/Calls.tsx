@@ -17,7 +17,7 @@ export const Calls: React.FC<Props> = ({ content, calls }) => {
           if (call) {
             return (
               <div key={meeting} className='border p-6 rounded-lg'>
-                <div className='flex gap-6 justify-between'>
+                <div className='flex gap-6 justify-between flex-col sm:flex-row'>
                   <div className='flex flex-col gap-4'>
                     <p className='text-lg font-medium'>{call.nameMeeting}</p>
                     {
@@ -31,8 +31,8 @@ export const Calls: React.FC<Props> = ({ content, calls }) => {
                     </div>
                     <p>{call.description}</p>
                   </div>
-                  <div className='my-auto'>
-                    <LinkButton url={`/llamadas/${call.nameMeeting.replaceAll(' ', '-')}`}>Agendar llamada</LinkButton>
+                  <div className='my-auto min-w-[200px]'>
+                    <LinkButton url={`/llamadas/${call.nameMeeting.replaceAll(' ', '-')}`} config='py-[9px]'>Agendar llamada</LinkButton>
                   </div>
                 </div>
               </div>

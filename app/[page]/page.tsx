@@ -102,7 +102,7 @@ export default async function Page({ params }: { params: { page: string } }) {
           } else if (content.content === 'Video') {
             return <Video key={content.content} content={content} index={index} />
           } else if (content.content === 'Agendar llamada') {
-            return <Call key={content.content} calls={calls} content={content} step={page.step} services={services} payment={payment} storeData={storeData} />
+            return <Call key={content.content} calls={calls} content={content} step={page.step} services={services} payment={payment} storeData={storeData} index={index} />
           } else if (content.content === 'Bloque 7') {
             return <Block7 key={content.content} content={content} />
           } else if (content.content === 'Llamadas') {

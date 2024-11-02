@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { call: string } }) {
 
   return (
     <>
-      <Call calls={calls} content={{ content: '', info: {}, meeting: call._id }} services={services} payment={payment} storeData={storeData} />
+      <Call calls={calls} content={{ content: '', info: {}, meeting: call._id }} services={services} payment={payment} storeData={storeData} index={0} />
     </>
   )
 }

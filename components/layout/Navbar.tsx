@@ -271,7 +271,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                       if (page.header) {
                         if (page.button) {
                           return (
-                            <LinkButton key={page.slug} url={page.slug} config='h-fit my-auto'>{page.page}</LinkButton>
+                            <LinkButton key={page.slug} url={page.slug} config='py-[6px] my-auto'>{page.page}</LinkButton>
                           )
                         } else {
                           if (page.slug === '') {
@@ -348,7 +348,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                 if (page.header) {
                   if (page.button) {
                     return (
-                      <LinkButton key={page.slug} url={page.slug} config='h-fit mx-auto' click={() => {
+                      <LinkButton key={page.slug} url={page.slug} config='py-[6px] mx-auto' click={() => {
                         setMenu('-ml-[350px]')
                         setTimeout(() => {
                           setIndex('hidden')
