@@ -38,6 +38,7 @@ export interface IDesign {
     meeting?: string
     form?: string
     service?: { service: string, plan?: string }
+    services?: string[]
 }
 
 export interface IInfo {

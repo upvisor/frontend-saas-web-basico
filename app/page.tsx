@@ -2,7 +2,7 @@ import { ContactPage } from "@/components/contact"
 import { Slider } from "@/components/home"
 import { Subscribe } from "@/components/ui"
 import { Design, ICall, IForm, IPayment, IService, IStoreData } from "@/interfaces"
-import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Video } from '@/components/design'
+import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Services, Video } from '@/components/design'
 
 export const revalidate = 3600
 
@@ -104,6 +104,8 @@ export default async function Home() {
                       return <Checkout key={content.content} content={content} services={services} payment={payment} storeData={storeData} />
                     } else if (content.content === 'Lead 2') {
                       return <Lead2 key={content.content} content={content} forms={forms} index={index} services={services} storeData={storeData} />
+                    } else if (content.content === 'Servicios') {
+                      return <Services key={content.content} content={content} services={services} index={index} />
                     }
                   })
                 }

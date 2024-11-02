@@ -341,19 +341,31 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
           }
           </div>
         </div>
-        <div className={`${index} w-full ${menu === '' ? 'bg-black/30' : ''} transition-colors duration-500 absolute z-30 justify-between 530:hidden`} style={{ top: '51px', height: 'calc(100vh - 49px)' }}>
-          <div className={`${menu} p-4 shadow-md transition-all duration-500 bg-white overflow-hidden dark:bg-neutral-900`}>
+        <div className={`${index} w-full ${menu === '' ? 'bg-black/30' : ''} transition-colors duration-500 absolute z-30 justify-between 530:hidden`} style={{ top: '54px', height: 'calc(100vh - 49px)' }}>
+          <div className={`${menu} flex flex-col p-4 shadow-md transition-all duration-500 bg-white overflow-hidden dark:bg-neutral-900`}>
             {
               design.pages?.map(page => {
                 if (page.header) {
-                return (
-                  <Link key={page.slug} className={`mb-4 font-medium text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
+                  if (page.button) {
+                    return (
+                      <LinkButton key={page.slug} url={page.slug} config='h-fit mx-auto' click={() => {
+                        setMenu('-ml-[350px]')
+                        setTimeout(() => {
+                          setIndex('hidden')
+                        }, 500)
+                      }}>{page.page}</LinkButton>
+                    )
+                  } else {
+                    return (
+                      <Link key={page.slug} className={`mb-4 font-medium text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
                         setMenu('-ml-[350px]')
                         setTimeout(() => {
                           setIndex('hidden')
                         }, 500)
                       }} href={`/${page.slug}`}>{page.page}<svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="ml-auto w-4 text-lg text-neutral-500" xmlns="http://www.w3.org/2000/svg"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></Link>
-                )
+                    )
+                  }
+                
                 }
               })
             }
