@@ -42,7 +42,7 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
             <h3 className='text-white'>PAGINAS</h3>
             <div className='flex flex-col gap-1'>
               {
-                design.pages.filter(page => page.slug && page.slug !== '').map(page => (
+                design.pages.filter(page => page.header).map(page => (
                   <Link key={page._id} href={page.slug === '' ? '/' : page.slug} className='text-white'>{ page.page }</Link>
                 ))
               }
