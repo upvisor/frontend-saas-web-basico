@@ -31,8 +31,8 @@ export const Call = ({ calls, content, step, services, payment, storeData, index
   }, [step])
 
   return (
-    <div className="flex flex-col gap-16 py-8 md:py-12" style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
-      <div className="w-full flex flex-col gap-8 px-4">
+    <div className="flex flex-col gap-16 py-8 px-4 md:py-12" style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
+      <div className="w-full flex flex-col gap-8 max-w-[1280px] m-auto">
         {
           content.info.titleForm === 'Logo principal' && storeData?.logo && storeData.logo !== ''
             ? <Link href='/' target='_blank' className='w-fit m-auto'><Image src={storeData.logo} alt={`Logo ${storeData.name}`} width={320} height={150} className='w-44 m-auto lg:w-52' /></Link>
@@ -60,7 +60,7 @@ export const Call = ({ calls, content, step, services, payment, storeData, index
             )
             : ''
         }
-        <div className="bg-white border border-black/5 rounded-xl m-auto w-full max-w-[1280px]" style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+        <div className="bg-white border border-black/5 rounded-xl m-auto w-full" style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
           <div className="lg:flex">
             <div className="p-6 border-b border-black/5 lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
               <div className='flex flex-col gap-6 sticky top-20'>
