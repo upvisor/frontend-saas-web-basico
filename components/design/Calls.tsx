@@ -16,7 +16,7 @@ export const Calls: React.FC<Props> = ({ content, calls }) => {
           const call = calls.find(call => call._id === meeting)
           if (call) {
             return (
-              <div key={meeting} className='border p-6 rounded-lg'>
+              <div key={meeting} className='border border-black/5 p-6 rounded-xl' style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
                 <div className='flex gap-6 justify-between flex-col sm:flex-row'>
                   <div className='flex flex-col gap-4'>
                     <p className='text-lg font-medium'>{call.nameMeeting}</p>

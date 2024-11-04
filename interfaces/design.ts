@@ -38,7 +38,7 @@ export interface IDesign {
     meeting?: string
     form?: string
     service?: { service: string, plan?: string }
-    services?: string[]
+    services?: { service: string, url: string }[]
 }
 
 export interface IInfo {

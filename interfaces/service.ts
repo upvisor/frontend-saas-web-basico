@@ -35,7 +35,7 @@ export interface IStepService {
     metaTitle?: string
     metaDescription?: string
     image?: string
-    design?: { content: string, meetings?: string[], meeting?: string, form?: string, service?: { service: string, plan?: string }, info: IInfoService }[]
+    design?: { content: string, meetings?: string[], meeting?: string, form?: string, service?: { service: string, plan?: string }, services?: { service: string, url: string }[], info: IInfoService }[]
 }
 
 export interface IInfoService {

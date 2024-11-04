@@ -1,6 +1,6 @@
 import { IDesign, IService } from '@/interfaces'
 import React from 'react'
-import { Button, H1, H2, H3, P } from '../ui'
+import { Button, H1, H2, H3, LinkButton, P } from '../ui'
 
 interface Props {
     content: IDesign
@@ -35,17 +35,17 @@ export const Services: React.FC<Props> = ({ content, services, index }) => {
         {
           content.services?.length
             ? content.services.map(service => {
-              const serviceFind = services?.find(servi => servi._id === service)
+              const serviceFind = services?.find(servi => servi._id === service.service)
               if (serviceFind) {
                 return (
-                  <div key={service} className='flex flex-col gap-2 p-4 rounded-xl border border-main/5 w-[350px] h-60 justify-center' style={{ boxShadow: '0px 3px 10px 3px #c447ff15' }}>
+                  <div key={service.service} className='flex flex-col gap-2 p-4 rounded-xl border border-main/5 w-[350px] h-60 justify-center' style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
                     {
                       index === 0
                         ? <h2 className={`text-center font-semibold text-xl lg:text-3xl`} style={{ color: content.info.textColor }}>{serviceFind.name}</h2>
                         : <h3 className={`text-center font-semibold text-lg lg:text-2xl`} style={{ color: content.info.textColor }}>{serviceFind.name}</h3>
                     }
                     <p className='text-center'>{serviceFind.description}</p>
-                    <Button config='mx-auto'>Ver más información</Button>
+                    <LinkButton url={service.url} config='mx-auto py-1.5'>Ver más información</LinkButton>
                   </div>
                 )
               }
