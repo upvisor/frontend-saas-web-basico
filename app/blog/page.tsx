@@ -1,10 +1,10 @@
 import { PageBlog } from '@/components/blog'
 import { IPost } from '@/interfaces'
 
-export const revalidate = 3600
-
 async function fetchPosts () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+    next: { tags: ['post'] }
+  })
   return res.json()
 }
 

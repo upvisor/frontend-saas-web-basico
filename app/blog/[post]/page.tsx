@@ -2,15 +2,17 @@ import PagePost from "@/components/blog/PagePost"
 import { IPost } from "@/interfaces"
 import { Metadata } from "next"
 
-export const revalidate = 3600
-
 async function fetchPost (post: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post}`, {
+    next: { tags: ['post'] }
+  })
   return res.json()
 }
 
 async function fetchPosts () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+    next: { tags: ['post'] }
+  })
   return res.json()
 }
 
@@ -21,7 +23,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 
   const id = params.post
-  const post: IPost = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`).then((res) => res.json())
+  const post: IPost = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`, {
+    next: { tags: ['post'] }
+  }).then((res) => res.json())
 
   return {
     title: post.titleSeo && post.titleSeo !== '' ? post.titleSeo : post.title,
@@ -36,9 +40,11 @@ export async function generateMetadata({
 
 export default async function Page ({ params }: { params: { post: string } }) {
   
-  const post: IPost = await fetchPost(params.post)
+  const postData = fetchPost(params.post)
 
-  const posts: IPost[] = await fetchPosts()
+  const postsData = fetchPosts()
+
+  const [post, posts] = await Promise.all([postData, postsData])
 
   return (
     <PagePost post={post} posts={posts} />

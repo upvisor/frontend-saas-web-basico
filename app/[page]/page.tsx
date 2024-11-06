@@ -9,37 +9,51 @@ export const revalidate = 3600
 export const dynamicParams = true
 
 async function fetchDesign (page: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${page}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${page}`, {
+    next: { tags: ['design', 'funnels', 'services'] }
+  })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, {
+    next: { tags: ['calls'] }
+  })
   return res.json()
 }
 
 async function fetchForms () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, {
+    next: { tags: ['forms'] }
+  })
   return res.json()
 }
 
 async function fetchDesign1 () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
+    next: { tags: ['design'] }
+  })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {
+    next: { tags: ['services'] }
+  })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, {
+    next: { tags: ['store-data'] }
+  })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
+    next: { tags: ['payment'] }
+  })
   return res.json()
 }
 
@@ -48,7 +62,9 @@ export async function generateMetadata({
 }: {
   params: { page: string }
 }) {
-  const page: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${params.page}`).then((res) => res.json())
+  const page: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${params.page}`, {
+    next: { tags: ['design', 'funnels', 'services'] }
+  }).then((res) => res.json())
   return {
     title: page?.metaTitle && page?.metaTitle !== '' ? page?.metaTitle : '',
     description: page?.metaDescription && page?.metaDescription !== '' ? page?.metaDescription : '',
@@ -63,19 +79,21 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { page: string } }) {
     
-  const page: any = await fetchDesign(params.page)
+  const pageData: any = await fetchDesign(params.page)
 
-  const calls: ICall[] = await fetchCalls()
+  const callsData: ICall[] = await fetchCalls()
 
-  const forms: IForm[] = await fetchForms()
+  const formsData: IForm[] = await fetchForms()
 
-  const design: Design = await fetchDesign1()
+  const designData: Design = await fetchDesign1()
 
-  const services: IService[] = await fetchServices()
+  const servicesData: IService[] = await fetchServices()
 
-  const storeData: IStoreData = await fetchStoreData()
+  const storeDataData: IStoreData = await fetchStoreData()
 
-  const payment: IPayment = await fetchPayment()
+  const paymentData: IPayment = await fetchPayment()
+
+  const [page, design, forms, calls, services, storeData, payment] = await Promise.all([pageData, designData, formsData, callsData, servicesData, storeDataData, paymentData])
 
   return (
     <div className="flex flex-col">

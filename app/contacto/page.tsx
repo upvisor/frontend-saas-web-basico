@@ -1,6 +1,6 @@
 import React from 'react'
 import { ContactPage } from '@/components/contact'
-import { Design, ICall, IForm, IPayment, IService, IStoreData } from '@/interfaces'
+import { Design } from '@/interfaces'
 import { Slider } from '@/components/home'
 import { Subscribe } from '@/components/ui'
 import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Video } from '@/components/design'
@@ -8,37 +8,51 @@ import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, 
 export const revalidate = 3600
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
+    next: { tags: ['design'] }
+  })
   return res.json()
 }
 
 async function fetchForms () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, {
+    next: { tags: ['forms'] }
+  })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, {
+    next: { tags: ['calls'] }
+  })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {
+    next: { tags: ['services'] }
+  })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
+    next: { tags: ['payment'] }
+  })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, {
+    next: { tags: ['store-data'] }
+  })
   return res.json()
 }
 
 export async function generateMetadata() {
-  const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`).then((res) => res.json())
+  const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
+    next: { tags: ['design'] }
+  }).then((res) => res.json())
   const home = design.pages?.find(page => page.page === 'Contacto')
   return {
     title: home?.metaTitle && home?.metaTitle !== '' ? home?.metaTitle : '',
@@ -54,27 +68,29 @@ export async function generateMetadata() {
 
 export default async function Page () {
 
-  const design: Design = await fetchDesign()
+  const designData = fetchDesign()
 
-  const forms: IForm[] = await fetchForms()
+  const formsData = fetchForms()
 
-  const calls: ICall[] = await fetchCalls()
+  const callsData = fetchCalls()
 
-  const services: IService[] = await fetchServices()
+  const servicesData = fetchServices()
 
-  const payment: IPayment = await fetchPayment()
+  const storeDataData = fetchStoreData()
 
-  const storeData: IStoreData = await fetchStoreData()
+  const paymentData = fetchPayment()
+
+  const [design, forms, calls, services, storeData, payment] = await Promise.all([designData, formsData, callsData, servicesData, storeDataData, paymentData])
 
   return (
     <div className="flex flex-col">
       {
-        design.pages.map(page => {
+        design.pages.map((page: any) => {
           if (page.page === 'Contacto') {
             return (
               <>
                 {
-                  page.design.map((content, index) => {
+                  page.design.map((content: any, index: any) => {
                     if (content.content === 'Carrusel') {
                       return <Slider key={content.content} info={content.info} index={index} forms={forms} calls={calls} design={design} payment={payment} />
                     } else if (content.content === 'Bloque 1') {

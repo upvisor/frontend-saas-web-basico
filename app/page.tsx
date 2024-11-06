@@ -1,41 +1,55 @@
 import { ContactPage } from "@/components/contact"
 import { Slider } from "@/components/home"
 import { Subscribe } from "@/components/ui"
-import { Design, ICall, IForm, IPayment, IService, IStoreData } from "@/interfaces"
+import { Design } from "@/interfaces"
 import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Services, Video } from '@/components/design'
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
+    next: { tags: ['design'] }
+  })
   return res.json()
 }
 
 async function fetchForms () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, {
+    next: { tags: ['forms'] }
+  })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, {
+    next: { tags: ['calls'] }
+  })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {
+    next: { tags: ['services'] }
+  })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, {
+    next: { tags: ['store-data'] }
+  })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
+    next: { tags: ['payment'] }
+  })
   return res.json()
 }
 
 export async function generateMetadata() {
-  const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`).then((res) => res.json())
+  const design: Design = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
+    next: { tags: ['design'] }
+  }).then((res) => res.json())
   const home = design.pages?.find(page => page.page === 'Inicio')
   return {
     title: home?.metaTitle && home?.metaTitle !== '' ? home?.metaTitle : '',

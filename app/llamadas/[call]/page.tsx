@@ -1,44 +1,53 @@
 import { Call } from "@/components/design"
-import { ICall, IPayment, IService, IStoreData } from "@/interfaces"
-
-export const revalidate = 3600
 
 async function fetchCall (call: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/call-name/${call}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/call-name/${call}`, {
+    next: { tags: ['calls'] }
+  })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, {
+    next: { tags: ['calls'] }
+  })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {
+    next: { tags: ['services'] }
+  })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
+    next: { tags: ['payment'] }
+  })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, {
+    next: { tags: ['store-data'] }
+  })
   return res.json()
 }
 
 export default async function Page({ params }: { params: { call: string } }) {
 
-  const call: ICall = await fetchCall(params.call)
+  const callData = fetchCall(params.call)
 
-  const calls: ICall[] = await fetchCalls()
+  const callsData = fetchCalls()
 
-  const services: IService[] = await fetchServices()
+  const servicesData = fetchServices()
 
-  const payment: IPayment = await fetchPayment()
+  const paymentData = fetchPayment()
 
-  const storeData: IStoreData = await fetchStoreData()
+  const storeDataData = fetchStoreData()
+
+  const [call, calls, services, payment, storeData] = await Promise.all([callData, callsData, servicesData, paymentData, storeDataData])
 
   return (
     <>
