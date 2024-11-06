@@ -253,7 +253,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
           : ''
       }
       <div style={{ top: '-0.5px' }} className='sticky flex w-full z-40'>
-        <div className='m-auto w-full absolute bg-white border-b flex justify-between px-2 sm:py-0 dark:bg-neutral-900 dark:border-neutral-800'>
+        <div className='m-auto w-full absolute bg-white border-b border-black/5 flex justify-between px-2 sm:py-0 dark:bg-neutral-900 dark:border-neutral-800' style={{ boxShadow: '0px 0px 10px 0px #11111115' }}>
           <div className='m-auto w-[1280px] flex justify-between py-1 sm:py-0'>
           <div className='hidden gap-2 sm:flex'>
             {

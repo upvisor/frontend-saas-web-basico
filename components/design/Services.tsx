@@ -1,6 +1,6 @@
 import { IDesign, IService } from '@/interfaces'
 import React from 'react'
-import { Button, H1, H2, H3, LinkButton, P } from '../ui'
+import { H1, H2, LinkButton, P } from '../ui'
 
 interface Props {
     content: IDesign
@@ -45,7 +45,7 @@ export const Services: React.FC<Props> = ({ content, services, index }) => {
                         : <h3 className={`text-center font-semibold text-lg lg:text-2xl`} style={{ color: content.info.textColor }}>{serviceFind.name}</h3>
                     }
                     <p className='text-center'>{serviceFind.description}</p>
-                    <LinkButton url={service.url} config='mx-auto py-1.5'>Ver más información</LinkButton>
+                    <LinkButton url={service.url} config='mx-auto'>Ver más información</LinkButton>
                   </div>
                 )
               }

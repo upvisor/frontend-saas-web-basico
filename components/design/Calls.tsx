@@ -31,8 +31,8 @@ export const Calls: React.FC<Props> = ({ content, calls }) => {
                     </div>
                     <p>{call.description}</p>
                   </div>
-                  <div className='my-auto min-w-[200px]'>
-                    <LinkButton url={`/llamadas/${call.nameMeeting.replaceAll(' ', '-')}`} config='py-[9px]'>Agendar llamada</LinkButton>
+                  <div className='my-auto min-w-[186.5px] flex'>
+                    <LinkButton url={`/llamadas/${call.nameMeeting.replaceAll(' ', '-')}`}>Agendar llamada</LinkButton>
                   </div>
                 </div>
               </div>
