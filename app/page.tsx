@@ -4,8 +4,6 @@ import { Subscribe } from "@/components/ui"
 import { Design, ICall, IForm, IPayment, IService, IStoreData } from "@/interfaces"
 import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Services, Video } from '@/components/design'
 
-export const revalidate = 3600
-
 async function fetchDesign () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`)
   return res.json()
