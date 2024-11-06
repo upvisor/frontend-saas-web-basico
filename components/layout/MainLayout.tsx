@@ -44,21 +44,23 @@ async function fetchServices () {
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
   
-  const design: Design = await fetchDesign()
+  const designData = fetchDesign()
   
-  const storeData: IStoreData = await fetchStoreData()
+  const storeDataData = fetchStoreData()
 
-  const funnels: IFunnel[] = await fetchFunnels()
+  const funnelsData = fetchFunnels()
 
-  const politics: IPolitics | undefined = await fetchPolitics()
+  const politicsData = fetchPolitics()
 
-  const calls: ICall[] = await fetchCalls()
+  const callsData = fetchCalls()
 
-  const forms: IForm[] = await fetchForms()
+  const formsData = fetchForms()
 
-  const payment: IPayment = await fetchPayment()
+  const paymentData = fetchPayment()
 
-  const services: IService[] = await fetchServices()
+  const servicesData = fetchServices()
+
+  const [design, storeData, funnels, politics, calls, forms, payment, services] = await Promise.all([designData, storeDataData, funnelsData, politicsData, callsData, formsData, paymentData, servicesData])
   
   return (
     <AllNavbar design={design} storeData={storeData} funnels={funnels} politics={politics} calls={calls} forms={forms} payment={payment} services={services}>

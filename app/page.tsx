@@ -51,27 +51,29 @@ export async function generateMetadata() {
 
 export default async function Home() {
 
-  const design: Design = await fetchDesign()
+  const designData = fetchDesign()
 
-  const forms: IForm[] = await fetchForms()
+  const formsData = fetchForms()
 
-  const calls: ICall[] = await fetchCalls()
+  const callsData = fetchCalls()
 
-  const services: IService[] = await fetchServices()
+  const servicesData = fetchServices()
 
-  const storeData: IStoreData = await fetchStoreData()
+  const storeDataData = fetchStoreData()
 
-  const payment: IPayment = await fetchPayment()
+  const paymentData = fetchPayment()
+
+  const [design, forms, calls, services, storeData, payment] = await Promise.all([designData, formsData, callsData, servicesData, storeDataData, paymentData])
 
   return (
     <div className="flex flex-col">
       {
-        design.pages?.map(page => {
+        design.pages?.map((page: any) => {
           if (page.page === 'Inicio') {
             return (
               <>
                 {
-                  page.design.map((content, index) => {
+                  page.design.map((content: any, index: any) => {
                     if (content.content === 'Carrusel') {
                       return <Slider key={content.content} info={content.info} index={index} calls={calls} forms={forms} design={design} payment={payment} />
                     } else if (content.content === 'Bloque 1') {
