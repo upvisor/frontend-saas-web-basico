@@ -2,58 +2,42 @@ import React from "react"
 import { AllNavbar } from "."
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
-    next: { tags: ['design'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, {
-    next: { tags: ['store-data'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchFunnels () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`, {
-    next: { tags: ['funnels'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchPolitics () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/politics`, {
-    next: { tags: ['politics'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/politics`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, {
-    next: { tags: ['calls'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchForms () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, {
-    next: { tags: ['forms'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
-    next: { tags: ['payment'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, { cache: 'no-store' })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {
-    next: { tags: ['services'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, { cache: 'no-store' })
   return res.json()
 }
 
