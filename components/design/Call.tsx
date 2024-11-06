@@ -60,9 +60,9 @@ export const Call = ({ calls, content, step, services, payment, storeData, index
             )
             : ''
         }
-        <div className="bg-white border border-black/5 rounded-xl m-auto w-full" style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+        <div className="bg-white border border-black/5 rounded-2xl m-auto w-full" style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
           <div className="lg:flex">
-            <div className="p-6 border-b border-black/5 lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
+            <div className="p-6 md:p-8 border-b border-black/5 lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
               <div className='flex flex-col gap-6 sticky top-20'>
                 <div className="flex flex-col gap-3">
                   {

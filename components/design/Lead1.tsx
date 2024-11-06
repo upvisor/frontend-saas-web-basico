@@ -76,7 +76,7 @@ export const Lead1 = ({ content, forms, step, index, services }: { content: IDes
             content.form && content.form !== ''
               ? ''
               : (
-                <div className='p-6 rounded-xl border border-black/5 my-auto w-full max-w-[500px]' style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+                <div className='p-6 md:p-8 rounded-2xl border border-black/5 my-auto w-full max-w-[500px]' style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
                   <p>Selecciona un formulario</p>
                 </div>
               )

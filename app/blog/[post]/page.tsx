@@ -3,16 +3,12 @@ import { IPost } from "@/interfaces"
 import { Metadata } from "next"
 
 async function fetchPost (post: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post}`, {
-    next: { tags: ['post'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${post}`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchPosts () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-    next: { tags: ['post'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
@@ -23,9 +19,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 
   const id = params.post
-  const post: IPost = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`, {
-    next: { tags: ['post'] }
-  }).then((res) => res.json())
+  const post: IPost = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${id}`, { next: { revalidate: 3600 } }).then((res) => res.json())
 
   return {
     title: post.titleSeo && post.titleSeo !== '' ? post.titleSeo : post.title,

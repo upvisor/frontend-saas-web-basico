@@ -9,51 +9,37 @@ export const revalidate = 3600
 export const dynamicParams = true
 
 async function fetchDesign (page: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${page}`, {
-    next: { tags: ['design', 'funnels', 'services'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${page}`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, {
-    next: { tags: ['calls'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchForms () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, {
-    next: { tags: ['forms'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchDesign1 () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, {
-    next: { tags: ['design'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {
-    next: { tags: ['services'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, {
-    next: { tags: ['store-data'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
-    next: { tags: ['payment'] }
-  })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
@@ -62,9 +48,7 @@ export async function generateMetadata({
 }: {
   params: { page: string }
 }) {
-  const page: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${params.page}`, {
-    next: { tags: ['design', 'funnels', 'services'] }
-  }).then((res) => res.json())
+  const page: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page-funnel/${params.page}`, { next: { revalidate: 3600 } }).then((res) => res.json())
   return {
     title: page?.metaTitle && page?.metaTitle !== '' ? page?.metaTitle : '',
     description: page?.metaDescription && page?.metaDescription !== '' ? page?.metaDescription : '',

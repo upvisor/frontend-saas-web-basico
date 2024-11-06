@@ -112,7 +112,7 @@ export const Lead2 = ({ content, forms, step, index, services, storeData }: { co
                     setLoading(false)
                   }
                 }}>
-                  <div className="flex flex-col gap-4 border border-black/5 rounded-xl h-fit m-auto w-full p-6 max-w-[500px] bg-white" style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+                  <div className="flex flex-col gap-4 border border-black/5 rounded-2xl h-fit m-auto w-full p-6 md:p-8 max-w-[500px] bg-white" style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
                     {
                       error !== ''
                         ? <p className='w-fit px-2 py-1 bg-red-500 text-white m-auto'>{error}</p>

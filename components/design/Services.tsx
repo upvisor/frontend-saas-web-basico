@@ -38,7 +38,7 @@ export const Services: React.FC<Props> = ({ content, services, index }) => {
               const serviceFind = services?.find(servi => servi._id === service.service)
               if (serviceFind) {
                 return (
-                  <div key={service.service} className='flex flex-col gap-2 p-4 rounded-xl border border-main/5 w-[350px] h-60 justify-center' style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+                  <div key={service.service} className='flex flex-col gap-2 p-4 rounded-2xl border border-black/5 w-[350px] min-h-60 justify-center' style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
                     {
                       index === 0
                         ? <h2 className={`text-center font-semibold text-xl lg:text-3xl`} style={{ color: content.info.textColor }}>{serviceFind.name}</h2>

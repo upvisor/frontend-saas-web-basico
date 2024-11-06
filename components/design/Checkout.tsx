@@ -283,7 +283,7 @@ export const Checkout: React.FC<Props> = ({ content, services, step, payment, st
               </div>
             </div>
           </div>
-          <div className='bg-white flex flex-col gap-4 sticky top-20 h-fit w-full p-6 rounded-xl border border-black/5 md:w-2/5' style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+          <div className='bg-white flex flex-col gap-4 sticky top-20 h-fit w-full p-6 md:p-8 rounded-2xl border border-black/5 md:w-2/5' style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
             {
               content.service && content.service.service !== ''
                 ? (

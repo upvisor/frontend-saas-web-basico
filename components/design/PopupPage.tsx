@@ -51,7 +51,7 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
         {
           content === 'Abrir popup'
             ? (
-              <div ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${calls.find(call => call._id === content) ? 'max-w-[800px]' : 'max-w-[600px]'} ${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 w-full p-6 rounded-xl max-h-[600px] overflow-y-auto bg-white m-auto flex flex-col gap-4`}>
+              <div ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${calls.find(call => call._id === content) ? 'max-w-[800px]' : 'max-w-[600px]'} ${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 w-full p-6 md:p-8 rounded-2xl max-h-[600px] overflow-y-auto bg-white m-auto flex flex-col gap-4`} style={{ boxShadow: '0px 3px 20px 3px #11111120' }}>
                 {
                   message !== ''
                     ? <p>{message}</p>
@@ -71,14 +71,9 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
                           design?.popup?.content && design.popup.content !== ''
                             ? calls.find(call => call._id === content)
                               ? (
-                                <div className="border rounded-lg shadow-md m-auto w-full max-w-[1280px]">
-                                  {
-                                    calls.find(call => call._id === content)
-                                      ? <h2 className="text-center text-3xl border-b p-6 text-main font-semibold">{calls.find(call => call._id === content)?.title}</h2>
-                                      : ''
-                                  }
+                                <div className="m-auto w-full max-w-[1280px]">
                                   <div className="lg:flex">
-                                    <div className="p-6 border-b lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
+                                    <div className="p-6 md:p-8 border-b lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
                                       <div className="flex flex-col gap-3">
                                         <p className="text-sm font-medium">CARMEN ORELLANA</p>
                                         {
@@ -154,7 +149,7 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
                                       setLoading(false)
                                     }
                                   }}>
-                                    <div className="flex flex-col gap-4 border shadow-lg rounded-lg h-fit m-auto w-full p-6 max-w-[500px]">
+                                    <div className="flex flex-col gap-4 h-fit m-auto w-full p-6 md:p-8 max-w-[500px]">
                                       {
                                         message !== ''
                                           ? <p className='text-lg text-center font-medium'>{message}</p>
@@ -230,14 +225,9 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
             )
             : calls.find(call => call._id === content)
               ? (
-                <div ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 max-w-[800px] bg-white border rounded-xl shadow-md m-auto w-full`}>
-                  {
-                    calls.find(call => call._id === content)
-                      ? <h2 className="text-center text-3xl border-b p-6 text-main font-semibold">{calls.find(call => call._id === content)?.title}</h2>
-                      : ''
-                  }
+                <div ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 max-w-[800px] bg-white border rounded-2xl m-auto w-full`} style={{ boxShadow: '0px 3px 20px 3px #11111120' }}>
                   <div className="lg:flex">
-                    <div className="p-6 border-b lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
+                    <div className="p-6 md:p-8 border-b lg:border-b-0 lg:border-r flex flex-col gap-8 w-full lg:w-5/12">
                       <div className="flex flex-col gap-3">
                         <p className="text-sm font-medium">CARMEN ORELLANA</p>
                         {
@@ -269,7 +259,7 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
                           : ''
                       }
                     </div>
-                    <div className="p-6 w-full lg:w-7/12">
+                    <div className="p-6 md:p-8 w-full lg:w-7/12">
                       <Calendar newClient={clientData} setNewClient={setClientData} call={calls.find(call => call._id === content)!} tags={calls.find(call => call._id === content)?.tags!} meeting={calls.find(call => call._id === content)?.nameMeeting!} payment={payment} />
                     </div>
                   </div>
@@ -277,7 +267,7 @@ export const PopupPage: React.FC<Props> = ({ popup, setPopup, content, design, c
               )
               : forms.find(form => form._id === content)
                 ? (
-                  <form ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 flex flex-col gap-4 border shadow-lg rounded-xl h-fit m-auto p-6 w-full max-w-[600px] bg-white`} onSubmit={async (e: any) => {
+                  <form ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} transition-transform duration-200 flex flex-col gap-4 border rounded-2xl h-fit m-auto p-6 md:p-8 w-full max-w-[600px] bg-white`} style={{ boxShadow: '0px 3px 20px 3px #11111120' }} onSubmit={async (e: any) => {
                     e.preventDefault()
                     if (!loading) {
                       setLoading(true)

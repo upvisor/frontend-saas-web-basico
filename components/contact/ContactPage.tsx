@@ -83,7 +83,7 @@ export const ContactPage = ({ info, index }: { info: IInfo, index: any }) => {
             <P text={info.description} color={info.textColor} />
           </div>
           <div className='w-full m-auto sm:w-[560px] xl:w-1/2'>
-            <div className='rounded-xl border border-black/5 flex flex-col gap-4 p-6 sm:p-8 dark:shadow-none' style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>
+            <div className='rounded-xl border border-black/5 flex flex-col gap-4 p-6 sm:p-8 dark:shadow-none' style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
               {
                 error !== ''
                   ? <p className='bg-red-500 px-2 py-1 text-white w-fit'>{error}</p>
