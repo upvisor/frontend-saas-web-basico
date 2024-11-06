@@ -2,42 +2,42 @@ import React from "react"
 import { AllNavbar } from "."
 
 async function fetchDesign () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/design`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchStoreData () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/store-data`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchFunnels () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchPolitics () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/politics`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/politics`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchForms () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forms`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, { next: { revalidate: 60 } })
   return res.json()
 }
 
 async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, { next: { revalidate: 60 } })
   return res.json()
 }
 
