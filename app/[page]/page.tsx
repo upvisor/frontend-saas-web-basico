@@ -1,5 +1,5 @@
 import { ContactPage } from "@/components/contact"
-import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Video } from "@/components/design"
+import { Block1, Block2, Block3, Block4, Block5, Block7, Call, Calls, Checkout, Lead1, Lead2, Plans, Video } from "@/components/design"
 import { Slider } from "@/components/home"
 import { Subscribe } from "@/components/ui"
 import { Design, ICall, IForm, IPayment, IService, IStoreData } from "@/interfaces"
@@ -94,7 +94,7 @@ export default async function Page({ params }: { params: { page: string } }) {
           } else if (content.content === 'Bloque 4') {
             return <Block4 key={content.content} content={content} index={index} forms={forms} calls={calls} design={design} payment={payment} />
           } else if (content.content === 'Bloque 5') {
-            return <Block5 key={content.content} content={content} index={index} forms={forms} calls={calls} design={design}  payment={payment}/>
+            return <Block5 key={content.content} content={content} index={index} forms={forms} calls={calls} design={design} payment={payment}/>
           } else if (content.content === 'Contacto') {
             return <ContactPage key={content.content} info={ content.info } index={index} />
           } else if (content.content === 'Suscripción') {
@@ -113,6 +113,8 @@ export default async function Page({ params }: { params: { page: string } }) {
             return <Checkout key={content.content} content={content} services={services} step={page.step} payment={payment} storeData={storeData} />
           } else if (content.content === 'Lead 2') {
             return <Lead2 key={content.content} content={content} forms={forms} index={index} step={page.step} services={services} storeData={storeData} />
+          } else if (content.content === 'Planes') {
+            return <Plans key={content.content} content={content} services={services} index={index} payment={payment} />
           }
         })
       }

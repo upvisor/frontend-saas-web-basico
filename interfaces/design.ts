@@ -29,6 +29,8 @@ export interface IPopupWeb {
     title: string
     description: string
     content?: string
+    buttonText?: string
+    buttonLink?: string
 }
 
 export interface IDesign {

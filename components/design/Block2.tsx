@@ -15,7 +15,7 @@ export const Block2 = ({ content, index, calls, forms, design, payment }: { cont
     <>
       <PopupPage popup={popup} setPopup={setPopup} content={cont} design={design} calls={calls} forms={forms} payment={payment} />
       <div key={content.content} className="w-full flex py-8 px-4 md:py-12" style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
-        <div className="w-full flex max-w-[1280px] gap-8 m-auto flex-col text-center md:flex-row md:text-left">
+        <div className={`w-full flex max-w-[1280px] ${content.info?.image && content.info.image !== '' ? 'gap-8' : ''} m-auto flex-col text-center md:flex-row md:text-left`}>
           <div className="w-full hidden md:w-1/2 md:flex">
             {
               content.info?.image && content.info.image !== ''

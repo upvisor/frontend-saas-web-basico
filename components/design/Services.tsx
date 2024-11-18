@@ -10,7 +10,7 @@ interface Props {
 
 export const Services: React.FC<Props> = ({ content, services, index }) => {
   return (
-    <div className="flex flex-col gap-8 px-4 py-12 m-auto w-full max-w-[1280px]" style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
+    <div className="flex flex-col gap-8 px-4 py-8 m-auto w-full max-w-[1280px]" style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
       {
         content.info.title && content.info.title !== '' || content.info.description && content.info.description !== ''
           ? (

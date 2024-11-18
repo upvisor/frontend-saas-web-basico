@@ -77,8 +77,8 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
       {
         design.popup?.active
           ? (
-            <div className={`${popup.view} ${popup.opacity} transition-opacity duration-200 w-full h-full fixed bg-black/30 flex z-50`}>
-              <div ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${calls.find(call => call._id === design.popup?.content) ? 'max-w-[800px]' : 'max-w-[600px]'} w-full p-6 rounded-lg max-h-[600px] overflow-y-auto bg-white m-auto flex flex-col gap-4`}>
+            <div className={`${popup.view} ${popup.opacity} transition-opacity duration-200 w-full h-full fixed bg-black/30 flex z-50 px-4`}>
+              <div ref={popupRef} onMouseEnter={() => setPopup({ ...popup, mouse: true })} onMouseLeave={() => setPopup({ ...popup, mouse: false })} className={`${popup.opacity === 'opacity-1' ? 'scale-1' : 'scale-90'} ${calls.find(call => call._id === design.popup?.content) ? 'max-w-[800px]' : 'max-w-[600px]'} transition-transform duration-200 w-full p-6 rounded-xl max-h-[600px] overflow-y-auto bg-white m-auto flex flex-col gap-4`} style={{ boxShadow: '0px 3px 20px 3px #11111120' }}>
                 {
                   message !== ''
                     ? <p>{message}</p>
@@ -229,6 +229,11 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                                 </form>
                               )
                               : ''
+                            : ''
+                        }
+                        {
+                          design.popup.buttonText && design.popup.buttonText !== '' && design.popup.buttonLink && design.popup.buttonLink !== ''
+                            ? <LinkButton url={design.popup.buttonLink}>{design.popup.buttonText}</LinkButton>
                             : ''
                         }
                       </>
