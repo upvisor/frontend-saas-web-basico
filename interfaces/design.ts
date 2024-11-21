@@ -66,6 +66,7 @@ export interface IInfo {
     typeBackground?: string
     background?: string
     textColor?: string
+    faq?: [{ question?: string, response?: string }]
 }
 
 export interface IBanner {

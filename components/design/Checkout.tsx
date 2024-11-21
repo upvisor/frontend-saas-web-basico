@@ -228,90 +228,97 @@ export const Checkout: React.FC<Props> = ({ content, services, step, payment, st
               ? <Link href='/' target='_blank' className='w-fit m-auto'><Image src={storeData.logoWhite} alt={`Logo ${storeData.name}`} width={320} height={150} className='w-44 m-auto lg:w-52' /></Link>
               : ''
         }
-        <div className='m-auto w-full max-w-[1280px] gap-8 flex flex-col md:flex-row'>
-          <div className='flex flex-col gap-6 w-full md:w-3/5'>
-            <div className='flex flex-col gap-4'>
-              <H3 text='Datos de contacto' config='font-medium' color={content.info.textColor} />
-              <div className='flex flex-col gap-2'>
-                <p style={{ color: content.info.textColor }}>Email</p>
-                <Input placeholder='Email' inputChange={(e: any) => {
-                  setClient({ ...client, email: e.target.value })
-                  clientRef.current = { ...client, email: e.target.value }
-                }} value={client.email} />
+        {
+          paymentCompleted
+            ? (
+              <div className='flex flex-col gap-6 py-20'>
+                <svg className='m-auto' stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="100px" width="100px" xmlns="http://www.w3.org/2000/svg"><polygon fill="#8BC34A" points="24,3 28.7,6.6 34.5,5.8 36.7,11.3 42.2,13.5 41.4,19.3 45,24 41.4,28.7 42.2,34.5 36.7,36.7 34.5,42.2 28.7,41.4 24,45 19.3,41.4 13.5,42.2 11.3,36.7 5.8,34.5 6.6,28.7 3,24 6.6,19.3 5.8,13.5 11.3,11.3 13.5,5.8 19.3,6.6"></polygon><polygon fill="#CCFF90" points="34.6,14.6 21,28.2 15.4,22.6 12.6,25.4 21,33.8 37.4,17.4"></polygon></svg>
+                <p className='text-center mx-auto text-3xl font-medium'>Pago realizado con exito</p>
+                <p className='text-center mx-auto text-lg'>Recibiras un correo con toda la información.</p>
               </div>
-              <div className='flex gap-4'>
-                <div className='flex flex-col gap-2 w-1/2'>
-                  <p style={{ color: content.info.textColor }}>Nombre</p>
-                  <Input placeholder='Nombre' inputChange={(e: any) => {
-                    setClient({ ...client, firstName: e.target.value })
-                    clientRef.current = { ...client, firstName: e.target.value }
-                  }} value={client.firstName} />
-                </div>
-                <div className='flex flex-col gap-2 w-1/2'>
-                  <p style={{ color: content.info.textColor }}>Apellido</p>
-                  <Input placeholder='Apellido' inputChange={(e: any) => {
-                    setClient({ ...client, lastName: e.target.value })
-                    clientRef.current = { ...client, lastName: e.target.value }
-                  }} value={client.lastName} />
-                </div>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <p style={{ color: content.info.textColor }}>Teléfono</p>
-                <div className='flex gap-2'>
-                  <p className='my-auto' style={{ color: content.info.textColor }}>+56</p>
-                  <Input placeholder='Teléfono' inputChange={(e: any) => {
-                    setClient({ ...client, phone: e.target.value })
-                    clientRef.current = { ...client, phone: e.target.value }
-                  }} value={client.phone} />
-                </div>
-              </div>
-            </div>
-            <div className='flex flex-col gap-6'>
-              <div className='flex flex-col'>
-                {loadingPayment ? (
-                  <div className='flex w-full h-[748px] bg-white rounded-xl'>
-                    <div className='w-fit h-fit m-auto'><Spinner /></div>
+            )
+            : (
+              <div className='m-auto w-full max-w-[1280px] gap-8 flex flex-col md:flex-row'>
+                <div className='flex flex-col gap-6 w-full md:w-3/5'>
+                  <div className='flex flex-col gap-4'>
+                    <H3 text='Datos de contacto' config='font-medium' color={content.info.textColor} />
+                    <div className='flex flex-col gap-2'>
+                      <p style={{ color: content.info.textColor }}>Email</p>
+                      <Input placeholder='Email' inputChange={(e: any) => {
+                        setClient({ ...client, email: e.target.value })
+                        clientRef.current = { ...client, email: e.target.value }
+                      }} value={client.email} />
+                    </div>
+                    <div className='flex gap-4'>
+                      <div className='flex flex-col gap-2 w-1/2'>
+                        <p style={{ color: content.info.textColor }}>Nombre</p>
+                        <Input placeholder='Nombre' inputChange={(e: any) => {
+                          setClient({ ...client, firstName: e.target.value })
+                          clientRef.current = { ...client, firstName: e.target.value }
+                        }} value={client.firstName} />
+                      </div>
+                      <div className='flex flex-col gap-2 w-1/2'>
+                        <p style={{ color: content.info.textColor }}>Apellido</p>
+                        <Input placeholder='Apellido' inputChange={(e: any) => {
+                          setClient({ ...client, lastName: e.target.value })
+                          clientRef.current = { ...client, lastName: e.target.value }
+                        }} value={client.lastName} />
+                      </div>
+                    </div>
+                    <div className='flex flex-col gap-2'>
+                      <p style={{ color: content.info.textColor }}>Teléfono</p>
+                      <div className='flex gap-2'>
+                        <p className='my-auto' style={{ color: content.info.textColor }}>+56</p>
+                        <Input placeholder='Teléfono' inputChange={(e: any) => {
+                          setClient({ ...client, phone: e.target.value })
+                          clientRef.current = { ...client, phone: e.target.value }
+                        }} value={client.phone} />
+                      </div>
+                    </div>
                   </div>
-                ) : null}
-                {paymentCompleted ? statusScreenBrick : cardPaymentMemo}
-                <div id="cardPaymentBrick_container"></div>
-                {
-                  error !== ''
-                    ? <p className='px-2 py-1 bg-red-500 text-white w-fit'>{error}</p>
-                    : ''
-                }
+                  <div className='flex flex-col gap-6'>
+                    <div className='flex flex-col'>
+                      {cardPaymentMemo}
+                      <div id="cardPaymentBrick_container"></div>
+                      {
+                        error !== ''
+                          ? <p className='px-2 py-1 bg-red-500 text-white w-fit'>{error}</p>
+                          : ''
+                      }
+                    </div>
+                  </div>
+                </div>
+                <div className='bg-white flex flex-col gap-4 sticky top-20 h-fit w-full p-6 md:p-8 rounded-2xl border border-black/5 md:w-2/5' style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
+                  {
+                    content.service && content.service.service !== ''
+                      ? (
+                        <>
+                          <H4 text={services?.find(servi => servi._id === content.service?.service)?.name} config='font-medium' />
+                          <p>{services?.find(servi => servi._id === content.service?.service)?.description}</p>
+                          <p>Tipo de pago: {services?.find(servi => servi._id === content.service?.service)?.typePrice}</p>
+                          {
+                            initialization.amount !== null && initialization.amount !== 0
+                              ? <p className='text-xl font-medium'>${NumberFormat(Number(initialization.amount))}</p>
+                              : ''
+                          }
+                          {
+                            services?.find(servi => servi._id === content.service?.service)?.plans?.plans.find(plan => plan.name === content.service?.plan)
+                              ? (
+                                <>
+                                  <p>{services.find(servi => servi._id === content.service?.service)?.plans?.plans.find(plan => plan.name === content.service?.plan)?.description}</p>
+                                  <p className='text-xl font-medium'>${NumberFormat(Number(services.find(servi => servi._id === content.service?.service)?.plans?.plans.find(plan => plan.name === content.service?.plan)?.price))}</p>
+                                </>
+                              )
+                              : ''
+                          }
+                        </>
+                      )
+                      : ''
+                  }
+                </div>
               </div>
-            </div>
-          </div>
-          <div className='bg-white flex flex-col gap-4 sticky top-20 h-fit w-full p-6 md:p-8 rounded-2xl border border-black/5 md:w-2/5' style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
-            {
-              content.service && content.service.service !== ''
-                ? (
-                  <>
-                    <H4 text={services?.find(servi => servi._id === content.service?.service)?.name} config='font-medium' />
-                    <p>{services?.find(servi => servi._id === content.service?.service)?.description}</p>
-                    <p>Tipo de pago: {services?.find(servi => servi._id === content.service?.service)?.typePrice}</p>
-                    {
-                      initialization.amount !== null && initialization.amount !== 0
-                        ? <p className='text-xl font-medium'>${NumberFormat(Number(initialization.amount))}</p>
-                        : ''
-                    }
-                    {
-                      services?.find(servi => servi._id === content.service?.service)?.plans?.plans.find(plan => plan.name === content.service?.plan)
-                        ? (
-                          <>
-                            <p>{services.find(servi => servi._id === content.service?.service)?.plans?.plans.find(plan => plan.name === content.service?.plan)?.description}</p>
-                            <p className='text-xl font-medium'>${NumberFormat(Number(services.find(servi => servi._id === content.service?.service)?.plans?.plans.find(plan => plan.name === content.service?.plan)?.price))}</p>
-                          </>
-                        )
-                        : ''
-                    }
-                  </>
-                )
-                : ''
-            }
-          </div>
-        </div>
+            )
+        }
       </div>
     </div>
   )

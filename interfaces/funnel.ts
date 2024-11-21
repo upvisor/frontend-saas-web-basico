@@ -45,4 +45,5 @@ export interface IInfoFunnel {
     typeBackground?: string
     background?: string
     textColor?: string
+    faq?: [{ question?: string, response?: string }]
 }
