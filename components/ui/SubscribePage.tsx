@@ -33,7 +33,6 @@ export const SubscribePage = ({ info }: { info: IInfo }) => {
         fbq('track', 'Lead', { email: subscribeData.email, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}` }, { eventID: newEventId })
         setSubscribeData({ ...subscribeData, email: '' })
         setSend(true)
-        setLoading(false)
       } else {
         setError('Correo no valido')
         setLoading(false)

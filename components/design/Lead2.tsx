@@ -109,7 +109,6 @@ export const Lead2 = ({ content, forms, step, index, services, storeData }: { co
                     } else if (form?.action === 'Mostrar mensaje') {
                       setMessage(form.message!)
                     }
-                    setLoading(false)
                   }
                 }}>
                   <div className="flex flex-col gap-4 border border-black/5 rounded-2xl h-fit m-auto w-full p-6 md:p-8 max-w-[500px] bg-white" style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>

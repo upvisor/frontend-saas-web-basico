@@ -117,7 +117,6 @@ export const Lead1 = ({ content, forms, step, index, services }: { content: IDes
                     } else if (form?.action === 'Mostrar mensaje') {
                       setMessage(form.message!)
                     }
-                    setLoading(false)
                   }
                 }}>
                   <div className="flex flex-col gap-4 border border-black/5 rounded-xl h-fit m-auto w-full p-6 max-w-[500px]" style={{ boxShadow: '0px 3px 10px 3px #11111108' }}>

@@ -235,7 +235,6 @@ export const Calendar: React.FC<CalendarProps> = ({ newClient, setNewClient, tag
             } else if (call.action === 'Ir a una pagina') {
               router.push(call.redirect!)
             }
-            setLoading(false)
             resolve();
           })
           .catch((error) => {
@@ -334,7 +333,6 @@ export const Calendar: React.FC<CalendarProps> = ({ newClient, setNewClient, tag
       } else if (call.action === 'Ir a una pagina') {
         router.push(call.redirect!)
       }
-      setLoading(false)
     }
   }
 
