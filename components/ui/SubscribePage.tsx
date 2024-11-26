@@ -52,7 +52,7 @@ export const SubscribePage = ({ info }: { info: IInfo }) => {
           send
             ? (
               <>
-                <P text='¡Listo!' config='text-center font-medium text-xl lg:text-3xl' color={info.textColor} />
+                <p className='text-center font-medium text-xl lg:text-3xl' color={info.textColor}>¡Listo!</p>
                 <P text='Pronto empezaras a recibir nuestros correos.' config='text-center' color={info.textColor} />
               </>
             )
