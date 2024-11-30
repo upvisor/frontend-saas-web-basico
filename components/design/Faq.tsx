@@ -27,7 +27,7 @@ export const Faq: React.FC<Props> = ({ content, services, index, step }) => {
 
   return (
     <div
-      className="flex flex-col gap-8 px-4 py-8 m-auto w-full max-w-[1280px]"
+      className="px-4 py-8 m-auto w-full flex md:py-12"
       style={{
         background: `${
           content.info.typeBackground === "Degradado"
@@ -38,32 +38,37 @@ export const Faq: React.FC<Props> = ({ content, services, index, step }) => {
         }`,
       }}
     >
-      {content.info.title && content.info.title !== "" || content.info.description && content.info.description !== "" ? (
-        <div className="flex flex-col gap-4">
-          {content.info.title && content.info.title !== "" ? (
-            index === 0 ? (
-              <H1 text={content.info.title} color={content.info.textColor} config="text-center font-semibold" />
+      <div className='flex flex-col gap-8 w-full max-w-[1280px] m-auto'>
+        {content.info.title && content.info.title !== "" || content.info.description && content.info.description !== "" ? (
+          <div className="flex flex-col gap-4">
+            {content.info.title && content.info.title !== "" ? (
+              index === 0 ? (
+                <H1 text={content.info.title} color={content.info.textColor} config="text-center font-semibold" />
+              ) : (
+                <H2 text={content.info.title} color={content.info.textColor} config="text-center font-semibold" />
+              )
             ) : (
-              <H2 text={content.info.title} color={content.info.textColor} config="text-center font-semibold" />
-            )
-          ) : (
-            ""
-          )}
-          {content.info.description && content.info.description !== "" ? (
-            <P config="text-center" text={content.info.description} />
-          ) : (
-            ""
-          )}
-        </div>
-      ) : (
-        ""
-      )}
-      <div className='flex flex-col gap-6'>
-        {content.info.faq?.map((faq, i) => (
-          <div
+              ""
+            )}
+            {content.info.description && content.info.description !== "" ? (
+              <P config="text-center" text={content.info.description} />
+            ) : (
+              ""
+            )}
+          </div>
+        ) : (
+          ""
+        )}
+        <div className='flex flex-col gap-6'>
+          {content.info.faq?.map((faq, i) => (
+            <div
             key={i}
-            className="flex flex-col gap-4 p-6 rounded-xl border border-black/5 transition-transform duration-300"
-            style={{ boxShadow: "0px 3px 10px 3px #11111108" }}
+            className={`flex flex-col transition-all duration-300 rounded-xl border border-black/5`}
+            style={{
+              padding: question === i ? "24px" : "24px 24px 12px",
+              boxShadow: "0px 3px 20px 3px #11111110",
+              gap: question === i ? "16px" : "8px",
+            }}
           >
             <div
               className="flex gap-6 justify-between cursor-pointer"
@@ -91,12 +96,16 @@ export const Faq: React.FC<Props> = ({ content, services, index, step }) => {
             <div
               ref={(el) => (contentRefs.current[i] = el)}
               className={`overflow-hidden transition-all duration-300`}
-              style={{ maxHeight: getMaxHeight(i) }}
+              style={{
+                maxHeight: getMaxHeight(i),
+                marginTop: question === i ? "8px" : "0",
+              }}
             >
               <p className="mt-2">{faq.response}</p>
             </div>
           </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

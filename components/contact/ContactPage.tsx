@@ -72,9 +72,9 @@ export const ContactPage = ({ info, index }: { info: IInfo, index: any }) => {
   }
 
   return (
-      <div className='flex px-4' style={{ background: `${info.typeBackground === 'Degradado' ? info.background : info.typeBackground === 'Color' ? info.background : ''}` }}>
-        <div className='m-auto w-[1280px] py-8 block gap-16 xl:flex md:py-12'>
-          <div className='w-full m-auto flex flex-col gap-2 mb-10 xl:w-1/2 xl:mb-auto'>
+      <div className='flex px-4 py-8 md:py-12 w-full' style={{ background: `${info.typeBackground === 'Degradado' ? info.background : info.typeBackground === 'Color' ? info.background : ''}` }}>
+        <div className='m-auto w-full max-w-[1280px] flex gap-8 flex-col xl:flex-row'>
+          <div className='w-full m-auto flex flex-col gap-2 text-center xl:w-1/2 xl:text-left'>
             {
               index === 0
                 ? <H1 text={info.title} color={info.textColor} />
