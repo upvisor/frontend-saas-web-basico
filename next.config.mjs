@@ -15,7 +15,7 @@ const nextConfig = {
         pathname: '/**'
       }, {
         protocol: 'https',
-        hostname: 'web-upvisor.b-cdn.net',
+        hostname: 'img-saas-upvisor.b-cdn.net',
         port: '',
         pathname: '/**'
       }
