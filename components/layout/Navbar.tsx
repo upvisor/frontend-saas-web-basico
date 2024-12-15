@@ -144,7 +144,7 @@ export const Navbar: React.FC<PropsWithChildren<Props>> = ({ children, design, s
                     )
                   } else {
                     if (page.subPage?.length) {
-                      <SubPage key={page.slug} page={page} setMenu={setMenu} setIndex={setIndex} />
+                      return <SubPage key={page.slug} page={page} setMenu={setMenu} setIndex={setIndex} />
                     } else {
                       return (
                         <Link key={page.slug} className={`font-medium mb-4 text-[#1c1b1b] flex pb-2 min-w-[250px] border-b dark:border-neutral-600 dark:text-white`} onClick={() => {
