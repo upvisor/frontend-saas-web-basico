@@ -169,7 +169,7 @@ export const Lead2 = ({ content, forms, index, storeData, style }: { content: ID
                                 }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}>
                                   <option>Seleccionar opción</option>
                                   {
-                                    label.datas?.map(data => <option>{data}</option>)
+                                    label.datas?.map(data => <option key={data}>{data}</option>)
                                   }
                                 </Select>
                               )

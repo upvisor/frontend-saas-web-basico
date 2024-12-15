@@ -201,7 +201,7 @@ export const Lead1 = ({ content, forms, step, index, services, style }: { conten
                                         }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}>
                                           <option>Seleccionar opción</option>
                                           {
-                                            label.datas?.map(data => <option>{data}</option>)
+                                            label.datas?.map(data => <option key={data}>{data}</option>)
                                           }
                                         </Select>
                                       )

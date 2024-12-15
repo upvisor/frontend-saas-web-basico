@@ -202,7 +202,7 @@ export const Form: React.FC<Props> = ({ content, index, style, forms }) => {
                                         }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}>
                                           <option>Seleccionar opción</option>
                                           {
-                                            label.datas?.map(data => <option>{data}</option>)
+                                            label.datas?.map(data => <option key={data}>{data}</option>)
                                           }
                                         </Select>
                                       )
