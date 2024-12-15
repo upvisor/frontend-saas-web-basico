@@ -20,6 +20,7 @@ type CalendarProps = {
   call: ICall
   payment: IPayment
   services?: IService[]
+  style?: any
 };
 
 interface DateData {
@@ -36,7 +37,7 @@ declare global {
 
 declare const fbq: Function
 
-export const Calendar: React.FC<CalendarProps> = ({ newClient, setNewClient, tags, meeting, call, payment, services }) => {
+export const Calendar: React.FC<CalendarProps> = ({ newClient, setNewClient, tags, meeting, call, payment, services, style }) => {
   const [date, setDate] = useState<Date>(new Date());
   const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
   const [availableDates, setAvailableDates] = useState<DateData[]>([]);
@@ -410,6 +411,7 @@ export const Calendar: React.FC<CalendarProps> = ({ newClient, setNewClient, tag
                               : ''
                           }
                           <Input
+                            style={style}
                             placeholder={label.name}
                             value={newClient.data?.find(dat => dat.name === label.name)?.value || newClient[label.data]}
                             inputChange={(e: any) => {
@@ -451,7 +453,7 @@ export const Calendar: React.FC<CalendarProps> = ({ newClient, setNewClient, tag
                           <div id="cardPaymentBrick_container"></div>
                         </>
                       )
-                      : <Button type='submit' loading={loading} config='w-full'>{call.buttonText && call.buttonText !== '' ? call.buttonText : 'Agendar llamada'}</Button>
+                      : <Button type='submit' loading={loading} config='w-full' style={style}>{call.buttonText && call.buttonText !== '' ? call.buttonText : 'Agendar llamada'}</Button>
                   }
                 </form>
               )}

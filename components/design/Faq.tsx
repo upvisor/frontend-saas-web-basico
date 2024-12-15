@@ -1,16 +1,15 @@
 "use client"
-import { IDesign, IService } from '@/interfaces'
+import { IDesign } from '@/interfaces'
 import React, { useRef, useState } from 'react'
 import { H1, H2, P } from '../ui'
 
 interface Props {
     content: IDesign
-    services: IService[]
     index: number
-    step?: string
+    style?: any
 }
 
-export const Faq: React.FC<Props> = ({ content, services, index, step }) => {
+export const Faq: React.FC<Props> = ({ content, index, style }) => {
   const [question, setQuestion] = useState(-1);
   const contentRefs = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -63,10 +62,10 @@ export const Faq: React.FC<Props> = ({ content, services, index, step }) => {
           {content.info.faq?.map((faq, i) => (
             <div
             key={i}
-            className={`flex flex-col transition-all duration-300 rounded-xl border border-black/5`}
+            className={`${style.design === 'Borde' ? 'border' : style.design === 'Sombreado' ? 'border border-black/5' : ''} ${style.form === 'Redondeadas' ? 'rounded-xl' : ''} flex flex-col transition-all duration-300`}
             style={{
               padding: question === i ? "24px" : "24px 24px 12px",
-              boxShadow: "0px 3px 20px 3px #11111110",
+              boxShadow: style.design === 'Sombreado' ? "0px 3px 20px 3px #11111110" : '',
               gap: question === i ? "16px" : "8px",
             }}
           >

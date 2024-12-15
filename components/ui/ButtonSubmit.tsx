@@ -6,10 +6,11 @@ interface Props {
     textButton: string
     action: any
     config?: string
+    style?: any
 }
 
-export const ButtonSubmit: React.FC<Props> = ({ submitLoading, textButton, action, config }) => {
+export const ButtonSubmit: React.FC<Props> = ({ submitLoading, textButton, action, config, style }) => {
   return (
-    <button onClick={action} className={`${config} ${submitLoading ? 'cursor-not-allowed bg-main/80 hover:bg-main/80' : `hover:bg-main/80`} bg-main transition-colors duration-300 text-white rounded-xl h-10 shadow-md shadow-main/30`}>{submitLoading ? <Spinner2 /> : textButton}</button>
+    <button onClick={action} className={`${config} ${style?.design === 'Borde' ? 'border-b' : style?.design === 'Sombreado' ? 'border-b border-black/5' : ''} ${style?.form === 'Redondeadas' ? 'rounded-xl' : ''} ${submitLoading ? 'cursor-not-allowed' : ''} transition-colors duration-300 h-10`} style={{ backgroundColor: style?.primary, color: style?.button }}>{submitLoading ? <Spinner2 /> : textButton}</button>
   )
 }

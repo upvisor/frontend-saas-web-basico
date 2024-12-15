@@ -1,7 +1,7 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import { Button, Check, H1, H2, H3, Input } from '../ui'
-import { IClient, IDesign, IForm, IService, IStoreData } from '@/interfaces'
+import React, { useState } from 'react'
+import { Button, Check, H1, H2, Input, Select } from '../ui'
+import { IClient, IDesign, IForm, IStoreData } from '@/interfaces'
 import axios from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 declare const fbq: Function
 
-export const Lead2 = ({ content, forms, step, index, services, storeData }: { content: IDesign, forms: IForm[], step?: string, index: any, services: IService[], storeData: IStoreData }) => {
+export const Lead2 = ({ content, forms, index, storeData, style }: { content: IDesign, forms: IForm[], index: any, storeData: IStoreData, style?: any }) => {
 
   const [client, setClient] = useState<IClient>({ email: '', tags: forms.find(form => form._id === content.form)?.tags, forms: [{ form: forms.find(form => form._id === content.form)?._id! }] })
   const [message, setMessage] = useState('')
@@ -19,25 +19,6 @@ export const Lead2 = ({ content, forms, step, index, services, storeData }: { co
 
   const router = useRouter()
   const pathname = usePathname()
-
-  const getFunnel = async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funnel-by-step${pathname}`)
-      const respo = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funnel-name/${res.data}`)
-      const stepFind = respo.data.steps.find((ste: any) => ste.step === step)
-      const service = services?.find(service => service._id === respo.data.service)
-      if (res.data) {
-        setClient({ ...client, funnels: [{ funnel: respo.data._id, step: stepFind._id }], services: service?._id ? [{ service: service?._id }] : undefined })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    
-  }
-
-  useEffect(() => {
-    getFunnel()
-  }, [step])
 
   return (
     <div className='w-full m-auto flex py-8 px-4 md:py-12' style={{ background: `${content.info.typeBackground === 'Degradado' ? content.info.background : content.info.typeBackground === 'Color' ? content.info.background : ''}` }}>
@@ -60,7 +41,7 @@ export const Lead2 = ({ content, forms, step, index, services, storeData }: { co
           <p className="text-lg lg:text-xl" style={{ color: content.info.textColor }}>{content.info.subTitle2}</p>
         </div>
         <div className='flex gap-3 m-auto'>
-        <Check config='my-auto' />
+          <Check config='my-auto' />
           <p className="text-lg lg:text-xl" style={{ color: content.info.textColor }}>{content.info.subTitle3}</p>
         </div>
         <div className={`w-full flex`}>
@@ -111,7 +92,7 @@ export const Lead2 = ({ content, forms, step, index, services, storeData }: { co
                     }
                   }
                 }}>
-                  <div className="flex flex-col gap-4 border border-black/5 rounded-2xl h-fit m-auto w-full p-6 md:p-8 max-w-[500px] bg-white" style={{ boxShadow: '0px 3px 20px 3px #11111110' }}>
+                  <div className={`${style.design === 'Borde' ? 'border' : ''} ${style.form === 'Redondeadas' ? 'rounded-2xl' : ''} flex flex-col gap-4 h-fit m-auto w-full p-6 md:p-8 max-w-[500px] bg-white`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 20px 3px #11111110' : '' }}>
                     {
                       error !== ''
                         ? <p className='w-fit px-2 py-1 bg-red-500 text-white m-auto'>{error}</p>
@@ -140,27 +121,64 @@ export const Lead2 = ({ content, forms, step, index, services, storeData }: { co
                       forms?.find(form => form._id === content.form)?.labels.map(label => (
                         <div key={label.data} className="flex flex-col gap-2">
                           <p>{label.text !== '' ? label.text : label.name}</p>
-                          <Input placeholder={label.name} inputChange={(e: any) => {
-                            if (label.data === 'firstName' || label.data === 'lastName' || label.data === 'email' || label.data === 'phone') {
-                              setClient({ ...client, [label.data]: e.target.value })
-                            } else if (Array.isArray(client.data)) {
-                              const oldData = [...client.data];
-                              const existingData = oldData.find(dat => dat.name === label.name);
-                              if (existingData) {
-                                existingData.value = e.target.value;
-                              } else {
-                                oldData.push({ name: label.data, value: e.target.value });
-                              }
-
-                              setClient({ ...client, data: oldData });
-                            } else {
-                              setClient({ ...client, data: [{ name: label.data, value: e.target.value }] });
-                            }
-                          }} value={undefined} />
+                          {
+                            label.type === 'Texto'
+                              ? (
+                                <Input
+                                  style={style}
+                                  placeholder={label.name}
+                                  value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}
+                                  inputChange={(e: any) => {
+                                    if (label.data === 'firstName' || label.data === 'lastName' || label.data === 'email' || label.data === 'phone') {
+                                      setClient({ ...client, [label.data]: e.target.value })
+                                    } else if (Array.isArray(client.data)) {
+                                      const oldData = [...client.data];
+                                      const existingData = oldData.find(dat => dat.name === label.name);
+                                      if (existingData) {
+                                        existingData.value = e.target.value;
+                                      } else {
+                                        oldData.push({ name: label.data, value: e.target.value });
+                                      }
+                                      setClient({ ...client, data: oldData });
+                                    } else {
+                                      setClient({ ...client, data: [{ name: label.data, value: e.target.value }] });
+                                    }
+                                  }}
+                                />
+                              )
+                              : ''
+                          }
+                          {
+                            label.type === 'Selector'
+                              ? (
+                                <Select selectChange={(e: any) => {
+                                  if (label.data === 'firstName' || label.data === 'lastName' || label.data === 'email' || label.data === 'phone') {
+                                    setClient({ ...client, [label.data]: e.target.value })
+                                  } else if (Array.isArray(client.data)) {
+                                    const oldData = [...client.data];
+                                    const existingData = oldData.find(dat => dat.name === label.name);
+                                    if (existingData) {
+                                      existingData.value = e.target.value;
+                                    } else {
+                                      oldData.push({ name: label.data, value: e.target.value });
+                                    }
+                                    setClient({ ...client, data: oldData });
+                                  } else {
+                                    setClient({ ...client, data: [{ name: label.data, value: e.target.value }] });
+                                  }
+                                }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}>
+                                  <option>Seleccionar opción</option>
+                                  {
+                                    label.datas?.map(data => <option>{data}</option>)
+                                  }
+                                </Select>
+                              )
+                              : ''
+                          }
                         </div>
                       ))
                     }
-                    <Button type='submit' config='w-full' loading={loading}>{forms?.find(form => form._id === content.form)?.button}</Button>
+                    <Button type='submit' config='w-full' loading={loading} style={style}>{forms?.find(form => form._id === content.form)?.button}</Button>
                   </div>
                 </form>
               )

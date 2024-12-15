@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { H1, H2 } from '../ui'
 
-export const Video = ({ content, index }: { content: any, index: any }) => {
+export const Video = ({ content, index, style }: { content: any, index: any, style?: any }) => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -11,7 +11,7 @@ export const Video = ({ content, index }: { content: any, index: any }) => {
       <div className='w-full max-w-[1280px] m-auto flex flex-col gap-4'>
         {
           content.info.description && content.info.description !== ''
-            ? <p className='text-white bg-main px-4 py-2 w-fit text-base lg:text-lg'>{content.info.description}</p>
+            ? <p className='px-4 py-2 w-fit text-base lg:text-lg' style={{ backgroundColor: style.primary, color: style.button }}>{content.info.description}</p>
             : ''
         }
         {

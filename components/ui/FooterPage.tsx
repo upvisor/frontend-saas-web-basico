@@ -6,10 +6,10 @@ import React from 'react'
 
 export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreData, politics?: IPolitics, design: Design }) => {
   return (
-    <div className='flex pl-4 pr-4 pt-14 pb-14 z-40 bg-neutral-900'>
+    <div className='flex pl-4 pr-4 pt-14 pb-14 bg-neutral-900'>
       <div className='w-[1280px] m-auto'>
         <div className='flex gap-4 justify-between flex-wrap pb-6 border-b'>
-          <div>
+          <div className='flex flex-col gap-2'>
             {
               storeData?.logoWhite
                 ? <Link href='/'><Image className='w-48 h-auto mb-3' src={storeData.logoWhite} alt='Logo' width={320} height={150} /></Link>
@@ -17,7 +17,12 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
             }
             {
               storeData?.email && storeData?.email !== ''
-                ? <p className='text-white mb-4 text-sm'>{storeData.email}</p>
+                ? <p className='text-white text-sm'>{storeData.email}</p>
+                : ''
+            }
+            {
+              storeData?.address && storeData.address !== ''
+                ? <p className='text-white text-sm'>{storeData.address}{storeData.departament && storeData.departament !== '' ? `, ${storeData.departament}` : ''}{storeData.city && storeData.city !== '' ? `, ${storeData.city.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}` : ''}{storeData.region && storeData.region !== '' ? `, ${storeData.region.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}` : ''}</p>
                 : ''
             }
             <div className='flex gap-4'>
@@ -39,7 +44,7 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
             </div>
           </div>
           <div className='flex flex-col gap-3'>
-            <h3 className='text-white'>PAGINAS</h3>
+            <h3 className='text-white'>PÁGINAS</h3>
             <div className='flex flex-col gap-1'>
               {
                 design.pages.filter(page => page.header).map(page => (
@@ -71,7 +76,7 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
           }
         </div>
         <div className='mt-4'>
-          <span className='text-white text-sm'>© 2023 {storeData?.name}. Todos los derechos reservados</span>
+          <span className='text-white text-sm'>© 2024 {storeData?.name}. Todos los derechos reservados</span>
         </div>
       </div>
     </div>

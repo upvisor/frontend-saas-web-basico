@@ -7,18 +7,18 @@ import { Navigation, Pagination } from "swiper/modules"
 import Link from "next/link"
 import Image from 'next/image'
 import { Button, H1, H2, P } from "../ui"
-import { Design, ICall, IClient, IForm, IInfo, IPayment } from "@/interfaces"
+import { Design, IForm, IInfo } from "@/interfaces"
 import { useState } from "react"
 import { PopupPage } from "../design"
 
-export const Slider = ({ info, index, forms, calls, design, payment }: { info: IInfo, index: any, forms: IForm[], calls: ICall[], design: Design, payment: IPayment }) => {
+export const Slider = ({ info, index, forms, design, style }: { info: IInfo, index: any, forms: IForm[], design: Design, style?: any }) => {
 
   const [popup, setPopup] = useState({ view: 'hidden', opacity: 'opacity-0', mouse: false })
   const [content, setContent] = useState('')
 
   return (
     <>
-      <PopupPage popup={popup} setPopup={setPopup} content={content} design={design} calls={calls} forms={forms} payment={payment} />
+      <PopupPage popup={popup} setPopup={setPopup} content={content} design={design} forms={forms} />
       <div>
         <Swiper
           className={styles.mySwiper}
@@ -43,7 +43,7 @@ export const Slider = ({ info, index, forms, calls, design, payment }: { info: I
                         }
                         <P text={banner.description} config="text-white" />
                         {
-                          banner.buttonLink === 'Abrir popup' || calls.find(call => call._id === banner.buttonLink) || forms.find(form => form._id === banner.buttonLink)
+                          banner.buttonLink === 'Abrir popup' || forms.find(form => form._id === banner.buttonLink)
                             ? <Button action={(e: any) => {
                               e.preventDefault()
                               setContent(banner.buttonLink!)
@@ -51,10 +51,10 @@ export const Slider = ({ info, index, forms, calls, design, payment }: { info: I
                               setTimeout(() => {
                                 setPopup({ ...popup, view: 'flex', opacity: 'opacity-1' })
                               }, 10);
-                            }}>{banner.button}</Button>
+                            }} style={style}>{banner.button}</Button>
                             : banner.buttonLink === '' || banner.button === ''
                               ? ''
-                              : <Link href={`${banner.buttonLink}`}><Button>{banner.button}</Button></Link>
+                              : <Link href={`${banner.buttonLink}`}><Button style={style}>{banner.button}</Button></Link>
                         }
                       </div>
                     </div>

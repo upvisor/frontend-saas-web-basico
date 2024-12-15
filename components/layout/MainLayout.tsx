@@ -11,18 +11,8 @@ async function fetchStoreData () {
   return res.json()
 }
 
-async function fetchFunnels () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/funnels`, { next: { revalidate: 3600 } })
-  return res.json()
-}
-
 async function fetchPolitics () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/politics`, { next: { revalidate: 3600 } })
-  return res.json()
-}
-
-async function fetchCalls () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/calls`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
@@ -31,13 +21,8 @@ async function fetchForms () {
   return res.json()
 }
 
-async function fetchPayment () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, { next: { revalidate: 3600 } })
-  return res.json()
-}
-
-async function fetchServices () {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, { next: { revalidate: 3600 } })
+async function fetchStyle () {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/style`, { next: { revalidate: 3600 } })
   return res.json()
 }
 
@@ -47,22 +32,16 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   
   const storeDataData = fetchStoreData()
 
-  const funnelsData = fetchFunnels()
-
   const politicsData = fetchPolitics()
-
-  const callsData = fetchCalls()
 
   const formsData = fetchForms()
 
-  const paymentData = fetchPayment()
+  const styleData = fetchStyle()
 
-  const servicesData = fetchServices()
-
-  const [design, storeData, funnels, politics, calls, forms, payment, services] = await Promise.all([designData, storeDataData, funnelsData, politicsData, callsData, formsData, paymentData, servicesData])
+  const [design, storeData, politics, forms, style] = await Promise.all([designData, storeDataData, politicsData, formsData, styleData])
   
   return (
-    <AllNavbar design={design} storeData={storeData} funnels={funnels} politics={politics} calls={calls} forms={forms} payment={payment} services={services}>
+    <AllNavbar design={design} storeData={storeData} politics={politics} forms={forms} style={style}>
       { children }
     </AllNavbar>
   )

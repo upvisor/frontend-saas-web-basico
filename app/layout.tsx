@@ -12,10 +12,10 @@ const myFont = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Carmen Orellana',
-    template: '%s - Carmen Orellana'
+    default: 'Martinez y Abogados Asociados',
+    template: '%s | Martinez y Abogados Asociados'
   },
-  description: "Servicios contables",
+  description: "Servicios legales.",
   twitter: {
     card: 'summary_large_image'
   }
