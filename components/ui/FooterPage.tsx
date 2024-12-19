@@ -21,6 +21,11 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
                 : ''
             }
             {
+              storeData?.phone && storeData?.phone !== ''
+                ? <p className='text-white text-sm'>+56 {storeData.phone}</p>
+                : ''
+            }
+            {
               storeData?.address && storeData.address !== ''
                 ? <p className='text-white text-sm'>{storeData.address}{storeData.departament && storeData.departament !== '' ? `, ${storeData.departament}` : ''}{storeData.city && storeData.city !== '' ? `, ${storeData.city.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}` : ''}{storeData.region && storeData.region !== '' ? `, ${storeData.region.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}` : ''}</p>
                 : ''
@@ -43,7 +48,7 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
               }
             </div>
           </div>
-          <div className='flex flex-col gap-3'>
+          <div className='flex flex-col gap-3 mt-auto'>
             <h3 className='text-white'>PÁGINAS</h3>
             <div className='flex flex-col gap-1'>
               {
@@ -56,7 +61,7 @@ export const FooterPage = ({ storeData, politics, design }: { storeData: IStoreD
           {
             politics?.terms && politics?.terms !== '' || politics?.privacy && politics?.privacy !== ''
               ? (
-                <div className='flex flex-col gap-3'>
+                <div className='flex flex-col gap-3 mt-auto'>
                   <h3 className='text-white'>POLITICAS</h3>
                   <div className='flex flex-col gap-1'>
                     {

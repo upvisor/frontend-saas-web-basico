@@ -48,7 +48,7 @@ export const Block2 = ({ content, index, forms, design, style }: { content: IDes
           <div className="w-full flex md:w-1/2 md:hidden">
             {
               content.info?.image && content.info.image !== ''
-                ? <Image className={`${style.form === 'Redondeadas' ? 'rounded-2xl' : ''} h-fit m-auto`} width={480} height={300} alt='Imagen slider prueba' src={content.info.image} />
+                ? <Image className={`h-fit m-auto`} style={{ borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '' }} width={480} height={300} alt='Imagen slider prueba' src={content.info.image} />
                 : ''
             }
           </div>

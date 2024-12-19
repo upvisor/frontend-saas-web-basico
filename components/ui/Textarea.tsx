@@ -11,6 +11,6 @@ interface Props {
 
 export const Textarea: React.FC<Props> = ({ placeholder, name, change, value, config, style }) => {
   return (
-    <textarea placeholder={placeholder} name={name} onChange={change} value={value} className={`${config} border ${style?.form === 'Redondeadas' ? 'rounded-xl' : ''} py-2 px-3 w-full text-sm transition-colors duration-200`} />
+    <textarea placeholder={placeholder} name={name} onChange={change} value={value} className={`${config} border py-2 px-3 w-full text-sm transition-colors duration-200`} style={{ borderRadius: style.form === 'Redondeadas' ? `${style.borderButton}px` : '' }} />
   )
 }

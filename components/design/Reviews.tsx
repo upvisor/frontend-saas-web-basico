@@ -62,9 +62,10 @@ export const Reviews: React.FC<Props> = ({ content, index, style }) => {
           {content.info.reviews?.map((review, i) => (
             <div
             key={i}
-            className={`${style.design === 'Borde' ? 'border' : ''} ${style.form === 'Redondeadas' ? 'rounded-xl' : ''} flex flex-col p-6 w-full max-w-96 bg-white`}
+            className={`${style.design === 'Borde' ? 'border' : ''} flex flex-col p-6 w-full max-w-96 bg-white`}
             style={{
-              boxShadow: style.design === 'Sombreado' ? "0px 3px 20px 3px #11111110" : ''
+              boxShadow: style.design === 'Sombreado' ? "0px 3px 20px 3px #11111110" : '',
+              borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : ''
             }}
           >
             <div className='flex flex-col gap-2 m-auto'>

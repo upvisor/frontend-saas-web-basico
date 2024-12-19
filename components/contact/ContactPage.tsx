@@ -55,7 +55,7 @@ export const ContactPage = ({ info, index, style }: { info: IInfo, index: any, s
         if (emailRegex.test(formContact.email)) {
           const newEventId = new Date().getTime().toString()
           await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/contact`, { ...formContact, fbc: Cookies.get('_fbc'), fbp: Cookies.get('_fbp'), page: pathname, eventId: newEventId })
-          await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/client`, { firstName: formContact.name, email: formContact.email, tags: ['formulario-contacto'] })
+          await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, { firstName: formContact.name, email: formContact.email, tags: ['formulario-contacto'] })
           fbq('track', 'Contact', { first_name: formContact.name, email: formContact.email, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}` }, { eventID: newEventId })
           setSending('Mensaje enviado')
           setFormContact({name: '', email: '', message: '', images: []})
@@ -85,7 +85,7 @@ export const ContactPage = ({ info, index, style }: { info: IInfo, index: any, s
             <P text={info.description} color={info.textColor} />
           </div>
           <div className='w-full m-auto sm:w-[560px] xl:w-1/2'>
-            <div className={`${style.design === 'Borde' ? 'border' : style.design === 'Sombreadas' ? 'border border-black/5' : ''} ${style.form === 'Redondeadas' ? 'rounded-2xl' : ''} flex flex-col gap-4 p-6 bg-white sm:p-8`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 20px 3px #11111110' : '' }}>
+            <div className={`${style.design === 'Borde' ? 'border' : style.design === 'Sombreadas' ? 'border border-black/5' : ''} flex flex-col gap-4 p-6 bg-white sm:p-8`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 20px 3px #11111110' : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '' }}>
               {
                 error !== ''
                   ? <p className='bg-red-500 px-2 py-1 text-white w-fit'>{error}</p>

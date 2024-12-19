@@ -92,7 +92,7 @@ export const Lead2 = ({ content, forms, index, storeData, style }: { content: ID
                     }
                   }
                 }}>
-                  <div className={`${style.design === 'Borde' ? 'border' : ''} ${style.form === 'Redondeadas' ? 'rounded-2xl' : ''} flex flex-col gap-4 h-fit m-auto w-full p-6 md:p-8 max-w-[500px] bg-white`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 20px 3px #11111110' : '' }}>
+                  <div className={`${style.design === 'Borde' ? 'border' : ''} flex flex-col gap-4 h-fit m-auto w-full p-6 md:p-8 max-w-[500px] bg-white`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 20px 3px #11111110' : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '' }}>
                     {
                       error !== ''
                         ? <p className='w-fit px-2 py-1 bg-red-500 text-white m-auto'>{error}</p>
@@ -166,7 +166,7 @@ export const Lead2 = ({ content, forms, index, storeData, style }: { content: ID
                                   } else {
                                     setClient({ ...client, data: [{ name: label.data, value: e.target.value }] });
                                   }
-                                }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}>
+                                }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]} style={style}>
                                   <option>Seleccionar opción</option>
                                   {
                                     label.datas?.map(data => <option key={data}>{data}</option>)

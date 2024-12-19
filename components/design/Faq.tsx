@@ -62,11 +62,12 @@ export const Faq: React.FC<Props> = ({ content, index, style }) => {
           {content.info.faq?.map((faq, i) => (
             <div
             key={i}
-            className={`${style.design === 'Borde' ? 'border' : style.design === 'Sombreado' ? 'border border-black/5' : ''} ${style.form === 'Redondeadas' ? 'rounded-xl' : ''} flex flex-col transition-all duration-300`}
+            className={`${style.design === 'Borde' ? 'border' : style.design === 'Sombreado' ? 'border border-black/5' : ''} flex flex-col transition-all duration-300`}
             style={{
               padding: question === i ? "24px" : "24px 24px 12px",
               boxShadow: style.design === 'Sombreado' ? "0px 3px 20px 3px #11111110" : '',
               gap: question === i ? "16px" : "8px",
+              borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : ''
             }}
           >
             <div

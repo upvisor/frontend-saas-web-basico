@@ -11,6 +11,6 @@ interface Props {
 
 export const ButtonSubmit: React.FC<Props> = ({ submitLoading, textButton, action, config, style }) => {
   return (
-    <button onClick={action} className={`${config} ${style?.design === 'Borde' ? 'border-b' : style?.design === 'Sombreado' ? 'border-b border-black/5' : ''} ${style?.form === 'Redondeadas' ? 'rounded-xl' : ''} ${submitLoading ? 'cursor-not-allowed' : ''} transition-colors duration-300 h-10`} style={{ backgroundColor: style?.primary, color: style?.button }}>{submitLoading ? <Spinner2 /> : textButton}</button>
+    <button onClick={action} className={`${config} ${submitLoading ? 'cursor-not-allowed' : ''} transition-colors duration-300 h-10`} style={{ backgroundColor: style?.primary, color: style?.button, borderRadius: style.form === 'Redondeadas' ? `${style.borderButton}px` : '' }}>{submitLoading ? <Spinner2 /> : textButton}</button>
   )
 }

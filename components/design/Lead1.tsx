@@ -110,7 +110,7 @@ export const Lead1 = ({ content, forms, step, index, services, style }: { conten
                     }
                     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, client)
                     const newEventId = new Date().getTime().toString()
-                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead`, { firstName: client.firstName, lastName: client.lastName, email: client.email, phone: client.phone, fbc: Cookies.get('_fbc'), fbp: Cookies.get('_fbp'), service: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, funnel: client.funnel, step: client.funnel?.step, page: pathname, eventId: newEventId })
+                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead`, { ...client, fbc: Cookies.get('_fbc'), fbp: Cookies.get('_fbp'), service: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, funnel: client.funnel, step: client.funnel?.step, page: pathname, eventId: newEventId })
                     fbq('track', 'Lead', { first_name: client.firstName, last_name: client.lastName, email: client.email, phone: client.phone && client.phone !== '' ? `56${client.phone}` : undefined, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), content_name: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, contents: { id: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, quantity: 1 }, event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}` }, { eventID: newEventId })
                     if (form?.action === 'Ir a una pagina') {
                       router.push(form.redirect!)
@@ -119,7 +119,7 @@ export const Lead1 = ({ content, forms, step, index, services, style }: { conten
                     }
                   }
                 }}>
-                  <div className={`${style.design === 'Borde' ? 'border' : ''} ${style.form === 'Redondeadas' ? 'rounded-xl' : ''} flex flex-col gap-4 h-fit m-auto w-full p-6 max-w-[500px]`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 10px 3px #11111108' : '' }}>
+                  <div className={`${style.design === 'Borde' ? 'border' : ''} flex flex-col gap-4 h-fit m-auto w-full p-6 max-w-[500px]`} style={{ boxShadow: style.design === 'Sombreado' ? '0px 3px 10px 3px #11111108' : '', borderRadius: style.form === 'Redondeadas' ? `${style.borderBlock}px` : '' }}>
                     {
                       message !== ''
                         ? <p className='text-lg text-center font-medium'>{message}</p>
@@ -198,7 +198,7 @@ export const Lead1 = ({ content, forms, step, index, services, style }: { conten
                                           } else {
                                             setClient({ ...client, data: [{ name: label.data, value: e.target.value }] });
                                           }
-                                        }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]}>
+                                        }} value={client.data?.find(dat => dat.name === label.name)?.value || client[label.data]} style={style}>
                                           <option>Seleccionar opción</option>
                                           {
                                             label.datas?.map(data => <option key={data}>{data}</option>)
