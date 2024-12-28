@@ -62,29 +62,66 @@ export const Lead2 = ({ content, forms, index, storeData, style }: { content: ID
                   if (!loading) {
                     setLoading(true)
                     setError('')
+                    
                     const form = forms.find(form => form._id === content.form)
                     let valid = true
                     let errorMessage = ''
+                
+                    // Función para obtener el valor del campo desde client o client.data
+                    const getClientValue = (name: string) => client[name] || client.data?.find(dat => dat.name === name)?.value;
+                
                     form?.labels.forEach(label => {
-                      if (label.data && (!client[label.data] || client[label.data].trim() === '')) {
+                      const value = getClientValue(label.data)
+                      
+                      if (label.data && (!value || value.trim() === '')) {
                         valid = false
                         errorMessage = `Por favor, completa el campo ${label.text || label.name}.`
                       }
                     })
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                     if (client.email && !emailRegex.test(client.email)) {
                       valid = false
                       errorMessage = 'Por favor, ingresa un correo electrónico válido.'
                     }
+                
                     if (!valid) {
                       setError(errorMessage)
                       setLoading(false)
                       return
                     }
+                
                     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/clients`, client)
+                
                     const newEventId = new Date().getTime().toString()
-                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead`, { firstName: client.firstName, lastName: client.lastName, email: client.email, phone: client.phone, fbc: Cookies.get('_fbc'), fbp: Cookies.get('_fbp'), service: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, funnel: client.funnels?.length && client.funnels[0].funnel !== '' ? client.funnels[0].funnel : undefined, step: client.funnels?.length && client.funnels[0].step !== '' ? client.funnels[0].step : undefined, page: pathname, eventId: newEventId })
-                    fbq('track', 'Lead', { first_name: client.firstName, last_name: client.lastName, email: client.email, phone: client.phone && client.phone !== '' ? `56${client.phone}` : undefined, fbp: Cookies.get('_fbp'), fbc: Cookies.get('_fbc'), content_name: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, contents: { id: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, quantity: 1 }, event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}` }, { eventID: newEventId })
+                    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead`, {
+                      firstName: client.firstName,
+                      lastName: client.lastName,
+                      email: client.email,
+                      phone: client.phone,
+                      data: client.data,
+                      form: client.forms![0].form,
+                      fbc: Cookies.get('_fbc'),
+                      fbp: Cookies.get('_fbp'),
+                      service: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined,
+                      funnel: client.funnel,
+                      step: client.funnel?.step,
+                      page: pathname,
+                      eventId: newEventId
+                    })
+                
+                    fbq('track', 'Lead', {
+                      first_name: client.firstName,
+                      last_name: client.lastName,
+                      email: client.email,
+                      phone: client.phone && client.phone !== '' ? `56${client.phone}` : undefined,
+                      fbp: Cookies.get('_fbp'),
+                      fbc: Cookies.get('_fbc'),
+                      content_name: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined,
+                      contents: { id: client.services?.length && client.services[0].service !== '' ? client.services[0].service : undefined, quantity: 1 },
+                      event_source_url: `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`
+                    }, { eventID: newEventId })
+                
                     if (form?.action === 'Ir a una pagina') {
                       router.push(form.redirect!)
                     } else if (form?.action === 'Mostrar mensaje') {

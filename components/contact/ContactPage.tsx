@@ -105,7 +105,10 @@ export const ContactPage = ({ info, index, style }: { info: IInfo, index: any, s
                   <p className='text-sm'>Mensaje</p>
                   <Textarea placeholder='Mensaje' name='message' change={inputChange} value={formContact.message} style={style} />
                 </div>
-                <input type='file' onChange={imageChange} className='text-sm block w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm' />
+                <div className='flex flex-col gap-2'>
+                  <p className='text-sm'>Subir imagen si se necesita</p>
+                  <input type='file' onChange={imageChange} className='text-sm block w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm' />
+                </div>
                 <ButtonSubmit submitLoading={sending === ''} textButton={sending} action={handleSubmit} style={style} />
               </form>
             </div>
