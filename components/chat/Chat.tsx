@@ -164,7 +164,7 @@ export const Chat: React.FC<Props> = ({ style }) => {
             chat[0].userView = true
             setChat(chat)
           }
-        }} aria-label='Boton para abrir y cerrar el chat' className='w-14 h-14 z-50 flex rounded-full fixed bottom-4 right-4 ml-auto shadow-md' style={{ backgroundColor: style.primary }}>
+        }} aria-label='Botón para abrir y cerrar el chat' id='chat' className='w-14 h-14 z-50 flex rounded-full fixed bottom-4 right-4 ml-auto shadow-md' style={{ backgroundColor: style.primary }}>
           {
             chatOpacity === '-mb-[700px]'
               ? (
