@@ -94,20 +94,20 @@ export const ContactPage = ({ info, index, style }: { info: IInfo, index: any, s
               <H3 text={info.titleForm} config='font-medium' />
               <form className='flex flex-col gap-4'>
                 <div className='flex flex-col gap-2'>
-                  <p className='text-sm'>Nombre</p>
+                  <label className='text-sm'>Nombre</label>
                   <Input inputChange={inputChange} value={formContact.name} type={'text'} placeholder={'Nombre'} name='name' text='text-sm' style={style} />
                 </div>
                 <div className='flex flex-col gap-2'>
-                  <p className='text-sm'>Email</p>
+                  <label className='text-sm'>Email</label>
                   <Input inputChange={inputChange} value={formContact.email} type={'text'} placeholder={'Email'} name='email' text='text-sm' style={style} />
                 </div>
                 <div className='flex flex-col gap-2'>
-                  <p className='text-sm'>Mensaje</p>
+                  <label className='text-sm'>Mensaje</label>
                   <Textarea placeholder='Mensaje' name='message' change={inputChange} value={formContact.message} style={style} />
                 </div>
                 <div className='flex flex-col gap-2'>
-                  <p className='text-sm'>Subir imagen si se necesita</p>
-                  <input type='file' onChange={imageChange} className='text-sm block w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm' />
+                  <label className='text-sm'>Subir imagen si se necesita</label>
+                  <input type='file' onChange={imageChange} id='image' placeholder='Subir imagen' className='text-sm block w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm' />
                 </div>
                 <ButtonSubmit submitLoading={sending === ''} textButton={sending} action={handleSubmit} style={style} />
               </form>
